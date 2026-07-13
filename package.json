@@ -1,0 +1,32 @@
+{
+  "name": "web-data-frontier-benchmark",
+  "version": "1.0.0",
+  "description": "Benchmark and compare web access APIs (web unblockers / scrape APIs) against a fixed suite of real-world test URLs.",
+  "type": "module",
+  "exports": {
+    ".": {
+      "bun": "./src/index.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "benchmark": "tsx src/cli.ts",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@browserbasehq/sdk": "2.8.0",
+    "axios": "1.16.0",
+    "dotenv": "16.4.7",
+    "https-proxy-agent": "7.0.6",
+    "scrapingbee": "1.8.2"
+  },
+  "devDependencies": {
+    "@types/node": "22.10.5",
+    "tsx": "4.19.2",
+    "typescript": "5.7.3"
+  },
+  "prettier": {
+    "printWidth": 140
+  }
+}
