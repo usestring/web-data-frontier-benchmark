@@ -9,21 +9,21 @@ status **and** the response body contains the page's expected text.
 
 | Rank | Provider         | Success rate | Avg latency |  Passed |
 | ---: | ---------------- | -----------: | ----------: | ------: |
-|    1 | string_unblocker |        97.4% |      11.00s | 258/265 |
-|    2 | scrapfly         |        83.4% |      15.80s | 221/265 |
-|    3 | bright           |        79.2% |      24.14s | 210/265 |
-|    4 | zenrows          |        76.2% |      23.47s | 202/265 |
-|    5 | context_dev      |        75.5% |      13.69s | 200/265 |
-|    6 | scraperapi       |        73.2% |      17.85s | 194/265 |
-|    7 | firecrawl        |        72.1% |      12.82s | 191/265 |
-|    8 | decodo           |        69.4% |      32.97s | 184/265 |
-|    9 | oxylabs          |        69.1% |      20.89s | 183/265 |
-|   10 | zyte             |        67.5% |      18.22s | 179/265 |
-|   11 | nimble           |        58.5% |      31.18s | 155/265 |
-|   12 | browserbase      |        50.6% |       2.03s | 134/265 |
-|   13 | scrapingdog      |        47.9% |      10.17s | 127/265 |
-|   14 | scrapingbee      |        35.1% |       5.83s |  93/265 |
-|   15 | scrapingant      |        32.8% |       6.86s |  87/265 |
+|    1 | string_unblocker |        95.8% |       9.70s | 431/450 |
+|    2 | scrapfly         |        83.6% |      12.01s | 376/450 |
+|    3 | bright           |        80.9% |      24.23s | 364/450 |
+|    4 | context_dev      |        78.7% |      11.86s | 354/450 |
+|    5 | firecrawl        |        70.9% |       8.38s | 319/450 |
+|    6 | scraperapi       |        69.3% |      13.71s | 312/450 |
+|    7 | oxylabs          |        68.9% |      20.73s | 310/450 |
+|    8 | zyte             |        68.2% |      15.15s | 307/450 |
+|    9 | decodo           |        67.8% |      31.54s | 305/450 |
+|   10 | nimble           |        59.3% |      27.21s | 267/450 |
+|   11 | browserbase      |        50.0% |       2.43s | 225/450 |
+|   12 | zenrows          |        44.2% |      14.97s | 199/450 |
+|   13 | scrapingant      |        35.1% |       5.09s | 158/450 |
+|   14 | scrapingdog      |        35.1% |       4.61s | 158/450 |
+|   15 | scrapingbee      |        33.3% |       7.20s | 150/450 |
 
 ## How it works
 
