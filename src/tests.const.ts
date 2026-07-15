@@ -269,6 +269,7 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   {
     name: "target",
     url: "https://www.target.com/p/1-39-6-34-x2-39-6-34-so-happy-you-39-re-here-doormat-natural-threshold-8482/-/A-82253413",
+    antibot: "perimeterx",
     containsText: "So Happy You're Here Coir Doormat Natural",
   },
   {
@@ -286,6 +287,7 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   {
     name: "cargurus",
     url: "https://www.cargurus.com/details/451977844",
+    antibot: "datadome",
     containsText: "2018 Ford F-150 King Ranch SuperCrew 4WD",
   },
   {
@@ -309,6 +311,7 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   {
     name: "att",
     url: "https://www.att.com/buy/phones/samsung-galaxy-s26-ultra.html",
+    antibot: "akamai",
     containsText: "Samsung Galaxy S26 Ultra",
   },
   {
@@ -367,6 +370,7 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   {
     name: "Airbnb",
     url: "https://www.airbnb.com/s/Paris--France/homes",
+    antibot: "datadome",
     containsText: "Paris",
   },
   {
@@ -389,6 +393,7 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   {
     name: "SeatGeek",
     url: "https://seatgeek.com/taylor-swift-tickets",
+    antibot: "datadome",
     containsText: "Taylor Swift",
   },
   {
@@ -421,7 +426,6 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   {
     name: "Instacart",
     url: "https://www.instacart.com/store/costco/storefront",
-    antibot: "aws-waf",
     containsText: "Costco",
   },
   {
@@ -461,6 +465,7 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   {
     name: "Skyscanner",
     url: "https://www.skyscanner.net/transport/flights/nyca/lond/",
+    antibot: "perimeterx",
     containsText: "London",
   },
   {
