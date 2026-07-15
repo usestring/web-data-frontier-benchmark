@@ -3,8 +3,8 @@ import type { WebAccessBenchmarkConfig, WebAccessTestConfig } from "./types.js";
 export const WEB_ACCESS_BENCHMARK_CONFIG: WebAccessBenchmarkConfig = {
   attemptsPerTest: 5,
   timeoutMs: 90_000,
-  concurrency: 4,
-  providerConcurrency: 4,
+  concurrency: 2,
+  providerConcurrency: 15,
   delayBetweenRequestsMs: 500,
 };
 
@@ -248,7 +248,7 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   {
     name: "cars.com",
     url: "https://www.cars.com/vehicledetail/2c5991ed-0923-41c8-86f4-32c04cec7dcf/",
-    containsText: "$83,990",
+    containsText: "$81,890",
   },
   {
     name: "crunchbase",
@@ -269,5 +269,191 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
     name: "goodrx",
     url: "https://www.goodrx.com/advil",
     containsText: "About generic Advil",
+  },
+  {
+    name: "LinkedIn",
+    url: "https://www.linkedin.com/company/microsoft/",
+    containsText: "Microsoft",
+  },
+  {
+    name: "X (Twitter)",
+    url: "https://x.com/NASA",
+    containsText: "NASA",
+  },
+  {
+    name: "Instagram",
+    url: "https://www.instagram.com/nasa/",
+    containsText: "NASA",
+  },
+  {
+    name: "Ticketmaster",
+    url: "https://www.ticketmaster.com/taylor-swift-tickets/artist/1094215",
+    containsText: "Taylor Swift",
+  },
+  {
+    name: "Capterra",
+    url: "https://www.capterra.com/project-management-software/",
+    containsText: "Project Management Software",
+  },
+  {
+    name: "Reddit",
+    url: "https://www.reddit.com/r/webscraping/",
+    containsText: "webscraping",
+  },
+  {
+    name: "Google Search",
+    url: "https://www.google.com/search?q=openai",
+    containsText: "OpenAI",
+  },
+  {
+    name: "YouTube",
+    url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    containsText: "Rick Astley",
+  },
+  {
+    name: "TikTok",
+    url: "https://www.tiktok.com/@nba",
+    containsText: "NBA",
+  },
+  {
+    name: "Airbnb",
+    url: "https://www.airbnb.com/s/Paris--France/homes",
+    containsText: "Paris",
+  },
+  {
+    name: "Best Buy",
+    url: "https://www.bestbuy.com/site/apple-airpods-pro-2nd-generation-with-magsafe-case-usb-c-white/6447382.p?skuId=6447382",
+    containsText: "AirPods Pro",
+  },
+  {
+    name: "Redfin",
+    url: "https://www.redfin.com/city/30749/NY/New-York",
+    containsText: "New York",
+  },
+  {
+    name: "Foot Locker",
+    url: "https://www.footlocker.com/category/mens/shoes.html",
+    containsText: "Shoes",
+  },
+  {
+    name: "SeatGeek",
+    url: "https://seatgeek.com/taylor-swift-tickets",
+    containsText: "Taylor Swift",
+  },
+  {
+    name: "Facebook",
+    url: "https://www.facebook.com/NASA",
+    containsText: "NASA",
+  },
+  {
+    name: "GOAT",
+    url: "https://www.goat.com/brand/air-jordan",
+    containsText: "Air Jordan",
+  },
+  {
+    name: "Yahoo Finance",
+    url: "https://finance.yahoo.com/quote/AAPL/",
+    containsText: "Apple Inc.",
+  },
+  {
+    name: "DigiKey",
+    url: "https://www.digikey.com/en/products/detail/texas-instruments/NE555P/277057",
+    containsText: "NE555",
+  },
+  {
+    name: "Rightmove",
+    url: "https://www.rightmove.co.uk/property-for-sale/London.html",
+    containsText: "London",
+  },
+  {
+    name: "Instacart",
+    url: "https://www.instacart.com/store/costco/storefront",
+    containsText: "Costco",
+  },
+  {
+    name: "Pinterest",
+    url: "https://www.pinterest.com/nasa/",
+    containsText: "NASA",
+  },
+  {
+    name: "ZipRecruiter",
+    url: "https://www.ziprecruiter.com/Jobs/Software-Engineer",
+    containsText: "Software Engineer",
+  },
+  {
+    name: "Vinted",
+    url: "https://www.vinted.fr/catalog?search_text=nike",
+    containsText: "Nike",
+  },
+  {
+    name: "Idealista",
+    url: "https://www.idealista.com/venta-viviendas/madrid-madrid/",
+    containsText: "Madrid",
+  },
+  {
+    name: "Leboncoin",
+    url: "https://www.leboncoin.fr/c/voitures",
+    containsText: "Voitures",
+  },
+  {
+    name: "StubHub",
+    url: "https://www.stubhub.com/taylor-swift-tickets",
+    containsText: "Taylor Swift",
+  },
+  {
+    name: "Skyscanner",
+    url: "https://www.skyscanner.net/transport/flights/nyca/lond/",
+    containsText: "London",
+  },
+  {
+    name: "Congress.gov",
+    url: "https://www.congress.gov/bill/117th-congress/house-bill/3684",
+    containsText: "Infrastructure Investment and Jobs Act",
+  },
+  {
+    name: "TradingView",
+    url: "https://www.tradingview.com/symbols/NASDAQ-AAPL/",
+    containsText: "Apple",
+  },
+  {
+    name: "CoinMarketCap",
+    url: "https://coinmarketcap.com/currencies/bitcoin/",
+    containsText: "Bitcoin price today",
+  },
+  {
+    name: "Apartments.com",
+    url: "https://www.apartments.com/new-york-ny/",
+    containsText: "New York",
+  },
+  {
+    name: "Zoopla",
+    url: "https://www.zoopla.co.uk/for-sale/property/london/",
+    containsText: "London",
+  },
+  {
+    name: "Trustpilot",
+    url: "https://www.trustpilot.com/review/amazon.com",
+    containsText: "Amazon",
+  },
+  {
+    name: "Yellow Pages",
+    url: "https://www.yellowpages.com/chicago-il/restaurants",
+    containsText: "Chicago",
+  },
+  {
+    name: "Kayak",
+    url: "https://www.kayak.com/flights/NYC-CHI",
+    containsText: "Cheap Flights",
+  },
+  {
+    name: "Allmenus",
+    url: "https://www.allmenus.com/il/chicago/223447-chicagoland-pizza-pasta/menu/",
+    containsText: "Chicagoland Pizza",
+  },
+  {
+    name: "temu",
+    url: "https://www.temu.com/60w-fast-charging-usb-to-type-c-cable-high-speed-data-sync-for-iphone-15-16-for--pro-for-ipad-for-samsung-for-xiaomi-other-devices-g-605554969821574.html",
+    containsText:
+      "60W Fast Charging USB to Type-C Cable, High-Speed Data Sync, for iPhone 15/16, for MacBook Air/Pro, for iPad, for SamSung, for Xiaomi Other Devices",
   },
 ];
