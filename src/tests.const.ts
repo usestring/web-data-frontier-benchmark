@@ -12,27 +12,32 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   {
     name: "allegro",
     url: "https://allegro.pl/oferta/bukiet-roz-roze-sztuczne-kwiaty-jak-zywe-prezent-walentynki-piekne-mydlane-16842279548",
+    antibot: "datadome",
     containsText: "BUKIET RÓŻ RÓŻE SZTUCZNE KWIATY JAK ŻYWE PREZENT",
   },
   {
     name: "Amazon",
     url: "https://www.amazon.com/Combination-Lock-Shackle-Security-Mounting-Bicycle-Secure/dp/B08KCWFMRS",
+    antibot: "akamai",
     containsText:
       "Bike Lock Heavy Duty Anti Theft, Keyed Bike U Lock with 4FT Security Cable and Mounting Bracket for Road Bike, Mountain Bike, Folding Bike",
   },
   {
     name: "canadagoose",
     url: "https://www.canadagoose.com/us/en/pr/macmillan-parka-2080M.html",
+    antibot: "kasada",
     containsText: "The MacMillan Parka provides protection for city living regardless of the weather.",
   },
   {
     name: "indeed",
     url: "https://www.indeed.com/l-chicago,-il-jobs.html",
+    antibot: "cloudflare",
     containsText: "jobs in Chicago, IL",
   },
   {
     name: "lowes",
     url: "https://www.lowes.com/pd/James-Martin-Vanities-Bristol-72-in-Whitewashed-Walnut-Undermount-Double-Sink-Bathroom-Vanity-with-Eternal-Jasmine-Pearl-Quartz-Top/5013813827",
+    antibot: "akamai",
     containsText:
       "James Martin Vanities Bristol 72-in Whitewashed Walnut Undermount Double Sink Bathroom Vanity with Eternal Jasmine Pearl Quartz Top",
   },
@@ -44,96 +49,116 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   {
     name: "walmart",
     url: "https://www.walmart.com/ip/Nike-Men-s-Short-Sleeve-Just-Do-It-Swoosh-Graphic-Active-T-Shirt-Navy-L/2501897203",
+    antibot: "perimeterx",
     containsText: "Short Sleeve Just Do It Swoosh Graphic Active",
   },
   {
     name: "zillow",
     url: "https://www.zillow.com/homes/for_sale/",
+    antibot: "perimeterx",
   },
   {
     name: "saksfifthavenue",
     url: "https://www.saksfifthavenue.com/product/loewe-striped-slim-zip-front-top-0400026423433.html",
+    antibot: "datadome",
     containsText: "LOEWE's long-sleeve top features a staggered stripe print",
   },
   {
     name: "neimanmarcus",
     url: "https://www.neimanmarcus.com/p/gorski-reversible-toscana-lamb-shearling-jacket-prod282500173",
+    antibot: "datadome",
     containsText: "Reversible Toscana Lamb Shearling Jacket",
   },
   {
     name: "g2",
     url: "https://www.g2.com/categories/emerging-ai-software?order=g2_score&page=92&_pjax=%23ajax-container#product-list",
+    antibot: "datadome",
   },
   {
     name: "aa",
     url: "https://www.aa.com/homePage.do",
+    antibot: "akamai",
   },
   {
     name: "asda",
     url: "https://www.asda.com/groceries/product/frozen-waffles-shapes-wedges/mccain-potato-smiles-454g/478142",
+    antibot: "cloudflare",
     containsText: "McCain Potato Smiles 454g",
   },
   {
     name: "lululemon",
     url: "https://shop.lululemon.com/p/mens-jackets-and-hoodies-hoodies/Ease-The-Day-Hoodie/_/prod20009295",
+    antibot: "akamai",
     containsText: "Ease The Day Hoodie",
   },
   {
     name: "hyatt",
     url: "https://www.hyatt.com/loyalty/en-US",
+    antibot: "kasada",
   },
   {
     name: "macys",
     url: "https://www.macys.com/xapi/discover/v1/page?pathname=/shop/womens/clothing/pants/Upc_bops_purchasable/10&id=157&_navigationType=BROWSE&_shoppingMode=SITE&sortBy=BEST_SELLERS&productsPerPage=120&_application=SITE&_regionCode=US&currencyCode=USD&_deviceType=DESKTOP&_customerState=GUEST&_additionalStoreLocations=10&pageIndex=1",
+    antibot: "akamai",
     containsText: "Build your wardrobe with Macy's Women's Pants, offering a variety of styles from tailored trousers",
   },
   {
     name: "etsy",
     url: "https://www.etsy.com/listing/4409872205/linen-sheer-cafe-curtains-farmhouse",
+    antibot: "datadome",
     containsText: "Linen Sheer Cafe Curtains",
   },
   {
     name: "yelp",
     url: "https://www.yelp.com/search?find_desc=mexican+restuarant&find_loc=Chicago%2C+IL",
+    antibot: "datadome",
     containsText: "Top 10 Best mexican restaurant Near Chicago, Illinois",
   },
   {
     name: "zara",
     url: "https://www.zara.com/us/en/100-linen-pocket-overshirt-p00706754.html",
+    antibot: "akamai",
     containsText: "100% LINEN POCKET OVERSHIRT",
   },
   {
     name: "louisvuitton",
     url: "https://us.louisvuitton.com/eng-us/products/lv-tilted-sneaker-nvprod7310009v/1AJS39",
+    antibot: "akamai",
     containsText: "LV Tilted Sneaker",
   },
   {
     name: "autozone",
     url: "https://www.autozone.com/p/valvoline-maxlife-full-synthetic-motor-oil-vv179/539362",
+    antibot: "datadome",
     containsText: "Valvoline Full Synthetic High Mileage Full Synthetic 5W-30 Motor Oil 1 Quart",
   },
   {
     name: "homedepot",
     url: "https://www.homedepot.com/p/Milwaukee-M18-FUEL-18-Volt-Lithium-Ion-Brushless-Cordless-Gen-II-18-Gauge-Brad-Nailer-Tool-Only-2746-20/309752194",
+    antibot: "akamai",
     containsText: "M18 FUEL 18-Volt Lithium-Ion Brushless Cordless Gen II 18-Gauge Brad Nailer (Tool-Only)",
   },
   {
     name: "ashleyfurniture",
     url: "https://www.ashleyfurniture.com/p/roanhowe_dining_table_and_4_chairs/APG-D76935-5P.html",
+    antibot: "perimeterx",
     containsText: "Roanhowe Dining Table and 4 Chairs",
   },
   {
     name: "autotrader",
     url: "https://www.autotrader.com/cars-for-sale/vehicle/717276609",
+    antibot: "akamai",
     containsText: "New 2024 Chevrolet Silverado 1500 W/T AWD/4WD",
   },
   {
     name: "booking.com",
     url: "https://flights.booking.com/flights/NYC.CITY-CHI.CITY/?type=ROUNDTRIP&adults=1&cabinClass=ECONOMY&children=&from=NYC.CITY&to=CHI.CITY&fromCountry=US&toCountry=US&fromLocationName=New+York&toLocationName=Chicago&depart=2026-06-17&return=2026-06-20&sort=BEST&travelPurpose=leisure&ca_source=flights_index_sb&aid=304142&label=gen173nr-10CAEoggI46AdIM1gEaKcCiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuAKevtXOBsACAdICJGYyMTQxZGNkLTY1MDAtNDE4NC05Y2ZlLWM4YjhjNTM0ODNiZdgCAeACAQ",
+    antibot: "aws-waf",
   },
   {
     name: "carters",
     url: "https://www.carters.com/p/toddler-boy-polo-shirt-made-with-organic-cotton-in-stripes/V_2U855510",
+    antibot: "perimeterx",
     containsText: "Toddler Boy Polo Shirt Made with Organic Cotton in Stripes",
   },
   {
@@ -144,70 +169,84 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   {
     name: "emag",
     url: "https://www.emag.ro/telefon-mobil-apple-iphone-17-256gb-5g-black-mg6j4zd-a/pd/DGX9FV3BM/",
+    antibot: "aws-waf",
     containsText: "Telefon mobil Apple iPhone 17, 256GB, 5G, Black",
   },
   {
     name: "expedia",
     url: "https://www.expedia.com/Hotel-Search?destination=Miami%20Beach%252C%20Florida%252C%20United%20States%20of%20America&regionId=8833&latLong=25.790653%252C-80.130043&flexibility=0_DAY&d1=2026-05-21&startDate=2026-05-21&d2=2026-05-23&endDate=2026-05-23&adults=2&rooms=1&typeaheadCollationId=da070ad5-8315-4ab4-aa84-69b275f288cc",
+    antibot: "akamai",
   },
   {
     name: "glassdoor",
     url: "https://www.glassdoor.com/Job/chicago-software-engineer-jobs-SRCH_IL.0,7_IC1128808_KO8,25.htm",
+    antibot: "cloudflare",
     containsText: "software engineer Jobs in Chicago, IL",
   },
   {
     name: "marketwatch",
     url: "https://www.marketwatch.com/investing/stock/psky",
+    antibot: "datadome",
     containsText: "Paramount Skydance Corp",
   },
   {
     name: "barrons",
     url: "https://www.barrons.com/articles/micron-stock-price-memory-chips-trump-5c6f7870",
+    antibot: "datadome",
     containsText: "Micron Stock Hits $1 Trillion. Trump and Wall Street Unite Behind the Chip Titan.",
   },
   {
     name: "monster",
     url: "https://www.monster.com/jobs/search?q=Software+Engineer&where=New+York%2C+NY&page=1&so=m.h.s",
+    antibot: "datadome",
     containsText: "Search results for",
   },
   {
     name: "mouser",
     url: "https://www.mouser.com/ProductDetail/DFRobot/FIT1030?qs=6avfeC6zeS76UUpWZZX%252B0w%3D%3D",
+    antibot: "akamai",
     containsText: "426-FIT1030",
   },
   {
     name: "nytimes",
     url: "https://www.nytimes.com/live/2026/04/07/world/iran-war-trump-news",
+    antibot: "datadome",
     containsText: "The United States and Israel stepped up their attacks on Iran",
   },
   {
     name: "ralphlauren",
     url: "https://www.ralphlauren.com/men-clothing-button-down-shirts/garment-dyed-oxford-shirt/460022.html",
+    antibot: "perimeterx",
     containsText: "Garment-Dyed Oxford Shirt",
   },
   {
     name: "realtor",
     url: "https://www.realtor.com/realestateandhomes-search/Chicago_IL",
+    antibot: "aws-waf",
     containsText: "Chicago, IL homes for sale",
   },
   {
     name: "tripadvisor",
     url: "https://www.tripadvisor.com/Hotels-g35805-Chicago_Illinois-Hotels.html",
+    antibot: "datadome",
     containsText: "Chicago Hotels",
   },
   {
     name: "wsj",
     url: "https://www.wsj.com/livecoverage/iran-war-2026-trump-deadline-latest-news",
+    antibot: "datadome",
     containsText: "This coverage is now concluded. For the latest developments on the war with Iran",
   },
   {
     name: "bloomberg",
     url: "https://www.bloomberg.com/markets",
+    antibot: "perimeterx",
     containsText: "Bloomberg L.P. All Rights Reserved.",
   },
   {
     name: "reuters",
     url: "https://www.reuters.com/",
+    antibot: "datadome",
     containsText: "Information you can trust",
   },
   {
@@ -218,11 +257,13 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   {
     name: "coupang",
     url: "https://www.coupang.com/vp/products/7579231557",
+    antibot: "akamai",
     containsText: "보스 QC 헤드폰",
   },
   {
     name: "ebay",
     url: "https://www.ebay.com/itm/227305215584",
+    antibot: "akamai",
     containsText: "PNY GeForce RTX 4090 XLR8 Epic-X RGB OC 24GB GDDR6X GPU - Gaming Graphic Cards",
   },
   {
@@ -233,11 +274,13 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   {
     name: "nike",
     url: "https://www.nike.com/t/kd19-purple-stuff-basketball-shoes-vrLfPVAT/IH1117-500",
+    antibot: "akamai",
     containsText: "Purple Stuff",
   },
   {
     name: "stockx",
     url: "https://stockx.com/air-jordan-5-retro-black-university-blue-2026",
+    antibot: "cloudflare",
     containsText: "Jordan 5 Retro",
   },
   {
@@ -248,16 +291,19 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   {
     name: "cars.com",
     url: "https://www.cars.com/vehicledetail/2c5991ed-0923-41c8-86f4-32c04cec7dcf/",
+    antibot: "cloudflare",
     containsText: "$81,890",
   },
   {
     name: "crunchbase",
     url: "https://www.crunchbase.com/organization/string-ai-5443",
+    antibot: "cloudflare",
     containsText: "String AI is an enterprise that provides PaaS and SaaS platform services",
   },
   {
     name: "verizon",
     url: "https://www.verizon.com/smartphones/apple-iphone-17-pro-max/",
+    antibot: "akamai",
     containsText: "Apple iPhone 17 Pro Max",
   },
   {
@@ -268,6 +314,7 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   {
     name: "goodrx",
     url: "https://www.goodrx.com/advil",
+    antibot: "perimeterx",
     containsText: "About generic Advil",
   },
   {
@@ -288,11 +335,13 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   {
     name: "Ticketmaster",
     url: "https://www.ticketmaster.com/taylor-swift-tickets/artist/1094215",
+    antibot: "ticketmaster",
     containsText: "Taylor Swift",
   },
   {
     name: "Capterra",
     url: "https://www.capterra.com/project-management-software/",
+    antibot: "cloudflare",
     containsText: "Project Management Software",
   },
   {
@@ -328,11 +377,13 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   {
     name: "Redfin",
     url: "https://www.redfin.com/city/30749/NY/New-York",
+    antibot: "aws-waf",
     containsText: "New York",
   },
   {
     name: "Foot Locker",
     url: "https://www.footlocker.com/category/mens/shoes.html",
+    antibot: "kasada",
     containsText: "Shoes",
   },
   {
@@ -348,6 +399,7 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   {
     name: "GOAT",
     url: "https://www.goat.com/brand/air-jordan",
+    antibot: "cloudflare",
     containsText: "Air Jordan",
   },
   {
@@ -358,6 +410,7 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   {
     name: "DigiKey",
     url: "https://www.digikey.com/en/products/detail/texas-instruments/NE555P/277057",
+    antibot: "cloudflare",
     containsText: "NE555",
   },
   {
@@ -368,6 +421,7 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   {
     name: "Instacart",
     url: "https://www.instacart.com/store/costco/storefront",
+    antibot: "aws-waf",
     containsText: "Costco",
   },
   {
@@ -378,6 +432,7 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   {
     name: "ZipRecruiter",
     url: "https://www.ziprecruiter.com/Jobs/Software-Engineer",
+    antibot: "cloudflare",
     containsText: "Software Engineer",
   },
   {
@@ -388,16 +443,19 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   {
     name: "Idealista",
     url: "https://www.idealista.com/venta-viviendas/madrid-madrid/",
+    antibot: "datadome",
     containsText: "Madrid",
   },
   {
     name: "Leboncoin",
     url: "https://www.leboncoin.fr/c/voitures",
+    antibot: "datadome",
     containsText: "Voitures",
   },
   {
     name: "StubHub",
     url: "https://www.stubhub.com/taylor-swift-tickets",
+    antibot: "aws-waf",
     containsText: "Taylor Swift",
   },
   {
@@ -408,6 +466,7 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   {
     name: "Congress.gov",
     url: "https://www.congress.gov/bill/117th-congress/house-bill/3684",
+    antibot: "cloudflare",
     containsText: "Infrastructure Investment and Jobs Act",
   },
   {
@@ -423,21 +482,25 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   {
     name: "Apartments.com",
     url: "https://www.apartments.com/new-york-ny/",
+    antibot: "akamai",
     containsText: "New York",
   },
   {
     name: "Zoopla",
     url: "https://www.zoopla.co.uk/for-sale/property/london/",
+    antibot: "cloudflare",
     containsText: "London",
   },
   {
     name: "Trustpilot",
     url: "https://www.trustpilot.com/review/amazon.com",
+    antibot: "aws-waf",
     containsText: "Amazon",
   },
   {
     name: "Yellow Pages",
     url: "https://www.yellowpages.com/chicago-il/restaurants",
+    antibot: "cloudflare",
     containsText: "Chicago",
   },
   {
@@ -453,6 +516,7 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   {
     name: "temu",
     url: "https://www.temu.com/60w-fast-charging-usb-to-type-c-cable-high-speed-data-sync-for-iphone-15-16-for--pro-for-ipad-for-samsung-for-xiaomi-other-devices-g-605554969821574.html",
+    antibot: "temu",
     containsText:
       "60W Fast Charging USB to Type-C Cable, High-Speed Data Sync, for iPhone 15/16, for MacBook Air/Pro, for iPad, for SamSung, for Xiaomi Other Devices",
   },

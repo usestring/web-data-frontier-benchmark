@@ -24,6 +24,7 @@ export interface WebAccessTestConfig {
   url: string;
   /** Text that must appear in the response body for success */
   containsText?: string;
+  antibot?: string;
 }
 
 /** Result of a single benchmark attempt */
