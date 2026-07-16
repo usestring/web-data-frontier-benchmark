@@ -36,12 +36,33 @@ function successfulLatenciesByTest(results: readonly WebAccessBenchmarkResult[])
   }, new Map<string, number[]>());
 }
 
+export type ResolvedLatencySource = "successful attempts" | "successful providers" | "timeout";
+
+export interface ResolvedLatency {
+  latencyMs: number;
+  source: ResolvedLatencySource;
+}
+
+export function resolveComparisonLatency(
+  result: WebAccessAggregatedResult,
+  peerSuccessfulLatencies: readonly number[] = [],
+  noSuccessfulProviderLatencyMs = NO_SUCCESSFUL_PROVIDER_LATENCY_MS
+): ResolvedLatency {
+  const successfulLatency = successfulLatencyMs(result);
+  if (successfulLatency !== undefined) return { latencyMs: successfulLatency, source: "successful attempts" };
+
+  const peerLatency = nearestRank(peerSuccessfulLatencies, P75);
+  if (peerLatency !== undefined) return { latencyMs: peerLatency, source: "successful providers" };
+
+  return { latencyMs: noSuccessfulProviderLatencyMs, source: "timeout" };
+}
+
 export function comparisonLatencyMs(
   result: WebAccessAggregatedResult,
   peerSuccessfulLatencies: readonly number[] = [],
   noSuccessfulProviderLatencyMs = NO_SUCCESSFUL_PROVIDER_LATENCY_MS
 ): number {
-  return successfulLatencyMs(result) ?? nearestRank(peerSuccessfulLatencies, P75) ?? noSuccessfulProviderLatencyMs;
+  return resolveComparisonLatency(result, peerSuccessfulLatencies, noSuccessfulProviderLatencyMs).latencyMs;
 }
 
 export function comparisonAverageLatencyMs(
@@ -88,11 +109,15 @@ export function formatProviderSummary(
   noSuccessfulProviderLatencyMs = NO_SUCCESSFUL_PROVIDER_LATENCY_MS
 ): string {
   const latenciesByTest = successfulLatenciesByTest(comparisonResults);
-  const lines = [`\n${run.provider} — ${pct(run.result.overallSuccessRate)} over ${run.result.totalRequests} requests`];
+  const lines = [
+    `\n${run.provider} — ${pct(run.result.overallSuccessRate)} over ${run.result.totalRequests} requests`,
+    `  ${"Success".padStart(6)}  ${"Resolved latency".padStart(16)}  ${"Source".padEnd(20)}  Target`
+  ];
   for (const test of [...run.result.results].sort((a, b) => b.successRate - a.successRate)) {
     const errs = test.errors.length ? `  [${test.errors.join("; ")}]` : "";
+    const resolvedLatency = resolveComparisonLatency(test, latenciesByTest.get(test.testName), noSuccessfulProviderLatencyMs);
     lines.push(
-      `  ${pct(test.successRate).padStart(6)}  ${secs(comparisonLatencyMs(test, latenciesByTest.get(test.testName), noSuccessfulProviderLatencyMs)).padStart(7)}  ${test.testName}${errs}`
+      `  ${pct(test.successRate).padStart(6)}  ${secs(resolvedLatency.latencyMs).padStart(16)}  ${resolvedLatency.source.padEnd(20)}  ${test.testName}${errs}`
     );
   }
   return lines.join("\n");

@@ -8,6 +8,9 @@ export {
   comparisonLatencyMs,
   formatComparisonTable,
   formatProviderSummary,
+  resolveComparisonLatency,
   saveResultsJSON,
-  type ProviderRun
+  type ProviderRun,
+  type ResolvedLatency,
+  type ResolvedLatencySource
 } from "./format.js";

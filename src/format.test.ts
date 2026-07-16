@@ -1,6 +1,12 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { comparisonAverageLatencyMs, comparisonLatencyMs, NO_SUCCESSFUL_PROVIDER_LATENCY_MS } from "./format.js";
+import {
+  comparisonAverageLatencyMs,
+  comparisonLatencyMs,
+  formatProviderSummary,
+  NO_SUCCESSFUL_PROVIDER_LATENCY_MS,
+  resolveComparisonLatency
+} from "./format.js";
 import type { AttemptResult, WebAccessAggregatedResult, WebAccessBenchmarkResult } from "./types.js";
 
 function target(testName: string, attempts: AttemptResult[]): WebAccessAggregatedResult {
@@ -54,4 +60,16 @@ test("uses the benchmark timeout when no provider succeeds", () => {
   const failed = target("unsolved", [{ success: false, latencyMs: 1 }]);
 
   assert.equal(comparisonLatencyMs(failed), NO_SUCCESSFUL_PROVIDER_LATENCY_MS);
+});
+
+test("shows the resolved latency and its source in each target row", () => {
+  const failed = run(target("shared", [{ success: false, latencyMs: 1 }]));
+  const firstSuccess = run(target("shared", [{ success: true, latencyMs: 100 }, { success: true, latencyMs: 200 }]));
+  const secondSuccess = run(target("shared", [{ success: true, latencyMs: 300 }]));
+  const resolvedLatency = resolveComparisonLatency(failed.results[0], [200, 300]);
+  const summary = formatProviderSummary({ provider: "failed", result: failed }, [failed, firstSuccess, secondSuccess]);
+
+  assert.deepEqual(resolvedLatency, { latencyMs: 300, source: "successful providers" });
+  assert.match(summary, /Resolved latency/);
+  assert.match(summary, /0\.30s\s+successful providers\s+shared/);
 });

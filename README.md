@@ -35,6 +35,9 @@ on a target, the score is the benchmark's 90-second timeout. Nearest-rank p75 us
 `ceil(0.75 × n)`: one successful value uses that value, two use the slower value, and five use the fourth
 value after sorting fastest to slowest.
 
+The CLI's per-provider, per-target output labels the value included in the leaderboard as `Resolved latency`
+and identifies whether it came from successful attempts, successful providers, or the timeout.
+
 ## How it works
 
 - **Test suite** (`src/tests.const.ts`): each fixture is `{ name, url, containsText? }`.
