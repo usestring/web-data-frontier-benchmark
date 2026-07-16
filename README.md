@@ -10,18 +10,18 @@ status **and** the response body contains the page's expected text.
 | Rank | Provider         | Success rate | Latency score |  Passed |
 | ---: | ---------------- | -----------: | ------------: | ------: |
 |    1 | string_unblocker |        95.8% |       9.76s | 431/450 |
-|    2 | scrapfly         |        83.6% |      12.19s | 376/450 |
-|    3 | bright           |        80.9% |      24.21s | 364/450 |
-|    4 | context_dev      |        78.7% |      12.09s | 354/450 |
-|    5 | firecrawl        |        70.9% |       8.37s | 319/450 |
+|    2 | scrapfly         |        83.6% |      12.21s | 376/450 |
+|    3 | bright           |        80.9% |      24.25s | 364/450 |
+|    4 | context_dev      |        78.7% |      12.13s | 354/450 |
+|    5 | firecrawl        |        70.9% |       8.43s | 319/450 |
 |    6 | scraperapi       |        69.3% |      14.08s | 312/450 |
 |    7 | oxylabs          |        68.9% |      21.31s | 310/450 |
-|    8 | zyte             |        68.2% |      15.54s | 307/450 |
+|    8 | zyte             |        68.2% |      15.55s | 307/450 |
 |    9 | decodo           |        67.8% |      31.75s | 305/450 |
-|   10 | nimble           |        59.3% |      29.97s | 267/450 |
-|   11 | browserbase      |        50.0% |       2.48s | 225/450 |
-|   12 | zenrows          |        44.2% |      15.31s | 199/450 |
-|   13 | scrapingant      |        35.1% |       5.39s | 158/450 |
+|   10 | nimble           |        59.3% |      30.03s | 267/450 |
+|   11 | browserbase      |        50.0% |       2.49s | 225/450 |
+|   12 | zenrows          |        44.2% |      15.37s | 199/450 |
+|   13 | scrapingant      |        35.1% |       5.49s | 158/450 |
 |   14 | scrapingdog      |        35.1% |       4.89s | 158/450 |
 |   15 | scrapingbee      |        33.3% |       7.46s | 150/450 |
 
@@ -29,10 +29,11 @@ status **and** the response body contains the page's expected text.
 
 Latency is an equal-weighted average across target URLs. A target with at least one verified-content
 success uses its observed mean wall-clock latency across its attempts. A target with no verified-content
-success is still included, but receives the 75th-percentile latency from its own attempts instead of the
-mean of its failures. This prevents a fast all-failure from improving a provider's latency score while
-leaving the success-rate calculation unchanged. The percentile uses linear interpolation; with the
-benchmark's five attempts per target, it is the fourth of five timings after sorting from fastest to slowest.
+success is still included, but receives the greater of its 75th-percentile latency and its all-attempt mean.
+This prevents a fast all-failure — including one with a slow timeout outlier — from improving a provider's
+latency score while leaving the success-rate calculation unchanged. The percentile uses linear
+interpolation; with the benchmark's five attempts per target, it is the fourth of five timings after sorting
+from fastest to slowest.
 
 ## How it works
 

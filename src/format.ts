@@ -20,7 +20,7 @@ function quantile(values: readonly number[], percentile: number): number {
 
 export function comparisonLatencyMs(result: WebAccessAggregatedResult): number {
   if (result.successCount > 0 || result.attempts.length === 0) return result.avgLatencyMs;
-  return quantile(result.attempts.map((attempt) => attempt.latencyMs), 0.75);
+  return Math.max(result.avgLatencyMs, quantile(result.attempts.map((attempt) => attempt.latencyMs), 0.75));
 }
 
 export function comparisonAverageLatencyMs(result: WebAccessBenchmarkResult): number {
