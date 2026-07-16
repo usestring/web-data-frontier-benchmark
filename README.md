@@ -23,7 +23,7 @@ status **and** the response body contains the page's expected text.
 |   12 | zenrows          |        44.2% |      15.37s | 199/450 |
 |   13 | scrapingant      |        35.1% |       5.49s | 158/450 |
 |   14 | scrapingdog      |        35.1% |       4.89s | 158/450 |
-|   15 | scrapingbee      |        33.3% |       7.46s | 150/450 |
+|   15 | scrapingbee      |        33.3% |       7.74s | 150/450 |
 
 ## Latency scoring
 
