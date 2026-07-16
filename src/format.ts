@@ -1,6 +1,6 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname } from "node:path";
-import type { WebAccessBenchmarkResult } from "./types.js";
+import type { WebAccessAggregatedResult, WebAccessBenchmarkResult } from "./types.js";
 
 export interface ProviderRun {
   provider: string;
@@ -10,18 +10,35 @@ export interface ProviderRun {
 const pct = (n: number): string => `${(n * 100).toFixed(1)}%`;
 const secs = (ms: number): string => `${(ms / 1000).toFixed(2)}s`;
 
+function quantile(values: readonly number[], percentile: number): number {
+  const sorted = [...values].sort((a, b) => a - b);
+  const index = (sorted.length - 1) * percentile;
+  const lower = Math.floor(index);
+  const upper = Math.ceil(index);
+  return sorted[lower] + (sorted[upper] - sorted[lower]) * (index - lower);
+}
+
+export function comparisonLatencyMs(result: WebAccessAggregatedResult): number {
+  if (result.successCount > 0 || result.attempts.length === 0) return result.avgLatencyMs;
+  return quantile(result.attempts.map((attempt) => attempt.latencyMs), 0.75);
+}
+
+export function comparisonAverageLatencyMs(result: WebAccessBenchmarkResult): number {
+  const latencies = result.results.map(comparisonLatencyMs);
+  return latencies.reduce((sum, latency) => sum + latency, 0) / Math.max(latencies.length, 1);
+}
+
 function padRow(cells: string[], widths: number[]): string {
   return cells.map((c, i) => c.padEnd(widths[i])).join(" | ");
 }
 
 /** Leaderboard across providers, sorted by overall success rate. */
 export function formatComparisonTable(runs: ProviderRun[]): string {
-  const header = ["Provider", "Success Rate", "Avg Latency", "Requests"];
+  const header = ["Provider", "Success Rate", "Latency Score", "Requests"];
   const rows = [...runs]
     .sort((a, b) => b.result.overallSuccessRate - a.result.overallSuccessRate)
     .map((r) => {
-      const avgLatency =
-        r.result.results.reduce((sum, t) => sum + t.avgLatencyMs, 0) / Math.max(r.result.results.length, 1);
+      const avgLatency = comparisonAverageLatencyMs(r.result);
       return [
         r.provider,
         pct(r.result.overallSuccessRate),
