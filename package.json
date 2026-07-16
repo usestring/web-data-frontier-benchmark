@@ -12,7 +12,9 @@
   "scripts": {
     "benchmark": "tsx src/cli.ts",
     "typecheck": "tsc --noEmit",
-    "build": "tsc"
+    "build": "tsc",
+    "export:reproducibility": "tsx scripts/export-reproducibility.ts",
+    "verify:reproducibility": "tsc --project tsconfig.reproducibility.json && tsx scripts/export-reproducibility.ts --check"
   },
   "dependencies": {
     "@browserbasehq/sdk": "2.8.0",
