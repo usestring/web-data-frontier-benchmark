@@ -5,6 +5,8 @@ real-world, bot-protected URLs (Amazon, Walmart, Zillow, Cloudflare/PerimeterX-g
 sites, etc.). Each provider is sent the same URLs; a request **passes** when the API returns a `2xx`
 status **and** the response body contains the page's expected text.
 
+Read the full write-up: [The Web Scraping Benchmark Problem](https://www.usestring.ai/blog/web-scraping-benchmark-problem).
+
 ## Results
 
 | Rank | Provider         | Success rate | Avg latency |  Passed |
