@@ -9,31 +9,31 @@ status **and** the response body contains the page's expected text.
 
 | Rank | Provider         | Success rate | Latency score |  Passed |
 | ---: | ---------------- | -----------: | ------------: | ------: |
-|    1 | string_unblocker |        95.8% |       9.76s | 431/450 |
-|    2 | scrapfly         |        83.6% |      12.21s | 376/450 |
-|    3 | bright           |        80.9% |      24.25s | 364/450 |
-|    4 | context_dev      |        78.7% |      12.13s | 354/450 |
-|    5 | firecrawl        |        70.9% |       8.43s | 319/450 |
-|    6 | scraperapi       |        69.3% |      14.08s | 312/450 |
-|    7 | oxylabs          |        68.9% |      21.31s | 310/450 |
-|    8 | zyte             |        68.2% |      15.55s | 307/450 |
-|    9 | decodo           |        67.8% |      31.75s | 305/450 |
-|   10 | nimble           |        59.3% |      30.03s | 267/450 |
-|   11 | browserbase      |        50.0% |       2.49s | 225/450 |
-|   12 | zenrows          |        44.2% |      15.37s | 199/450 |
-|   13 | scrapingant      |        35.1% |       5.49s | 158/450 |
-|   14 | scrapingdog      |        35.1% |       4.89s | 158/450 |
-|   15 | scrapingbee      |        33.3% |       7.74s | 150/450 |
+|    1 | string_unblocker |        95.8% |      11.07s | 431/450 |
+|    2 | scrapfly         |        83.6% |      14.28s | 376/450 |
+|    3 | bright           |        80.9% |      24.33s | 364/450 |
+|    4 | context_dev      |        78.7% |      13.62s | 354/450 |
+|    5 | firecrawl        |        70.9% |      14.70s | 319/450 |
+|    6 | scraperapi       |        69.3% |      13.31s | 312/450 |
+|    7 | oxylabs          |        68.9% |      20.85s | 310/450 |
+|    8 | zyte             |        68.2% |      17.50s | 307/450 |
+|    9 | decodo           |        67.8% |      29.74s | 305/450 |
+|   10 | nimble           |        59.3% |      21.43s | 267/450 |
+|   11 | browserbase      |        50.0% |      15.25s | 225/450 |
+|   12 | zenrows          |        44.2% |      21.35s | 199/450 |
+|   13 | scrapingant      |        35.1% |      15.46s | 158/450 |
+|   14 | scrapingdog      |        35.1% |      15.01s | 158/450 |
+|   15 | scrapingbee      |        33.3% |      18.15s | 150/450 |
 
 ## Latency scoring
 
-Latency is an equal-weighted average across target URLs. A target with at least one verified-content
-success uses its observed mean wall-clock latency across its attempts. A target with no verified-content
-success is still included, but receives the greater of its 75th-percentile latency and its all-attempt mean.
-This prevents a fast all-failure — including one with a slow timeout outlier — from improving a provider's
-latency score while leaving the success-rate calculation unchanged. The percentile uses linear
-interpolation; with the benchmark's five attempts per target, it is the fourth of five timings after sorting
-from fastest to slowest.
+Latency is an equal-weighted average across target URLs. For a provider that returns verified content,
+the target score is the nearest-rank 75th percentile of its successful attempt latencies; failed attempts
+do not contribute a fast response time. For a provider with no verified-content response for a target, the
+score is the nearest-rank 75th percentile of the successful providers' target scores. If nobody succeeds
+on a target, the score is the benchmark's 90-second timeout. Nearest-rank p75 uses
+`ceil(0.75 × n)`: one successful value uses that value, two use the slower value, and five use the fourth
+value after sorting fastest to slowest.
 
 ## How it works
 
