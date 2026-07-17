@@ -5,11 +5,13 @@ real-world, bot-protected URLs (Amazon, Walmart, Zillow, Cloudflare/PerimeterX-g
 sites, etc.). Each provider is sent the same URLs; a request **passes** when the API returns a `2xx`
 status **and** the response body contains the page's expected text.
 
+Read the full write-up: [The Web Scraping Benchmark Problem](https://www.usestring.ai/blog/web-scraping-benchmark-problem).
+
 ## Results
 
 | Rank | Provider         | Success rate | Avg latency |  Passed |
 | ---: | ---------------- | -----------: | ----------: | ------: |
-|    1 | string_unblocker |        95.8% |       9.70s | 431/450 |
+|    1 | string           |        95.8% |       9.70s | 431/450 |
 |    2 | scrapfly         |        83.6% |      12.01s | 376/450 |
 |    3 | bright           |        80.9% |      24.23s | 364/450 |
 |    4 | context_dev      |        78.7% |      11.86s | 354/450 |
@@ -87,7 +89,7 @@ full structured results (every attempt) written to `results/`.
 | nimble                             | `NIMBLE_API_KEY`                                          |
 | context_dev                        | `CONTEXT_DEV_API_KEY`                                     |
 | browserbase                        | `BROWSERBASE_API_KEY`                                     |
-| string_unblocker                   | `STRING_UNBLOCKER_API_KEY`                                |
+| string                             | `STRING_API_KEY`                                          |
 
 ## Programmatic use
 

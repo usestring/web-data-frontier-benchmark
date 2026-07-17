@@ -11,7 +11,7 @@ import { scrapfly } from "./scrapfly.js";
 import { scrapingant } from "./scrapingant.js";
 import { scrapingbeeProvider } from "./scrapingbee.js";
 import { scrapingdog } from "./scrapingdog.js";
-import { stringUnblocker } from "./string_unblocker.js";
+import { string } from "./string.js";
 import { zenrows } from "./zenrows.js";
 import { zyte } from "./zyte.js";
 
@@ -29,7 +29,7 @@ export const PROVIDERS: Provider[] = [
   scrapingant,
   scrapingbeeProvider,
   scrapingdog,
-  stringUnblocker,
+  string,
   zenrows,
   zyte
 ];
