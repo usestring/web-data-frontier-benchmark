@@ -1,42 +1,29 @@
 # Web Data Frontier Benchmark
 
-Compare web access APIs (web unblockers / scrape APIs) head-to-head against a fixed suite of 90
+Compare web access APIs (web unblockers / scrape APIs) head-to-head against a fixed suite of ~50
 real-world, bot-protected URLs (Amazon, Walmart, Zillow, Cloudflare/PerimeterX-guarded retail and travel
 sites, etc.). Each provider is sent the same URLs; a request **passes** when the API returns a `2xx`
 status **and** the response body contains the page's expected text.
 
 ## Results
 
-| Rank | Provider         | Success rate | Latency score |  Passed |
-| ---: | ---------------- | -----------: | ------------: | ------: |
-|    1 | string_unblocker |        95.8% |      11.07s | 431/450 |
-|    2 | scrapfly         |        83.6% |      14.28s | 376/450 |
-|    3 | bright           |        80.9% |      24.33s | 364/450 |
-|    4 | context_dev      |        78.7% |      13.62s | 354/450 |
-|    5 | firecrawl        |        70.9% |      14.70s | 319/450 |
-|    6 | scraperapi       |        69.3% |      13.31s | 312/450 |
-|    7 | oxylabs          |        68.9% |      20.85s | 310/450 |
-|    8 | zyte             |        68.2% |      17.50s | 307/450 |
-|    9 | decodo           |        67.8% |      29.74s | 305/450 |
-|   10 | nimble           |        59.3% |      21.43s | 267/450 |
-|   11 | browserbase      |        50.0% |      15.25s | 225/450 |
-|   12 | zenrows          |        44.2% |      21.35s | 199/450 |
-|   13 | scrapingant      |        35.1% |      15.46s | 158/450 |
-|   14 | scrapingdog      |        35.1% |      15.01s | 158/450 |
-|   15 | scrapingbee      |        33.3% |      18.15s | 150/450 |
-
-## Latency scoring
-
-Latency is an equal-weighted average across target URLs. For a provider that returns verified content,
-the target score is the nearest-rank 75th percentile of its successful attempt latencies; failed attempts
-do not contribute a fast response time. For a provider with no verified-content response for a target, the
-score is the nearest-rank 75th percentile of the successful providers' target scores. If nobody succeeds
-on a target, the score is the benchmark's 90-second timeout. Nearest-rank p75 uses
-`ceil(0.75 × n)`: one successful value uses that value, two use the slower value, and five use the fourth
-value after sorting fastest to slowest.
-
-The CLI's per-provider, per-target output labels the value included in the leaderboard as `Resolved latency`
-and identifies whether it came from successful attempts, successful providers, or the timeout.
+| Rank | Provider         | Success rate | Avg latency |  Passed |
+| ---: | ---------------- | -----------: | ----------: | ------: |
+|    1 | string_unblocker |        95.8% |       9.70s | 431/450 |
+|    2 | scrapfly         |        83.6% |      12.01s | 376/450 |
+|    3 | bright           |        80.9% |      24.23s | 364/450 |
+|    4 | context_dev      |        78.7% |      11.86s | 354/450 |
+|    5 | firecrawl        |        70.9% |       8.38s | 319/450 |
+|    6 | scraperapi       |        69.3% |      13.71s | 312/450 |
+|    7 | oxylabs          |        68.9% |      20.73s | 310/450 |
+|    8 | zyte             |        68.2% |      15.15s | 307/450 |
+|    9 | decodo           |        67.8% |      31.54s | 305/450 |
+|   10 | nimble           |        59.3% |      27.21s | 267/450 |
+|   11 | browserbase      |        50.0% |       2.43s | 225/450 |
+|   12 | zenrows          |        44.2% |      14.97s | 199/450 |
+|   13 | scrapingant      |        35.1% |       5.09s | 158/450 |
+|   14 | scrapingdog      |        35.1% |       4.61s | 158/450 |
+|   15 | scrapingbee      |        33.3% |       7.20s | 150/450 |
 
 ## How it works
 
