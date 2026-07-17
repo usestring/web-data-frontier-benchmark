@@ -14,6 +14,7 @@
     "typecheck": "tsc --noEmit",
     "build": "tsc",
     "export:reproducibility": "tsx scripts/export-reproducibility.ts",
+    "preview:reproducibility": "tsc --project tsconfig.reproducibility.json && tsx scripts/export-reproducibility.ts --dry-run",
     "verify:reproducibility": "tsc --project tsconfig.reproducibility.json && tsx scripts/export-reproducibility.ts --check"
   },
   "dependencies": {

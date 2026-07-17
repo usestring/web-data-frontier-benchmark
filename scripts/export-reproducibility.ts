@@ -4,7 +4,7 @@ import { resolve } from "node:path";
 const P75 = 0.75;
 const NO_SUCCESSFUL_PROVIDER_LATENCY_MS = 90_000;
 const DEFAULT_INPUT_PATH = "official_results/benchmark-2026-07-15T21-36-21-625Z.json";
-const DEFAULT_OUTPUT_DIR = "reproducibility";
+const DEFAULT_OUTPUT_DIR = "results/reproducibility";
 
 interface Attempt {
   success: boolean;
@@ -207,23 +207,23 @@ function buildArtifacts(run: BenchmarkRun): Map<string, string> {
 
 async function main(): Promise<void> {
   const args = process.argv.slice(2);
-  const check = args[0] === "--check";
-  const positional = check ? args.slice(1) : args;
-  invariant(positional.length <= 2, "Usage: export-reproducibility.ts [--check] [raw-json-path] [output-dir]");
+  const mode = args[0] === "--check" ? "check" : args[0] === "--dry-run" ? "dry-run" : "write";
+  const positional = mode === "write" ? args : args.slice(1);
+  invariant(positional.length <= 2, "Usage: export-reproducibility.ts [--check | --dry-run] [raw-json-path] [output-dir]");
 
   const inputPath = resolve(positional[0] ?? DEFAULT_INPUT_PATH);
   const outputDir = resolve(positional[1] ?? DEFAULT_OUTPUT_DIR);
   const run = toBenchmarkRun(JSON.parse(await readFile(inputPath, "utf8")));
   const artifacts = buildArtifacts(run);
 
-  if (check) {
+  if (mode === "check") {
     await Promise.all(
       [...artifacts].map(async ([name, content]) => {
         const actual = await readFile(resolve(outputDir, name), "utf8");
         invariant(actual === content, `${name} is stale; run npm run export:reproducibility`);
       })
     );
-  } else {
+  } else if (mode === "write") {
     await mkdir(outputDir, { recursive: true });
     await Promise.all([...artifacts].map(([name, content]) => writeFile(resolve(outputDir, name), content)));
   }
@@ -231,7 +231,7 @@ async function main(): Promise<void> {
   console.log(
     JSON.stringify(
       {
-        mode: check ? "verified" : "wrote",
+        mode: mode === "check" ? "verified" : mode === "dry-run" ? "previewed" : "wrote",
         generatedAt: run.generatedAt,
         inputPath,
         outputDir,
