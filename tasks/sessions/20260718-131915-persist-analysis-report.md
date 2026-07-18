@@ -6,7 +6,7 @@
 - [x] Add a reusable report writer and a results-only analysis command.
 - [x] Update the benchmark CLI to persist its rendered report.
 - [x] Add regression coverage and run validation.
-- [ ] Commit, push, and open a PR.
+- [x] Commit, push, and open a PR.
 
 ## Progress
 
@@ -21,3 +21,5 @@ Validation passed: `npm run typecheck`, `npm test`, `npm run analyze -- --help`,
 ## Review / results
 
 The analysis command recalculated the committed results without provider traffic and wrote `results/recalculated-latency.txt` in the worktree. The report begins with String at 95.8% / 11.07s and includes per-target latency sources.
+
+Opened [S-128690: Persist benchmark analysis reports](https://github.com/usestring/web-data-frontier-benchmark/pull/3) from `S-128690-persist-analysis-report-20260718-131915`.
