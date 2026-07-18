@@ -140,8 +140,9 @@ async function main(): Promise<void> {
   await Promise.all(Array.from({ length: providerWorkers }, () => providerWorker()));
 
   console.log("\n=== Comparison ===");
-  console.log(formatComparisonTable(runs));
-  for (const run of runs) console.log(formatProviderSummary(run));
+  console.log(formatComparisonTable(runs, config.timeoutMs));
+  const comparisonResults = runs.map((run) => run.result);
+  for (const run of runs) console.log(formatProviderSummary(run, comparisonResults, config.timeoutMs));
 
   const outPath = opts.out ?? join("results", `benchmark-${new Date().toISOString().replace(/[:.]/g, "-")}.json`);
   saveResultsJSON(runs, outPath);

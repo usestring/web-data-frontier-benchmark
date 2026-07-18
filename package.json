@@ -12,7 +12,8 @@
   "scripts": {
     "benchmark": "tsx src/cli.ts",
     "typecheck": "tsc --noEmit",
-    "build": "tsc"
+    "build": "tsc",
+    "test": "npm run build && node --test dist/format.test.js"
   },
   "dependencies": {
     "@browserbasehq/sdk": "2.8.0",
