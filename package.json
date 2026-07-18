@@ -11,6 +11,7 @@
   },
   "scripts": {
     "benchmark": "tsx src/cli.ts",
+    "analyze": "tsx src/analyze.ts",
     "typecheck": "tsc --noEmit",
     "build": "tsc",
     "test": "npm run build && node --test dist/format.test.js"

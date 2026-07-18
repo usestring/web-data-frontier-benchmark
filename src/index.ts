@@ -6,9 +6,11 @@ export { PROVIDERS, getProvider } from "./providers/index.js";
 export {
   comparisonAverageLatencyMs,
   comparisonLatencyMs,
+  formatComparisonReport,
   formatComparisonTable,
   formatProviderSummary,
   resolveComparisonLatency,
+  saveComparisonReport,
   saveResultsJSON,
   type ProviderRun,
   type ResolvedLatency,

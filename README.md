@@ -49,6 +49,9 @@ cp .env.example .env   # then fill in keys for the providers you want to test
 npm run benchmark      # Node (tsx)
 # or
 bun run src/cli.ts     # Bun
+
+# Recalculate a report from stored results without sending provider requests
+npm run analyze -- --in official_results/benchmark-2026-07-15T21-36-21-625Z.json --out results/recalculated-latency.txt
 ```
 
 A smoke test against a single provider and a single fixture:
@@ -57,19 +60,35 @@ A smoke test against a single provider and a single fixture:
 npm run benchmark -- --providers scrapfly --tests amazon --attempts 1
 ```
 
-## CLI options
+## Benchmark CLI options
 
 | Option              | Description                                                       |
 | ------------------- | ----------------------------------------------------------------- |
 | `--providers <a,b>` | Only run these providers (default: all with keys set)             |
 | `--tests <a,b>`     | Only run these fixtures by name (default: all)                    |
 | `--attempts <n>`    | Attempts per test (default: 5)                                    |
-| `--concurrency <n>` | Parallel requests per provider (default: 5)                       |
+| `--concurrency <n>` | Parallel requests per provider (default: 2)                       |
+| `--provider-concurrency <n>` | Providers to benchmark at once (default: 15)             |
 | `--out <file>`      | Results JSON path (default: `results/benchmark-<timestamp>.json`) |
+| `--report-out <file>` | Rendered report path (default: results path with `.txt`)        |
 | `-h, --help`        | Show help                                                         |
 
-Output is a comparison leaderboard plus a per-provider, per-test breakdown printed to the console, and the
-full structured results (every attempt) written to `results/`.
+Each benchmark run writes the full structured results (every attempt) to JSON and its comparison leaderboard
+plus per-provider, per-test breakdown to a companion text report. Use `--report-out` to choose another path.
+
+## Results analysis
+
+Recalculate the current scoring from a stored benchmark JSON file without calling providers:
+
+```bash
+npm run analyze -- --in official_results/benchmark-2026-07-15T21-36-21-625Z.json --out results/recalculated-latency.txt
+```
+
+| Option                    | Description                                                       |
+| ------------------------- | ----------------------------------------------------------------- |
+| `--in`, `--input <file>`  | Benchmark results JSON to analyze                                 |
+| `--out <file>`            | Rendered report path (default: `results/analysis-<timestamp>.txt`) |
+| `-h, --help`              | Show help                                                         |
 
 ## Supported providers
 

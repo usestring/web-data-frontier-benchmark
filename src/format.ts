@@ -123,12 +123,31 @@ export function formatProviderSummary(
   return lines.join("\n");
 }
 
+export function formatComparisonReport(
+  runs: ProviderRun[],
+  noSuccessfulProviderLatencyMs = NO_SUCCESSFUL_PROVIDER_LATENCY_MS
+): string {
+  const comparisonResults = runs.map((run) => run.result);
+  return [
+    formatComparisonTable(runs, noSuccessfulProviderLatencyMs),
+    ...runs.map((run) => formatProviderSummary(run, comparisonResults, noSuccessfulProviderLatencyMs))
+  ].join("\n");
+}
+
+function writeOutput(outPath: string, contents: string): void {
+  mkdirSync(dirname(outPath), { recursive: true });
+  writeFileSync(outPath, contents);
+}
+
+export function saveComparisonReport(report: string, outPath: string): void {
+  writeOutput(outPath, report);
+}
+
 /** Persist the full structured results (every attempt) for later analysis. */
 export function saveResultsJSON(runs: ProviderRun[], outPath: string): void {
-  mkdirSync(dirname(outPath), { recursive: true });
   const payload = {
     generatedAt: new Date().toISOString(),
     providers: runs.map((r) => ({ provider: r.provider, ...r.result }))
   };
-  writeFileSync(outPath, JSON.stringify(payload, null, 2));
+  writeOutput(outPath, JSON.stringify(payload, null, 2));
 }
