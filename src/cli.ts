@@ -1,6 +1,6 @@
 import "dotenv/config";
-import { join } from "node:path";
-import { formatComparisonTable, formatProviderSummary, saveResultsJSON, type ProviderRun } from "./format.js";
+import { extname, join } from "node:path";
+import { formatComparisonReport, saveComparisonReport, saveResultsJSON, type ProviderRun } from "./format.js";
 import { PROVIDERS } from "./providers/index.js";
 import { makeExecutor, runWebAccessBenchmarkSuite } from "./runner.js";
 import { WEB_ACCESS_ALL_TESTS, WEB_ACCESS_BENCHMARK_CONFIG } from "./tests.const.js";
@@ -13,6 +13,7 @@ interface CliOptions {
   concurrency?: number;
   providerConcurrency?: number;
   out?: string;
+  reportOut?: string;
   help: boolean;
 }
 
@@ -40,6 +41,9 @@ function parseArgs(argv: string[]): CliOptions {
       case "--out":
         opts.out = next();
         break;
+      case "--report-out":
+        opts.reportOut = next();
+        break;
       case "-h":
       case "--help":
         opts.help = true;
@@ -65,6 +69,7 @@ Options:
   --concurrency <n>    Parallel requests per provider (default: ${WEB_ACCESS_BENCHMARK_CONFIG.concurrency})
   --provider-concurrency <n>  Providers to benchmark at once (default: ${WEB_ACCESS_BENCHMARK_CONFIG.providerConcurrency})
   --out <file>         Results JSON path (default: results/benchmark-<timestamp>.json)
+  --report-out <file>  Rendered report path (default: the results path with a .txt extension)
   -h, --help           Show this help
 
 Set provider API keys in a .env file (see .env.example). A provider runs only when all of
@@ -90,6 +95,11 @@ function selectTests(opts: CliOptions): WebAccessTestConfig[] {
   if (!opts.tests) return WEB_ACCESS_ALL_TESTS;
   const wanted = new Set(opts.tests.map((t) => t.toLowerCase()));
   return WEB_ACCESS_ALL_TESTS.filter((t) => wanted.has(t.name.toLowerCase()));
+}
+
+function defaultReportPath(resultsPath: string): string {
+  const extension = extname(resultsPath);
+  return extension ? `${resultsPath.slice(0, -extension.length)}.txt` : `${resultsPath}.txt`;
 }
 
 async function main(): Promise<void> {
@@ -139,14 +149,17 @@ async function main(): Promise<void> {
   const providerWorkers = Math.min(config.providerConcurrency, active.length);
   await Promise.all(Array.from({ length: providerWorkers }, () => providerWorker()));
 
+  const report = formatComparisonReport(runs, config.timeoutMs);
   console.log("\n=== Comparison ===");
-  console.log(formatComparisonTable(runs, config.timeoutMs));
-  const comparisonResults = runs.map((run) => run.result);
-  for (const run of runs) console.log(formatProviderSummary(run, comparisonResults, config.timeoutMs));
+  console.log(report);
 
-  const outPath = opts.out ?? join("results", `benchmark-${new Date().toISOString().replace(/[:.]/g, "-")}.json`);
+  const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
+  const outPath = opts.out ?? join("results", `benchmark-${timestamp}.json`);
+  const reportPath = opts.reportOut ?? defaultReportPath(outPath);
   saveResultsJSON(runs, outPath);
+  saveComparisonReport(report, reportPath);
   console.log(`\nSaved results to ${outPath}`);
+  console.log(`Saved report to ${reportPath}`);
 }
 
 main().catch((e) => {
