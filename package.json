@@ -14,7 +14,8 @@
     "analyze": "tsx src/analyze.ts",
     "typecheck": "tsc --noEmit",
     "build": "tsc",
-    "test": "npm run build && node --test dist/format.test.js"
+    "test": "npm run build && node --test dist/format.test.js",
+    "prepare": "husky"
   },
   "dependencies": {
     "@browserbasehq/sdk": "2.8.0",
@@ -25,6 +26,7 @@
   },
   "devDependencies": {
     "@types/node": "22.10.5",
+    "husky": "^9.1.7",
     "tsx": "4.19.2",
     "typescript": "5.7.3"
   },
