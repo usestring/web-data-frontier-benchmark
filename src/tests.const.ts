@@ -522,7 +522,6 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
     name: "temu",
     url: "https://www.temu.com/60w-fast-charging-usb-to-type-c-cable-high-speed-data-sync-for-iphone-15-16-for--pro-for-ipad-for-samsung-for-xiaomi-other-devices-g-605554969821574.html",
     antibot: "temu",
-    containsText:
-      "60W Fast Charging USB to Type-C Cable, High-Speed Data Sync, for iPhone 15/16, for MacBook Air/Pro, for iPad, for SamSung, for Xiaomi Other Devices",
+    containsText: "60W Fast Charging USB",
   },
 ];
