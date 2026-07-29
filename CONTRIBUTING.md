@@ -30,15 +30,20 @@ Include this attestation in the pull request description:
 > I attest that I am currently affiliated with **[company]** and that this change reflects its
 > recommended configuration for this benchmark.
 
-The attestation must be accompanied by one of the following:
+The evidence must directly bind the GitHub account that opened the pull request to the affected
+company. A matching name, a self-edited profile employer field, a company team directory or roster,
+a LinkedIn page, or another page that merely lists someone with the same name is not sufficient.
 
-- public membership in the provider's official GitHub organization, with a GitHub profile that
-  identifies the same company;
-- a link to an official company team page, staff profile, or announcement that identifies you; or
-- an email from your company-domain address to
+Use one of these verification paths:
+
+- Make the pull request author's membership in the provider's official GitHub organization public
+  on the same GitHub account that opened the pull request.
+- Send an email from your company-domain address to
   [support@usestring.ai](mailto:support@usestring.ai) with the subject
   `Benchmark affiliation verification for PR #<number>`. The message must include your GitHub
-  username, the company and provider, and the pull request URL.
+  username, the company and provider, and the pull request URL. A maintainer will reply with a
+  one-time verification phrase; post that phrase on the pull request from the account that opened
+  it to complete verification.
 
 A self-attestation without verifiable evidence is not sufficient. If verification is sent by email,
 state that in the pull request without posting the private message or address. Maintainers will note

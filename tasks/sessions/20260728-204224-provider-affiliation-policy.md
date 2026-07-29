@@ -16,6 +16,11 @@ with each affected benchmark provider's company a prerequisite for approving pro
 changes. It accepts public evidence or a minimal company-domain email sent only to String's existing
 public support address, while prohibiting secrets and sensitive employment records.
 
+After review, the evidence language was tightened to reject name matches, self-edited profile
+fields, team rosters, and similar listings. Accepted evidence now binds the pull request author's
+GitHub account directly through public membership in the provider's official GitHub organization or
+a company-domain email plus a one-time phrase posted from the pull request author's account.
+
 The change is limited to contribution policy and discoverability. It does not modify provider
 configuration, target fixtures, or official benchmark results.
 
