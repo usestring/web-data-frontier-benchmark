@@ -142,6 +142,12 @@ const result = await runWebAccessBenchmarkSuite(WEB_ACCESS_ALL_TESTS, makeExecut
 console.log(result.overallSuccessRate);
 ```
 
+## Contributing
+
+Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request. Maintainers approve provider
+configuration changes only after verifying the contributor's current affiliation with the affected
+provider's company.
+
 ## Adding a provider
 
 1. Create `src/providers/<name>.ts` exporting a `Provider` (`name`, `envKeys`, `fetch`).
