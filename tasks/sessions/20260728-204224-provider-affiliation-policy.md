@@ -7,7 +7,7 @@
 - [x] Add a contribution guide with affiliation attestation and verification requirements.
 - [x] Link the guide from the README.
 - [x] Validate the documentation diff and repository checks.
-- [ ] Commit, push, and open a ready-for-review pull request.
+- [x] Commit, push, and open a ready-for-review pull request.
 
 ## Progress
 
@@ -25,3 +25,6 @@ configuration, target fixtures, or official benchmark results.
 Prettier limit, and the README link resolves to the new tracked guide. Runtime tests were not run
 because this is a documentation-only change and the disposable checkout has no installed
 dependencies.
+
+Opened [PR #8](https://github.com/usestring/web-data-frontier-benchmark/pull/8) as a ready-for-review
+pull request linked to S-130756.
