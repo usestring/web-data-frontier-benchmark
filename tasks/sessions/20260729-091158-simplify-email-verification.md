@@ -6,7 +6,7 @@
 - [x] Remove the one-time verification phrase.
 - [x] Define the sufficient company-domain email contents.
 - [x] Validate the documentation diff.
-- [ ] Commit, push, and open a ready-for-review pull request.
+- [x] Commit, push, and open a ready-for-review pull request.
 
 ## Progress
 
@@ -19,3 +19,6 @@ configuration merged. The policy no longer requires a public phrase or follow-up
 `git diff --check` passed, all changed Markdown lines remain within the repository's 140-character
 Prettier limit, and the diff changes documentation only. Runtime tests were not run because the
 change has no runtime behavior.
+
+Opened [PR #11](https://github.com/usestring/web-data-frontier-benchmark/pull/11) as a
+ready-for-review pull request linked to S-130862.
