@@ -6,7 +6,7 @@
 - [x] Define an explicit maintainer exception without weakening external identity verification.
 - [x] Update the contribution guide and README.
 - [x] Validate the documentation diff.
-- [ ] Commit, push, and open a ready-for-review pull request.
+- [x] Commit, push, and open a ready-for-review pull request.
 
 ## Progress
 
@@ -22,3 +22,6 @@ use the maintainer exception.
 `git diff --check` passed, all changed Markdown lines remain within the repository's 140-character
 Prettier limit, and the contribution guide and README describe the same maintainer exception.
 Runtime tests were not run because the change is documentation-only.
+
+Opened [PR #9](https://github.com/usestring/web-data-frontier-benchmark/pull/9) as a ready-for-review
+pull request linked to S-130781.
