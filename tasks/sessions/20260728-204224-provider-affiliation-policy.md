@@ -21,6 +21,10 @@ fields, team rosters, and similar listings. Accepted evidence now binds the pull
 GitHub account directly through public membership in the provider's official GitHub organization or
 a company-domain email plus a one-time phrase posted from the pull request author's account.
 
+The unaffiliated-contributor fallback was also clarified: maintainers may invite a verified company
+representative to submit the change, but cannot bypass the affiliation requirement by taking over
+the pull request themselves.
+
 The change is limited to contribution policy and discoverability. It does not modify provider
 configuration, target fixtures, or official benchmark results.
 

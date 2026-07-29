@@ -20,8 +20,9 @@ This requirement applies to any change that affects how a benchmarked provider r
 
 If a pull request affects more than one provider, affiliation must be verified for each affected
 company. If you are not affiliated with the affected company, open an issue with your evidence and
-recommendation instead; a verified company representative or maintainer can take responsibility for
-the configuration change.
+recommendation instead. Maintainers may use the issue to invite a verified company representative
+to submit the configuration change, but will not approve a provider configuration pull request from
+an unaffiliated contributor.
 
 ### Attestation and evidence
 
