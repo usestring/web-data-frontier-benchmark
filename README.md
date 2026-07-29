@@ -145,8 +145,9 @@ console.log(result.overallSuccessRate);
 ## Contributing
 
 Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request. Maintainers approve provider
-configuration changes only after verifying the contributor's current affiliation with the affected
-provider's company.
+configuration changes from external contributors only after verifying current affiliation with the
+affected provider's company, unless a repository maintainer explicitly takes responsibility for
+the change.
 
 ## Adding a provider
 

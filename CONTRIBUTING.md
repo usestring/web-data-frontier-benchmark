@@ -7,9 +7,14 @@ the result without exposing credentials.
 ## Provider configuration changes
 
 The benchmark aims to exercise each provider using the configuration that provider currently
-recommends for this workload. To prevent unverified configuration changes from affecting the
-comparison, maintainers will approve a provider configuration change only after verifying that the
-contributor is currently affiliated with the company responsible for the affected provider.
+recommends for this workload. To prevent unverified external configuration changes from affecting
+the comparison, maintainers will approve a provider configuration change from an external
+contributor only after verifying that the contributor is currently affiliated with the company
+responsible for the affected provider.
+
+Repository maintainers may bypass the affiliation requirement. A maintainer may implement a
+configuration change directly or explicitly state on an external pull request that they are taking
+responsibility for the change. Routine review does not silently invoke this exception.
 
 This requirement applies to any change that affects how a benchmarked provider runs, including:
 
@@ -18,15 +23,15 @@ This requirement applies to any change that affects how a benchmarked provider r
 - changing provider credentials, environment variables, activation, or registration; and
 - changing documentation that prescribes how a provider is configured for an official run.
 
-If a pull request affects more than one provider, affiliation must be verified for each affected
-company. If you are not affiliated with the affected company, open an issue with your evidence and
-recommendation instead. Maintainers may use the issue to invite a verified company representative
-to submit the configuration change, but will not approve a provider configuration pull request from
-an unaffiliated contributor.
+Unless a repository maintainer invokes the exception, affiliation must be verified for each company
+affected by a pull request. If you are not affiliated with the affected company, open an issue with
+your evidence and recommendation instead, or ask a repository maintainer to explicitly take
+responsibility for the configuration change.
 
 ### Attestation and evidence
 
-Include this attestation in the pull request description:
+Unless a repository maintainer has explicitly taken responsibility for the change, include this
+attestation in the pull request description:
 
 > I attest that I am currently affiliated with **[company]** and that this change reflects its
 > recommended configuration for this benchmark.
@@ -54,9 +59,9 @@ Do not post or email API keys, account credentials, employee IDs, employment doc
 or other sensitive personal information. Company-domain email ownership is sufficient for the
 email verification path.
 
-Verified affiliation is a prerequisite for approval, not a guarantee of acceptance. Maintainers
-will still review the change for fairness, reproducibility, scope, and consistency with the
-benchmark methodology.
+For external contributors without an explicit maintainer exception, verified affiliation is a
+prerequisite for approval, not a guarantee of acceptance. Maintainers will still review every
+change for fairness, reproducibility, scope, and consistency with the benchmark methodology.
 
 ## Validation
 
