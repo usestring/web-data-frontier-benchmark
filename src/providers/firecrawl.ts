@@ -29,11 +29,8 @@ export const firecrawl: Provider = {
         data: {
           url,
           formats: ["rawHtml"],
-          onlyMainContent: false,
           // Always fetch a fresh page response — disable Firecrawl's cache lookup
-          maxAge: 0,
-          // Highest tier anti-bot/captcha bypass
-          proxy: "enhanced"
+          maxAge: 0
         },
         signal,
         timeout: timeoutMs
