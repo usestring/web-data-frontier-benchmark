@@ -47,9 +47,9 @@ Use one of these verification paths:
 - Send an email from your company-domain address to
   [support@usestring.ai](mailto:support@usestring.ai) with the subject
   `Benchmark affiliation verification for PR #<number>`. The message must include your GitHub
-  username, the company and provider, and the pull request URL. A maintainer will reply with a
-  one-time verification phrase; post that phrase on the pull request from the account that opened
-  it to complete verification.
+  username, the company and provider, the pull request URL, and confirmation that you want the
+  provider configuration in that pull request merged. Receipt of that company-domain email is
+  sufficient verification; no public challenge is required.
 
 A self-attestation without verifiable evidence is not sufficient. If verification is sent by email,
 state that in the pull request without posting the private message or address. Maintainers will note
