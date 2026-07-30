@@ -142,6 +142,13 @@ const result = await runWebAccessBenchmarkSuite(WEB_ACCESS_ALL_TESTS, makeExecut
 console.log(result.overallSuccessRate);
 ```
 
+## Contributing
+
+Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request. Maintainers approve provider
+configuration changes from external contributors only after verifying current affiliation with the
+affected provider's company, unless a repository maintainer explicitly takes responsibility for
+the change.
+
 ## Adding a provider
 
 1. Create `src/providers/<name>.ts` exporting a `Provider` (`name`, `envKeys`, `fetch`).
@@ -155,3 +162,7 @@ console.log(result.overallSuccessRate);
   where a provider only offers rendered output). See the per-file comments for the exact request shape.
 - Running the full suite across many providers makes real, billable API calls. Start with `--attempts 1`
   and a small `--tests` subset.
+
+## License
+
+[MIT](LICENSE) — re-run it, fork it, publish your own numbers. That's the point.
