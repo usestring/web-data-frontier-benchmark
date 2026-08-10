@@ -162,7 +162,8 @@ the change.
   where a provider only offers rendered output). See the per-file comments for the exact request shape.
 - Running the full suite across many providers makes real, billable API calls. Start with `--attempts 1`
   and a small `--tests` subset.
+- Yeah much vibecoding (so catch the AI-isms) but we did read all of the code + verify :)
 
 ## License
 
-[MIT](LICENSE) — re-run it, fork it, publish your own numbers. That's the point.
+[MIT](LICENSE)
