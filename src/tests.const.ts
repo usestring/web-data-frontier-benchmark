@@ -18,7 +18,7 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   {
     name: "Amazon",
     url: "https://www.amazon.com/Combination-Lock-Shackle-Security-Mounting-Bicycle-Secure/dp/B08KCWFMRS",
-    antibot: "akamai",
+    antibot: "aws-waf",
     containsText:
       "Bike Lock Heavy Duty Anti Theft, Keyed Bike U Lock with 4FT Security Cable and Mounting Bracket for Road Bike, Mountain Bike, Folding Bike",
   },
@@ -44,6 +44,7 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   {
     name: "safeway",
     url: "https://www.safeway.com/shop/product-details.960457331.html",
+    antibot: "incapsula",
     containsText: "Waterfront Bistro Shrimp Coconut With Sweet Chili Sauce",
   },
   {
@@ -54,8 +55,9 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   },
   {
     name: "zillow",
-    url: "https://www.zillow.com/homes/for_sale/",
+    url: "https://www.zillow.com/new-york-ny/",
     antibot: "perimeterx",
+    containsText: "New York NY Real Estate - New York NY Homes For Sale",
   },
   {
     name: "saksfifthavenue",
@@ -73,11 +75,13 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
     name: "g2",
     url: "https://www.g2.com/categories/emerging-ai-software?order=g2_score&page=92&_pjax=%23ajax-container#product-list",
     antibot: "datadome",
+    containsText: "Best Emerging AI Software - Page 92",
   },
   {
     name: "aa",
     url: "https://www.aa.com/homePage.do",
     antibot: "akamai",
+    containsText: "Book low fares to destinations around the world and find the latest deals on airline tickets",
   },
   {
     name: "asda",
@@ -93,8 +97,9 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   },
   {
     name: "hyatt",
-    url: "https://www.hyatt.com/loyalty/en-US",
+    url: "https://www.hyatt.com/park-hyatt/en-US/nycph-park-hyatt-new-york",
     antibot: "kasada",
+    containsText: "Luxury Hotels Near Central Park NYC",
   },
   {
     name: "macys",
@@ -146,14 +151,15 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   },
   {
     name: "autotrader",
-    url: "https://www.autotrader.com/cars-for-sale/vehicle/717276609",
+    url: "https://www.autotrader.com/cars-for-sale/vehicle/763249459",
     antibot: "akamai",
-    containsText: "New 2024 Chevrolet Silverado 1500 W/T AWD/4WD",
+    containsText: "Used 2024 Audi A7",
   },
   {
     name: "booking.com",
-    url: "https://flights.booking.com/flights/NYC.CITY-CHI.CITY/?type=ROUNDTRIP&adults=1&cabinClass=ECONOMY&children=&from=NYC.CITY&to=CHI.CITY&fromCountry=US&toCountry=US&fromLocationName=New+York&toLocationName=Chicago&depart=2026-06-17&return=2026-06-20&sort=BEST&travelPurpose=leisure&ca_source=flights_index_sb&aid=304142&label=gen173nr-10CAEoggI46AdIM1gEaKcCiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuAKevtXOBsACAdICJGYyMTQxZGNkLTY1MDAtNDE4NC05Y2ZlLWM4YjhjNTM0ODNiZdgCAeACAQ",
+    url: "https://www.booking.com/hotel/us/the-plaza.html",
     antibot: "aws-waf",
+    containsText: "The Plaza, A Fairmont Hotel",
   },
   {
     name: "carters",
@@ -174,8 +180,9 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   },
   {
     name: "expedia",
-    url: "https://www.expedia.com/Hotel-Search?destination=Miami%20Beach%252C%20Florida%252C%20United%20States%20of%20America&regionId=8833&latLong=25.790653%252C-80.130043&flexibility=0_DAY&d1=2026-05-21&startDate=2026-05-21&d2=2026-05-23&endDate=2026-05-23&adults=2&rooms=1&typeaheadCollationId=da070ad5-8315-4ab4-aa84-69b275f288cc",
+    url: "https://www.expedia.com/Hotel-Search?destination=Miami%20Beach",
     antibot: "akamai",
+    containsText: "Miami Beach Hotel Search Results",
   },
   {
     name: "glassdoor",
@@ -286,9 +293,9 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   },
   {
     name: "cargurus",
-    url: "https://www.cargurus.com/details/451977844",
+    url: "https://www.cargurus.com/details/452063396?",
     antibot: "datadome",
-    containsText: "2018 Ford F-150 King Ranch SuperCrew 4WD",
+    containsText: "2024 Mercedes-Benz G-Class",
   },
   {
     name: "cars.com",
@@ -323,16 +330,19 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   {
     name: "LinkedIn",
     url: "https://www.linkedin.com/company/microsoft/",
+    antibot: "custom",
     containsText: "Microsoft",
   },
   {
     name: "X (Twitter)",
     url: "https://x.com/NASA",
+    antibot: "custom",
     containsText: "NASA",
   },
   {
     name: "Instagram",
     url: "https://www.instagram.com/nasa/",
+    antibot: "custom",
     containsText: "NASA",
   },
   {
@@ -350,21 +360,25 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   {
     name: "Reddit",
     url: "https://www.reddit.com/r/webscraping/",
+    antibot: "custom",
     containsText: "webscraping",
   },
   {
     name: "Google Search",
     url: "https://www.google.com/search?q=openai",
+    antibot: "custom",
     containsText: "OpenAI",
   },
   {
     name: "YouTube",
     url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    antibot: "custom",
     containsText: "Rick Astley",
   },
   {
     name: "TikTok",
     url: "https://www.tiktok.com/@nba",
+    antibot: "custom",
     containsText: "NBA",
   },
   {
@@ -376,6 +390,7 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   {
     name: "Best Buy",
     url: "https://www.bestbuy.com/site/apple-airpods-pro-2nd-generation-with-magsafe-case-usb-c-white/6447382.p?skuId=6447382",
+    antibot: "akamai",
     containsText: "AirPods Pro",
   },
   {
@@ -399,6 +414,7 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   {
     name: "Facebook",
     url: "https://www.facebook.com/NASA",
+    antibot: "custom",
     containsText: "NASA",
   },
   {
@@ -431,6 +447,7 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   {
     name: "Pinterest",
     url: "https://www.pinterest.com/nasa/",
+    antibot: "custom",
     containsText: "NASA",
   },
   {
@@ -442,6 +459,7 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   {
     name: "Vinted",
     url: "https://www.vinted.fr/catalog?search_text=nike",
+    antibot: "datadome",
     containsText: "Nike",
   },
   {
@@ -524,5 +542,56 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
     antibot: "temu",
     containsText:
       "60W Fast Charging USB to Type-C Cable, High-Speed Data Sync, for iPhone 15/16, for MacBook Air/Pro, for iPad, for SamSung, for Xiaomi Other Devices",
+  },
+  {
+    name: "delta",
+    url: "https://www.delta.com/flight-status/search",
+    antibot: "akamai",
+    containsText: "Flight Status",
+  },
+  {
+    name: "kroger",
+    url: "https://www.kroger.com/p/kroger-vitamin-d-whole-milk/0001111041700",
+    antibot: "akamai",
+    containsText: "Reduced Fat Milk Gallon",
+  },
+  {
+    name: "axs",
+    url: "https://www.axs.com/events",
+    antibot: "cloudflare",
+    containsText: "Official Tickets and Your Source for Live Entertainment",
+  },
+  {
+    name: "roblox",
+    url: "https://www.roblox.com/discover",
+    antibot: "fastly",
+    containsText: "Top Roblox Games",
+  },
+  {
+    name: "draftkings",
+    url: "https://sportsbook.draftkings.com/leagues/football/nfl",
+    antibot: "akamai",
+    containsText: "DraftKings Sportsbook",
+  },
+  {
+    name: "bing",
+    url: "https://www.bing.com/search?q=openai",
+    containsText: "openai - Search",
+  },
+  {
+    name: "github",
+    url: "https://github.com/facebook/react",
+    containsText: "The library for web and native user interfaces",
+  },
+  {
+    name: "stackoverflow",
+    url: "https://stackoverflow.com/questions/11227809/why-is-processing-a-sorted-array-faster-than-processing-an-unsorted-array",
+    antibot: "cloudflare",
+    containsText: "Why is conditional processing of a sorted array faster",
+  },
+  {
+    name: "arxiv",
+    url: "https://arxiv.org/abs/1706.03762",
+    containsText: "Computer Science > Computation and Language",
   },
 ];
