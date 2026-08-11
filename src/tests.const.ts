@@ -553,7 +553,7 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
     name: "kroger",
     url: "https://www.kroger.com/p/kroger-vitamin-d-whole-milk/0001111041700",
     antibot: "akamai",
-    containsText: "Reduced Fat Milk Gallon",
+    containsText: `"upc":"0001111041700"`,
   },
   {
     name: "axs",
