@@ -11,23 +11,25 @@ const client = lazy(() =>
   })
 );
 
-/** Zyte API — POST /v1/extract, browser-rendered HTML. https://docs.zyte.com/zyte-api/usage/browser.html */
+/** Zyte API — POST /v1/extract, base64 httpResponseBody. https://docs.zyte.com/zyte-api/usage/http.html */
 export const zyte: Provider = {
   name: "zyte",
   envKeys: ["ZYTE_API_KEY"],
   async fetch(url, { timeoutMs, signal }) {
     try {
-      const response = await client().request<{ browserHtml?: string; statusCode?: number }>({
+      const response = await client().request<{ httpResponseBody?: string; statusCode?: number }>({
         url: "/v1/extract",
         method: "POST",
-        // browserHtml is Zyte's headless-browser tier and excludes httpResponseBody. Proxy type and
-        // per-domain bypass difficulty are chosen server-side and are not caller-settable.
-        data: { url, browserHtml: true },
+        data: { url, httpResponseBody: true },
         signal,
         timeout: timeoutMs
       });
 
-      return { body: response.data.browserHtml ?? "", statusCode: response.data.statusCode ?? response.status };
+      const body = response.data.httpResponseBody
+        ? Buffer.from(response.data.httpResponseBody, "base64").toString("utf-8")
+        : "";
+
+      return { body, statusCode: response.data.statusCode ?? response.status };
     } catch (e) {
       throw new Error(httpErrorMessage("Zyte", e));
     }

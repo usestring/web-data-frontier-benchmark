@@ -10,7 +10,7 @@ const client = lazy(() =>
   })
 );
 
-/** Scrapingdog — premium proxies, JS render, stealth mode. https://www.scrapingdog.com/documentation/ */
+/** Scrapingdog — premium proxies, stealth mode, raw HTML. https://www.scrapingdog.com/documentation/ */
 export const scrapingdog: Provider = {
   name: "scrapingdog",
   envKeys: ["SCRAPINGDOG_API_KEY"],
@@ -19,10 +19,10 @@ export const scrapingdog: Provider = {
       const response = await client().request<string>({
         url: "/scrape",
         method: "GET",
-        // premium routes residential proxies, dynamic renders JS, stealth_mode targets Cloudflare-class
-        // protection. Scrapingdog prices premium+dynamic at 25 credits and stealth_mode at 10; the
-        // combined figure is unpublished, so treat 35 as the worst case.
-        params: { url, premium: true, dynamic: true, stealth_mode: true },
+        // premium routes residential proxies and stealth_mode targets Cloudflare-class protection;
+        // dynamic=false keeps the raw HTML. stealth_mode is documented at 10 credits, but its cost
+        // alongside premium is unpublished.
+        params: { url, premium: true, dynamic: false, stealth_mode: true },
         responseType: "text",
         signal,
         timeout: timeoutMs

@@ -10,7 +10,7 @@ const client = lazy(() =>
   })
 );
 
-/** Scrapfly Scrape API — ASP on, residential pool, JS render. https://scrapfly.io/docs/scrape-api/getting-started */
+/** Scrapfly Scrape API — ASP on, residential pool, raw HTML. https://scrapfly.io/docs/scrape-api/getting-started */
 export const scrapfly: Provider = {
   name: "scrapfly",
   envKeys: ["SCRAPFLY_API_KEY"],
@@ -19,9 +19,9 @@ export const scrapfly: Provider = {
       const response = await client().request<{ result?: { content?: string; status_code?: number } }>({
         url: "/scrape",
         method: "GET",
-        // ASP already upgrades proxy_pool and browser on its own, but only after a block. Pinning the
-        // residential pool and rendering starts every request at Scrapfly's top tier (25 credits).
-        params: { url, asp: true, render_js: true, proxy_pool: "public_residential_pool" },
+        // ASP bypasses anti-bot and upgrades proxy_pool itself, but only after a block; pinning the
+        // residential pool starts every request there. render_js=false returns the raw HTTP HTML.
+        params: { url, asp: true, render_js: false, proxy_pool: "public_residential_pool" },
         signal,
         timeout: timeoutMs
       });
