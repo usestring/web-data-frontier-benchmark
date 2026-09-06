@@ -170,10 +170,15 @@ the change.
   part of the bypass, so it stays off wherever the vendor allows both and every provider is compared on the
   same artifact. ScrapingBee renders because its `stealth_proxy` pool only works with `render_js` on;
   ZenRows and Decodo render because their adapters predate this note.
-- Rendering is not a bypass, and the August 11 data says so: of the 99 targets, none were passed only by a
-  JS-rendered provider, while eight were passed only by unrendered ones. Bot protection keys on IP
-  reputation and TLS fingerprint before it looks at content, so a headless browser mostly buys cost,
-  latency and one more thing to fingerprint. A more expensive tier is not automatically a stronger one.
+- Rendering is mostly not the bypass. Among the seven caller-selected providers — the ones whose adapter
+  sets the flag, so we know what was requested — 12 of the 99 targets were passed by an unrendered
+  provider alone, against 2 passed by a rendering provider alone. Requiring a majority of attempts makes
+  it 15 against 4; requiring all five, 20 against 6. So rendering earns its place on a handful of targets
+  and costs on most. Bot protection keys on IP reputation and TLS fingerprint before it looks at content,
+  so a headless browser mostly buys cost, latency and one more thing to fingerprint — and latency is a
+  scored column here. A more expensive tier is not automatically a stronger one. Providers that choose
+  rendering server-side are excluded from this comparison; they cannot be sorted into either column
+  without guessing.
 - Providers fall into two groups, and the distinction matters when reading the numbers:
   - **Caller-selected tier.** ScrapingBee, ScraperAPI, ScrapingAnt, Scrapingdog, ZenRows, Decodo and
     Scrapfly expose the proxy pool as a request parameter. Each adapter pins the top pool, so every
