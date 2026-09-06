@@ -10,7 +10,7 @@ const client = lazy(() =>
   })
 );
 
-/** ScrapingAnt — /v2/general returns raw HTML. https://docs.scrapingant.com/api-basics */
+/** ScrapingAnt — /v2/general, residential pool + headless browser. https://docs.scrapingant.com/api-basics */
 export const scrapingant: Provider = {
   name: "scrapingant",
   envKeys: ["SCRAPINGANT_API_KEY"],
@@ -19,8 +19,8 @@ export const scrapingant: Provider = {
       const response = await client().request<string>({
         url: "/v2/general",
         method: "GET",
-        // Highest stealth: residential proxies; browser=false returns the raw page HTML
-        params: { url, browser: false, proxy_type: "residential" },
+        // Residential pool plus headless rendering is ScrapingAnt's strongest combination (125 credits)
+        params: { url, browser: true, proxy_type: "residential" },
         signal,
         timeout: timeoutMs
       });

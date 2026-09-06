@@ -29,6 +29,9 @@ export const firecrawl: Provider = {
         data: {
           url,
           formats: ["rawHtml"],
+          // Enhanced is Firecrawl's advanced anti-bot pool and bills at the basic rate; `auto` would
+          // spend the first attempt on the basic pool before escalating
+          proxy: "enhanced",
           // Always fetch a fresh page response — disable Firecrawl's cache lookup
           maxAge: 0
         },

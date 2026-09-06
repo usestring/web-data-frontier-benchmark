@@ -10,7 +10,7 @@ const client = lazy(() =>
   })
 );
 
-/** ScraperAPI — GET / with the target url. https://docs.scraperapi.com/making-requests */
+/** ScraperAPI — GET /, ultra-premium bypass + JS render, cache off. https://docs.scraperapi.com/making-requests */
 export const scraperapi: Provider = {
   name: "scraperapi",
   envKeys: ["SCRAPERAPI_API_KEY"],
@@ -19,7 +19,9 @@ export const scraperapi: Provider = {
       const response = await client().request({
         url: "/",
         method: "GET",
-        params: { url },
+        // ultra_premium is the advanced-bypass tier and excludes `premium`; with render it costs 75 credits.
+        // It caches responses by default, which would break attempt independence, so caching is disabled.
+        params: { url, ultra_premium: true, render: true, cache_control: "no-cache" },
         signal,
         timeout: timeoutMs
       });

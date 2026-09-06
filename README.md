@@ -12,6 +12,12 @@ Read the full write-up: [The Web Scraping Benchmark Problem](https://www.usestri
 Official run: **August 11, 2026** (99 targets × 5 attempts × 15 providers = 7,425 requests;
 raw data in [`official_results/benchmark-2026-08-11T22-44-25-322Z.json`](official_results/benchmark-2026-08-11T22-44-25-322Z.json)).
 
+> **These numbers predate the current adapter configurations.** Eight adapters ran below the strongest
+> configuration their API offers when this run was collected. ScrapingBee is the one to discount hardest:
+> it was fetched from the default datacenter pool with no `premium_proxy` or `stealth_proxy`, which is the
+> weakest anti-bot posture of any provider in the table. The adapters have since been corrected; the table
+> has not been re-collected. Treat the ranking as stale until a re-run replaces it.
+
 | Rank | Provider    | Success rate | Latency score |  Passed |
 | ---: | ----------- | -----------: | ------------: | ------: |
 |    1 | string      |        97.0% |         9.98s | 480/495 |
@@ -157,9 +163,22 @@ the change.
 
 ## Notes
 
-- All requests carry a per-attempt timeout (default 90s) enforced via `AbortController`.
-- Each provider is configured for its strongest anti-bot / proxy mode and raw-HTML (not JS-rendered, except
-  where a provider only offers rendered output). See the per-file comments for the exact request shape.
+- All requests carry a per-attempt timeout (default 90s). The runner enforces it with an `AbortController`;
+  adapters built on an SDK that takes no signal pass the same value as a client-side socket deadline instead.
+- Each provider is sent the most capable configuration its public API offers for bot-protected pages. In
+  practice that means the best proxy pool the vendor sells, plus JS rendering wherever the vendor offers
+  both, since the pass condition is expected text in the body and an unrendered shell cannot satisfy it.
+- Providers fall into two groups, and the distinction matters when reading the numbers:
+  - **Caller-selected tier.** ScrapingBee, ScraperAPI, ScrapingAnt, Scrapingdog, ZenRows, Decodo and
+    Scrapfly expose the proxy pool and rendering as request parameters. Each adapter pins the top tier, so
+    every attempt starts there rather than escalating into it after a block.
+  - **Server-side escalation.** Zyte, Nimble, Firecrawl, Bright Data, Oxylabs, Context.dev, Browserbase and
+    String decide the bypass strategy themselves. The adapter asks for the strongest mode it can name and
+    the vendor picks the rest, so the configuration is not fully observable from this repo.
+  Because String is in the second group, its result reflects our own server-side routing and is not
+  parameter-comparable with a pinned-tier provider. Read it as the service's default behaviour.
+- The strongest configuration is also the most expensive one. See the per-file comments for the exact
+  request shape and the credit cost it implies.
 - Running the full suite across many providers makes real, billable API calls. Start with `--attempts 1`
   and a small `--tests` subset.
 - Yeah much vibecoding (so catch the AI-isms) but we did read all of the code + verify :)
