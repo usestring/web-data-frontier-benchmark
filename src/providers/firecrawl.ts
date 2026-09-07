@@ -17,7 +17,7 @@ interface FirecrawlScrapeData {
   metadata?: { statusCode?: number };
 }
 
-/** Firecrawl — POST /v2/scrape, rawHtml format, enhanced proxy, cache disabled. https://docs.firecrawl.dev */
+/** Firecrawl — POST /v2/scrape, rawHtml format, vendor-default proxy path, cache disabled. https://docs.firecrawl.dev */
 export const firecrawl: Provider = {
   name: "firecrawl",
   envKeys: ["FIRECRAWL_API_KEY"],
@@ -29,6 +29,12 @@ export const firecrawl: Provider = {
         data: {
           url,
           formats: ["rawHtml"],
+          // Deliberately no `proxy`. An earlier adapter forced `proxy: "enhanced"` on the theory that
+          // every provider should run its highest tier. A Firecrawl engineer showed the default path
+          // performs better; we removed it and their success rate rose 7.7 points in the August 2026
+          // run. Leaving it unset also keeps us on Firecrawl's own default, which already retries on
+          // the enhanced pool when the basic one is blocked. Do not re-add it.
+          // https://www.usestring.ai/blog/web-data-frontier-benchmark-august-2026
           // Always fetch a fresh page response — disable Firecrawl's cache lookup
           maxAge: 0
         },

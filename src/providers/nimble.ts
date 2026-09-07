@@ -12,7 +12,7 @@ const client = lazy(() =>
   })
 );
 
-/** Nimble Web API — POST /v1/extract, raw HTML over residential IP. https://docs.nimbleway.com */
+/** Nimble Web API — POST /v1/extract, residential IP, automatic driver escalation. https://docs.nimbleway.com */
 export const nimble: Provider = {
   name: "nimble",
   envKeys: ["NIMBLE_API_KEY"],
@@ -21,8 +21,9 @@ export const nimble: Provider = {
       const response = await client().request<{ data?: { html?: string }; status_code?: number }>({
         url: "/v1/extract",
         method: "POST",
-        // render:false returns raw HTML over residential Nimble IP (premium proxy, no headless)
-        data: { url, render: false },
+        // render:"auto" hands the request to Nimble's optimization engine, which escalates through
+        // rendering and stealth driver configurations until the target domain succeeds
+        data: { url, render: "auto" },
         signal,
         timeout: timeoutMs
       });

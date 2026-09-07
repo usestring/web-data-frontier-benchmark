@@ -12,6 +12,12 @@ Read the full write-up: [The Web Scraping Benchmark Problem](https://www.usestri
 Official run: **August 11, 2026** (99 targets × 5 attempts × 15 providers = 7,425 requests;
 raw data in [`official_results/benchmark-2026-08-11T22-44-25-322Z.json`](official_results/benchmark-2026-08-11T22-44-25-322Z.json)).
 
+> **These numbers predate the current adapter configurations.** Six adapters ran below the strongest
+> proxy tier their API offers when this run was collected. ScrapingBee is the one to discount hardest:
+> it was fetched from the default datacenter pool with no `premium_proxy` or `stealth_proxy`, which is the
+> weakest anti-bot posture of any provider in the table. The adapters have since been corrected; the table
+> has not been re-collected. Treat the ranking as stale until a re-run replaces it.
+
 | Rank | Provider    | Success rate | Latency score |  Passed |
 | ---: | ----------- | -----------: | ------------: | ------: |
 |    1 | string      |        97.0% |         9.98s | 480/495 |
@@ -158,9 +164,34 @@ the change.
 
 ## Notes
 
-- All requests carry a per-attempt timeout (default 90s) enforced via `AbortController`.
-- Each provider is configured for its strongest anti-bot / proxy mode and raw-HTML (not JS-rendered, except
-  where a provider only offers rendered output). See the per-file comments for the exact request shape.
+- All requests carry a per-attempt timeout (default 90s). The runner enforces it with an `AbortController`;
+  adapters built on an SDK that takes no signal pass the same value as a client-side socket deadline instead.
+- Each provider is sent the strongest anti-bot configuration its public API offers: the best proxy pool
+  the vendor sells, plus any explicit stealth or bypass switch. JS rendering is a separate axis and is not
+  part of the bypass, so it stays off wherever the vendor allows both and every provider is compared on the
+  same artifact. ScrapingBee uses Auto Mode with `max_cost: 75`, letting the vendor choose the proxy pool
+  and rendering;
+  ZenRows and Decodo render because their adapters predate this note.
+- Rendering is mostly not the bypass. Among the seven caller-selected providers — the ones whose adapter
+  sets the flag, so we know what was requested — 12 of the 99 targets were passed by an unrendered
+  provider alone, against 2 passed by a rendering provider alone. Requiring a majority of attempts makes
+  it 15 against 4; requiring all five, 20 against 6. So rendering earns its place on a handful of targets
+  and costs on most. Bot protection keys on IP reputation and TLS fingerprint before it looks at content,
+  so a headless browser mostly buys cost, latency and one more thing to fingerprint — and latency is a
+  scored column here. A more expensive tier is not automatically a stronger one. Providers that choose
+  rendering server-side are excluded from this comparison; they cannot be sorted into either column
+  without guessing.
+- In the recorded run, providers fell into two groups, and the distinction matters when reading the numbers:
+  - **Caller-selected tier.** ScrapingBee, ScraperAPI, ScrapingAnt, Scrapingdog, ZenRows, Decodo and
+    Scrapfly expose the proxy pool as a request parameter. Each adapter pinned the top pool, so every
+    attempt started there rather than escalating into it after a block. ScrapingBee now uses Auto Mode
+    and belongs to the server-side escalation group for future runs.
+  - **Server-side escalation.** Zyte, Nimble, Firecrawl, Bright Data, Oxylabs, Context.dev, Browserbase and
+    String decide the bypass strategy themselves. The adapter asks for the strongest mode it can name and
+    the vendor picks the rest, so the configuration is not fully observable from this repo.
+  Because String is in the second group, its result reflects our own server-side routing and is not
+  parameter-comparable with a pinned-tier provider. Read it as the service's default behaviour.
+- See the per-file comments for the exact request shape and the credit cost it implies.
 - Running the full suite across many providers makes real, billable API calls. Start with `--attempts 1`
   and a small `--tests` subset.
 - Yeah much vibecoding (so catch the AI-isms) but we did read all of the code + verify :)
