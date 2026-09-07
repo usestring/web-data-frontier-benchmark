@@ -120,6 +120,7 @@ npm run analyze -- --in official_results/benchmark-2026-08-11T22-44-25-322Z.json
 | zenrows                            | `ZENROWS_API_KEY`                                         |
 | oxylabs                            | `OXYLABS_WEB_UNBLOCKER_CREDENTIALS` (`username:password`) |
 | firecrawl                          | `FIRECRAWL_API_KEY`                                       |
+| massive                            | `MASSIVE_API_KEY`                                         |
 | decodo                             | `DECODO_API_KEY`                                          |
 | nimble                             | `NIMBLE_API_KEY`                                          |
 | context_dev                        | `CONTEXT_DEV_API_KEY`                                     |

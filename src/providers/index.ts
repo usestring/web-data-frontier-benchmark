@@ -4,6 +4,7 @@ import { browserbase } from "./browserbase.js";
 import { contextDev } from "./context_dev.js";
 import { decodo } from "./decodo.js";
 import { firecrawl } from "./firecrawl.js";
+import { massive } from "./massive.js";
 import { nimble } from "./nimble.js";
 import { oxylabs } from "./oxylabs.js";
 import { scraperapi } from "./scraperapi.js";
@@ -22,6 +23,7 @@ export const PROVIDERS: Provider[] = [
   contextDev,
   decodo,
   firecrawl,
+  massive,
   nimble,
   oxylabs,
   scraperapi,
