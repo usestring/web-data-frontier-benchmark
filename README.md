@@ -168,7 +168,8 @@ the change.
 - Each provider is sent the strongest anti-bot configuration its public API offers: the best proxy pool
   the vendor sells, plus any explicit stealth or bypass switch. JS rendering is a separate axis and is not
   part of the bypass, so it stays off wherever the vendor allows both and every provider is compared on the
-  same artifact. ScrapingBee renders because its `stealth_proxy` pool only works with `render_js` on;
+  same artifact. ScrapingBee uses Auto Mode with `max_cost: 75`, letting the vendor choose the proxy pool
+  and rendering;
   ZenRows and Decodo render because their adapters predate this note.
 - Rendering is mostly not the bypass. Among the seven caller-selected providers — the ones whose adapter
   sets the flag, so we know what was requested — 12 of the 99 targets were passed by an unrendered
@@ -179,10 +180,11 @@ the change.
   scored column here. A more expensive tier is not automatically a stronger one. Providers that choose
   rendering server-side are excluded from this comparison; they cannot be sorted into either column
   without guessing.
-- Providers fall into two groups, and the distinction matters when reading the numbers:
+- In the recorded run, providers fell into two groups, and the distinction matters when reading the numbers:
   - **Caller-selected tier.** ScrapingBee, ScraperAPI, ScrapingAnt, Scrapingdog, ZenRows, Decodo and
-    Scrapfly expose the proxy pool as a request parameter. Each adapter pins the top pool, so every
-    attempt starts there rather than escalating into it after a block.
+    Scrapfly expose the proxy pool as a request parameter. Each adapter pinned the top pool, so every
+    attempt started there rather than escalating into it after a block. ScrapingBee now uses Auto Mode
+    and belongs to the server-side escalation group for future runs.
   - **Server-side escalation.** Zyte, Nimble, Firecrawl, Bright Data, Oxylabs, Context.dev, Browserbase and
     String decide the bypass strategy themselves. The adapter asks for the strongest mode it can name and
     the vendor picks the rest, so the configuration is not fully observable from this repo.

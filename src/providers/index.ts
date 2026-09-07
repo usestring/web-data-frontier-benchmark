@@ -9,7 +9,7 @@ import { oxylabs } from "./oxylabs.js";
 import { scraperapi } from "./scraperapi.js";
 import { scrapfly } from "./scrapfly.js";
 import { scrapingant } from "./scrapingant.js";
-import { scrapingbeeAutoProvider, scrapingbeeProvider } from "./scrapingbee.js";
+import { scrapingbeeProvider } from "./scrapingbee.js";
 import { scrapingdog } from "./scrapingdog.js";
 import { string } from "./string.js";
 import { zenrows } from "./zenrows.js";
@@ -28,7 +28,6 @@ export const PROVIDERS: Provider[] = [
   scrapfly,
   scrapingant,
   scrapingbeeProvider,
-  scrapingbeeAutoProvider,
   scrapingdog,
   string,
   zenrows,

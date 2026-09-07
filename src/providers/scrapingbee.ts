@@ -9,39 +9,9 @@ interface ScrapingBeeJsonResponse {
   "initial-status-code"?: number;
 }
 
-/** ScrapingBee — official SDK `htmlApi`, stealth proxy pool + JS render. https://www.scrapingbee.com/documentation */
+/** ScrapingBee — official SDK `htmlApi`, Auto Mode with a 75-credit ceiling. */
 export const scrapingbeeProvider: Provider = {
   name: "scrapingbee",
-  envKeys: ["SCRAPINGBEE_API_KEY"],
-  async fetch(url, { timeoutMs }) {
-    try {
-      const response = await client().htmlApi({
-        url,
-        // stealth_proxy is ScrapingBee's hardest pool and only works with JS rendering on (75 credits)
-        params: { stealth_proxy: true, render_js: true, json_response: true },
-        // Client-side socket deadline. ScrapingBee's own `timeout` param is unsupported on the
-        // stealth pool, and the SDK takes no AbortSignal, so this is the only bound available.
-        timeout: timeoutMs
-      });
-
-      const decoded = new TextDecoder().decode(response.data);
-      const json = JSON.parse(decoded) as ScrapingBeeJsonResponse;
-      return { body: json.body ?? "", statusCode: json["initial-status-code"] ?? 200 };
-    } catch (e) {
-      throw new Error(httpErrorMessage("ScrapingBee", e));
-    }
-  }
-};
-
-/**
- * ScrapingBee Auto Mode — the same account, escalating tiers instead of a pinned one.
- * A second entry rather than a replacement: Auto Mode stops at the first configuration ScrapingBee
- * judges successful, and it cannot see this benchmark's containsText marker, so it may stop below the
- * tier that would have passed here. Running both measures that gap instead of assuming it.
- * https://www.scrapingbee.com/blog/introducing-auto-mode/
- */
-export const scrapingbeeAutoProvider: Provider = {
-  name: "scrapingbee_auto",
   envKeys: ["SCRAPINGBEE_API_KEY"],
   async fetch(url, { timeoutMs }) {
     try {
@@ -57,7 +27,7 @@ export const scrapingbeeAutoProvider: Provider = {
       const json = JSON.parse(decoded) as ScrapingBeeJsonResponse;
       return { body: json.body ?? "", statusCode: json["initial-status-code"] ?? 200 };
     } catch (e) {
-      throw new Error(httpErrorMessage("ScrapingBee Auto Mode", e));
+      throw new Error(httpErrorMessage("ScrapingBee", e));
     }
   }
 };
