@@ -25,6 +25,8 @@ export interface WebAccessTestConfig {
   /** Text that must appear in the response body for success */
   containsText?: string;
   antibot?: string;
+  /** Editorial grouping of the suite by the kind of data behind the URL. */
+  industry?: string;
 }
 
 /** Result of a single benchmark attempt */
