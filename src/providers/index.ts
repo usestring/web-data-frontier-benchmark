@@ -1,4 +1,5 @@
 import type { Provider } from "../types.js";
+import { apify } from "./apify.js";
 import { bright } from "./bright.js";
 import { browserbase } from "./browserbase.js";
 import { contextDev } from "./context_dev.js";
@@ -18,6 +19,7 @@ import { zyte } from "./zyte.js";
 
 /** Every benchmarkable provider. The CLI runs whichever ones have their env keys set. */
 export const PROVIDERS: Provider[] = [
+  apify,
   bright,
   browserbase,
   contextDev,

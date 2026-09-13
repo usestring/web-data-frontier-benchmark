@@ -1,0 +1,86 @@
+import assert from "node:assert/strict";
+import test from "node:test";
+import { makeExecutor } from "../runner.js";
+import { WEB_ACCESS_ALL_TESTS } from "../tests.const.js";
+import { APIFY_ACTOR_COUNT, apify, apifyActorRunFor } from "./apify.js";
+
+test("builds a direct URL Actor input", () => {
+  assert.deepEqual(
+    apifyActorRunFor("https://www.amazon.com/example/dp/B000000000"),
+    {
+      actorId: "junglee~amazon-crawler",
+      input: {
+        categoryOrProductUrls: [{ url: "https://www.amazon.com/example/dp/B000000000" }],
+        maxItemsPerStartUrl: 1
+      }
+    }
+  );
+});
+
+test("builds a source-specific search Actor input", () => {
+  assert.deepEqual(apifyActorRunFor("https://www.google.com/search?q=web+access"), {
+    actorId: "apify~google-search-scraper",
+    input: { queries: "web access", maxPagesPerQuery: 1 }
+  });
+});
+
+test("passes the Bing search term rather than the whole URL", () => {
+  assert.deepEqual(apifyActorRunFor("https://www.bing.com/search?q=openai"), {
+    actorId: "tri_angle~bing-search-scraper",
+    input: { queries: "openai", maxPages: 1 }
+  });
+});
+
+test("leaves a page-specific G2 category URL unsupported", () => {
+  assert.throws(
+    () => apifyActorRunFor("https://www.g2.com/categories/emerging-ai-software?page=92"),
+    /No compatible source-specific Apify Actor for www\.g2\.com/
+  );
+});
+
+test("derives the Temu search query from the only path segment", () => {
+  assert.deepEqual(
+    apifyActorRunFor(
+      "https://www.temu.com/60w-fast-charging-usb-to-type-c-cable-high-speed-data-sync-for-iphone-15-16-for--pro-for-ipad-for-samsung-for-xiaomi-other-devices-g-605554969821574.html"
+    ),
+    {
+      actorId: "amit123~temu-products-scraper",
+      input: {
+        searchQueries: [
+          "60w fast charging usb to type c cable high speed data sync for iphone 15 16 for  pro for ipad for samsung for xiaomi other devices"
+        ],
+        maxResults: 20
+      }
+    }
+  );
+});
+
+test("counts a target without a compatible Actor as a failed attempt", async () => {
+  const result = await makeExecutor(apify)(
+    {
+      name: "canadagoose",
+      url: "https://www.canadagoose.com/us/en/pr/macmillan-parka-2080M.html"
+    },
+    100
+  );
+
+  assert.equal(result.success, false);
+  assert.match(result.errorMessage ?? "", /No compatible source-specific Apify Actor for www\.canadagoose\.com/);
+});
+
+test("covers the measured source-specific Actor set", () => {
+  let supported = 0;
+  for (const fixture of WEB_ACCESS_ALL_TESTS) {
+    try {
+      apifyActorRunFor(fixture.url);
+      supported++;
+    } catch (error) {
+      assert.match(String(error), /No compatible source-specific Apify Actor/);
+    }
+  }
+
+  assert.deepEqual(
+    { routes: APIFY_ACTOR_COUNT, supported, failed: WEB_ACCESS_ALL_TESTS.length - supported },
+    { routes: 77, supported: 77, failed: 22 }
+  );
+});

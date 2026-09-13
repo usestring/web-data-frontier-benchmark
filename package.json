@@ -14,7 +14,7 @@
     "analyze": "tsx src/analyze.ts",
     "typecheck": "tsc --noEmit",
     "build": "tsc",
-    "test": "npm run build && node --test dist/format.test.js",
+    "test": "npm run build && node --test dist/format.test.js dist/providers/apify.test.js",
     "prepare": "husky"
   },
   "dependencies": {
