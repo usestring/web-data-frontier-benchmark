@@ -24,6 +24,23 @@ test("builds a source-specific search Actor input", () => {
   });
 });
 
+test("derives the Temu search query from the only path segment", () => {
+  assert.deepEqual(
+    apifyActorRunFor(
+      "https://www.temu.com/60w-fast-charging-usb-to-type-c-cable-high-speed-data-sync-for-iphone-15-16-for--pro-for-ipad-for-samsung-for-xiaomi-other-devices-g-605554969821574.html"
+    ),
+    {
+      actorId: "amit123~temu-products-scraper",
+      input: {
+        searchQueries: [
+          "60w fast charging usb to type c cable high speed data sync for iphone 15 16 for  pro for ipad for samsung for xiaomi other devices"
+        ],
+        maxResults: 20
+      }
+    }
+  );
+});
+
 test("counts a target without a compatible Actor as a failed attempt", async () => {
   const result = await makeExecutor(apify)(
     {

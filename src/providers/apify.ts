@@ -155,7 +155,7 @@ const APIFY_ACTOR_ROUTES: Record<string, ApifyActorRoute> = {
   "www.stubhub.com": urlRoute("parseforge~stubhub-scraper", "startUrls", "strings", "maxItems"),
   "www.skyscanner.net": urlRoute("memo23~skyscanner-scraper", "startUrls", "request-list", "maxItems"),
   "www.temu.com": customRoute("amit123~temu-products-scraper", (url) => ({
-    searchQueries: [pathPart(url, 1).replace(/-g-\d+\.html$/, "").replaceAll("-", " ")],
+    searchQueries: [pathPart(url, 0).replace(/-g-\d+\.html$/, "").replaceAll("-", " ")],
     maxResults: 20
   })),
   "www.tradingview.com": urlRoute("crawlerbros~tradingview-scraper", "url", "string", "maxItems"),
@@ -211,7 +211,7 @@ export const apify: Provider = {
   async fetch(rawUrl, { timeoutMs, signal }) {
     try {
       const run = apifyActorRunFor(rawUrl);
-      const response = await client().post(`/actors/${run.actorId}/run-sync-get-dataset-items`, run.input, {
+      const response = await client().post(`/acts/${run.actorId}/run-sync-get-dataset-items`, run.input, {
         params: {
           clean: true,
           limit: 1,
