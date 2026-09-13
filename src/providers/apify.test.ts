@@ -24,6 +24,20 @@ test("builds a source-specific search Actor input", () => {
   });
 });
 
+test("passes the Bing search term rather than the whole URL", () => {
+  assert.deepEqual(apifyActorRunFor("https://www.bing.com/search?q=openai"), {
+    actorId: "tri_angle~bing-search-scraper",
+    input: { queries: "openai", maxPages: 1 }
+  });
+});
+
+test("leaves a page-specific G2 category URL unsupported", () => {
+  assert.throws(
+    () => apifyActorRunFor("https://www.g2.com/categories/emerging-ai-software?page=92"),
+    /No compatible source-specific Apify Actor for www\.g2\.com/
+  );
+});
+
 test("derives the Temu search query from the only path segment", () => {
   assert.deepEqual(
     apifyActorRunFor(
@@ -67,6 +81,6 @@ test("covers the measured source-specific Actor set", () => {
 
   assert.deepEqual(
     { routes: APIFY_ACTOR_COUNT, supported, failed: WEB_ACCESS_ALL_TESTS.length - supported },
-    { routes: 78, supported: 78, failed: 21 }
+    { routes: 77, supported: 77, failed: 22 }
   );
 });

@@ -69,12 +69,8 @@ const APIFY_ACTOR_ROUTES: Record<string, ApifyActorRoute> = {
     "maxProductsPerStartUrl"
   ),
   "www.zillow.com": urlRoute("maxcopell~zillow-scraper", "searchUrls", "request-list", "resultsLimit"),
-  "www.g2.com": customRoute("jupri~g2-explorer", (url) => ({
-    query: pathPart(url, 1),
-    mode: "categories",
-    software_categories: [pathPart(url, 1)],
-    limit: 1
-  })),
+  // No www.g2.com route: the fixture asks for category page 92 and jupri~g2-explorer exposes no
+  // verified pagination input, so any route here would drop the offset the expected text depends on.
   "www.asda.com": urlRoute("solidcode~asda-scraper", "startUrls", "strings", "maxResults"),
   "shop.lululemon.com": urlRoute("autofacts~lululemon-scraper", "startUrls", "request"),
   "www.hyatt.com": customRoute("mrdoe~hyatt-hotel-scraper", () => ({ hotel: "Park Hyatt New York", limit: 1 })),
@@ -173,7 +169,10 @@ const APIFY_ACTOR_ROUTES: Record<string, ApifyActorRoute> = {
     market: "game_lines",
     maxItems: 1
   })),
-  "www.bing.com": customRoute("tri_angle~bing-search-scraper", (url) => ({ queries: url.href, maxPages: 1 })),
+  "www.bing.com": customRoute("tri_angle~bing-search-scraper", (url) => ({
+    queries: url.searchParams.get("q") ?? url.href,
+    maxPages: 1
+  })),
   "github.com": urlRoute("benthepythondev~github-repository-intelligence", "repositoryUrls", "string", undefined, {
     mode: "specific",
     includeReadme: true

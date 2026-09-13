@@ -166,7 +166,7 @@ the change.
 
 ## Notes
 
-- Apify routes 78 targets to fixed, source-specific Store Actors. The 21 targets with no compatible Actor
+- Apify routes 77 targets to fixed, source-specific Store Actors. The 22 targets with no compatible Actor
   fail without a network call; the adapter does not fall back to a generic crawler. Only the first dataset
   item is scored, pay-per-result charges are capped at one item, and Actor-specific result limits use their
   minimum where available.
