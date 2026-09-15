@@ -7,6 +7,7 @@ import { firecrawl } from "./firecrawl.js";
 import { massive } from "./massive.js";
 import { nimble } from "./nimble.js";
 import { oxylabs } from "./oxylabs.js";
+import { scrapedo } from "./scrapedo.js";
 import { scraperapi } from "./scraperapi.js";
 import { scrapfly } from "./scrapfly.js";
 import { scrapingant } from "./scrapingant.js";
@@ -26,6 +27,7 @@ export const PROVIDERS: Provider[] = [
   massive,
   nimble,
   oxylabs,
+  scrapedo,
   scraperapi,
   scrapfly,
   scrapingant,
