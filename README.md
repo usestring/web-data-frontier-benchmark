@@ -116,6 +116,7 @@ npm run analyze -- --in official_results/benchmark-2026-09-16T01-03-47-074Z.json
 | bright (Bright Data Web Unblocker) | `BRIGHT_API_KEY` + `BRIGHT_ZONE`                          |
 | zyte                               | `ZYTE_API_KEY`                                            |
 | scrapfly                           | `SCRAPFLY_API_KEY`                                        |
+| scrapedo (Scrape.do)               | `SCRAPEDO_API_KEY`                                        |
 | scraperapi                         | `SCRAPERAPI_API_KEY`                                      |
 | scrapingant                        | `SCRAPINGANT_API_KEY`                                     |
 | scrapingbee                        | `SCRAPINGBEE_API_KEY`                                     |
