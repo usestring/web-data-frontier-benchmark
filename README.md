@@ -88,7 +88,8 @@ npm run benchmark -- --providers scrapfly --tests amazon --attempts 1
 | Option                       | Description                                                       |
 | ---------------------------- | ----------------------------------------------------------------- |
 | `--providers <a,b>`          | Only run these providers (default: all with keys set)             |
-| `--tests <a,b>`              | Only run these fixtures by name (default: all)                    |
+| `--suite <name>`             | Target suite to draw from (default: `default`)                    |
+| `--tests <a,b>`              | Only run these fixtures by name (default: all in the suite)       |
 | `--attempts <n>`             | Attempts per test (default: 5)                                    |
 | `--concurrency <n>`          | Parallel requests per provider (default: 2)                       |
 | `--provider-concurrency <n>` | Providers to benchmark at once (default: 15)                      |
@@ -98,6 +99,29 @@ npm run benchmark -- --providers scrapfly --tests amazon --attempts 1
 
 Each benchmark run writes the full structured results (every attempt) to JSON and its comparison leaderboard
 plus per-provider, per-test breakdown to a companion text report. Use `--report-out` to choose another path.
+
+## Target suites
+
+`--suite` chooses which set of targets the run draws from. `--tests` then filters within it.
+
+| Suite        | Targets | Contents                                                                           |
+| ------------ | ------: | ---------------------------------------------------------------------------------- |
+| `default`    |     all | The published suite (`WEB_ACCESS_ALL_TESTS`) behind the headline numbers above.     |
+| `automotive` |       8 | European car classifieds plus the salvage-auction sources behind VIN history data.  |
+
+The `default` suite is deliberately closed: targets are not added to it casually, because changing
+its composition makes a new run non-comparable with the published results. Additional verticals go
+in their own suite and are opt-in.
+
+```bash
+# Compare two providers on the automotive suite
+npm run benchmark -- --suite automotive --providers oxylabs,string --attempts 5
+```
+
+The `automotive` suite covers `autoplius.lt`, `auto24.ee`, `otomoto.pl`, `mobile.de`,
+`autoscout24.com`, `iaai.com`, `copart.com` and `bidfax.info`. Anti-bot labels were taken from
+observed response headers (Cloudflare ×3, Imperva/Incapsula ×2, DataDome, Akamai); `autoscout24`
+carries no `antibot` label because none was observed on that path.
 
 ## Results analysis
 
