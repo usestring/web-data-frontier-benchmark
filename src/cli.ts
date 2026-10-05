@@ -3,11 +3,14 @@ import { extname, join } from "node:path";
 import { formatComparisonReport, saveComparisonReport, saveResultsJSON, type ProviderRun } from "./format.js";
 import { PROVIDERS } from "./providers/index.js";
 import { makeExecutor, runWebAccessBenchmarkSuite } from "./runner.js";
-import { WEB_ACCESS_ALL_TESTS, WEB_ACCESS_BENCHMARK_CONFIG } from "./tests.const.js";
+import { WEB_ACCESS_BENCHMARK_CONFIG, WEB_ACCESS_SUITES } from "./tests.const.js";
 import type { Provider, WebAccessBenchmarkConfig, WebAccessTestConfig } from "./types.js";
+
+const DEFAULT_SUITE = "default";
 
 interface CliOptions {
   providers?: string[];
+  suite?: string;
   tests?: string[];
   attempts?: number;
   concurrency?: number;
@@ -25,6 +28,9 @@ function parseArgs(argv: string[]): CliOptions {
     switch (arg) {
       case "--providers":
         opts.providers = next().split(",").map((s) => s.trim()).filter(Boolean);
+        break;
+      case "--suite":
+        opts.suite = next().trim();
         break;
       case "--tests":
         opts.tests = next().split(",").map((s) => s.trim()).filter(Boolean);
@@ -64,7 +70,8 @@ Usage:
 
 Options:
   --providers <a,b>    Only run these providers (default: all with keys set)
-  --tests <a,b>        Only run these test fixtures by name (default: all)
+  --suite <name>       Target suite to draw from: ${Object.keys(WEB_ACCESS_SUITES).join(", ")} (default: ${DEFAULT_SUITE})
+  --tests <a,b>        Only run these test fixtures by name (default: all in the suite)
   --attempts <n>       Attempts per test (default: ${WEB_ACCESS_BENCHMARK_CONFIG.attemptsPerTest})
   --concurrency <n>    Parallel requests per provider (default: ${WEB_ACCESS_BENCHMARK_CONFIG.concurrency})
   --provider-concurrency <n>  Providers to benchmark at once (default: ${WEB_ACCESS_BENCHMARK_CONFIG.providerConcurrency})
@@ -91,10 +98,10 @@ function selectProviders(opts: CliOptions): { active: Provider[]; skipped: strin
   return { active, skipped };
 }
 
-function selectTests(opts: CliOptions): WebAccessTestConfig[] {
-  if (!opts.tests) return WEB_ACCESS_ALL_TESTS;
+function selectTests(suite: WebAccessTestConfig[], opts: CliOptions): WebAccessTestConfig[] {
+  if (!opts.tests) return suite;
   const wanted = new Set(opts.tests.map((t) => t.toLowerCase()));
-  return WEB_ACCESS_ALL_TESTS.filter((t) => wanted.has(t.name.toLowerCase()));
+  return suite.filter((t) => wanted.has(t.name.toLowerCase()));
 }
 
 function defaultReportPath(resultsPath: string): string {
@@ -110,7 +117,14 @@ async function main(): Promise<void> {
   }
 
   const { active, skipped } = selectProviders(opts);
-  const tests = selectTests(opts);
+  const suiteName = opts.suite ?? DEFAULT_SUITE;
+  const suite = WEB_ACCESS_SUITES[suiteName];
+  if (!suite) {
+    console.error(`Unknown suite "${suiteName}" — choose one of: ${Object.keys(WEB_ACCESS_SUITES).join(", ")}`);
+    process.exitCode = 1;
+    return;
+  }
+  const tests = selectTests(suite, opts);
 
   const config: WebAccessBenchmarkConfig = {
     ...WEB_ACCESS_BENCHMARK_CONFIG,
@@ -122,7 +136,7 @@ async function main(): Promise<void> {
   console.log(`\nActive providers (${active.length}): ${active.map((p) => p.name).join(", ") || "none"}`);
   if (skipped.length) console.log(`Skipped: ${skipped.join(", ")}`);
   console.log(
-    `Tests: ${tests.length} | attempts: ${config.attemptsPerTest} | concurrency: ${config.concurrency} | provider-concurrency: ${config.providerConcurrency}\n`
+    `Suite: ${suiteName} | tests: ${tests.length} | attempts: ${config.attemptsPerTest} | concurrency: ${config.concurrency} | provider-concurrency: ${config.providerConcurrency}\n`
   );
 
   if (active.length === 0) {
@@ -131,7 +145,7 @@ async function main(): Promise<void> {
     return;
   }
   if (tests.length === 0) {
-    console.error("No matching tests — check --tests names against .env.example / tests.const.ts.");
+    console.error("No matching tests — check --tests names against the selected --suite in tests.const.ts.");
     process.exitCode = 1;
     return;
   }

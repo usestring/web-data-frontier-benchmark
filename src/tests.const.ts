@@ -700,3 +700,73 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
     containsText: "Cloud Muslin Sage/WHite 5pc Bedding Set - Levtex Baby",
   },
 ];
+
+/**
+ * Deliberately kept out of `WEB_ACCESS_ALL_TESTS`: that array is the published suite behind the
+ * reported headline numbers, so adding targets to it would change its composition and make a new
+ * run non-comparable with earlier ones. Select these with `--suite automotive` instead.
+ */
+export const WEB_ACCESS_AUTOMOTIVE_TESTS: WebAccessTestConfig[] = [
+  {
+    name: "autoplius",
+    url: "https://autoplius.lt/skelbimai/naudoti-automobiliai",
+    antibot: "cloudflare",
+    industry: "Automotive & vehicle data",
+    containsText: "Naudoti automobiliai",
+  },
+  {
+    name: "auto24",
+    url: "https://www.auto24.ee/kasutatud/nimekiri.php",
+    antibot: "cloudflare",
+    industry: "Automotive & vehicle data",
+    containsText: "Otsingutulemus",
+  },
+  {
+    name: "otomoto",
+    url: "https://www.otomoto.pl/osobowe",
+    antibot: "datadome",
+    industry: "Automotive & vehicle data",
+    containsText: "Samochody Osobowe",
+  },
+  {
+    name: "mobile.de",
+    url: "https://suchen.mobile.de/fahrzeuge/search.html?dam=false&isSearchRequest=true&ref=quickSearch&sfmr=false&vc=Car",
+    antibot: "akamai",
+    industry: "Automotive & vehicle data",
+    containsText: "PKW-Suche",
+  },
+  {
+    // Unset, not unfilled: no vendor header on this path, and its only captcha is the sign-in flow.
+    name: "autoscout24",
+    url: "https://www.autoscout24.com/lst",
+    industry: "Automotive & vehicle data",
+    containsText: "Used cars for sale",
+  },
+  {
+    name: "iaai",
+    url: "https://www.iaai.com/Search?url=oZarsGdmw6Zt5S7B5TnDjw%3d%3d",
+    antibot: "incapsula",
+    industry: "Automotive & vehicle data",
+    containsText: "Salvage Vehicles For Sale",
+  },
+  {
+    name: "copart",
+    url: "https://www.copart.com/lotSearchResults?free=true&query=honda",
+    antibot: "incapsula",
+    industry: "Automotive & vehicle data",
+    containsText: "Online Car Auctions",
+  },
+  {
+    name: "bidfax",
+    url: "https://en.bidfax.info/",
+    antibot: "cloudflare",
+    industry: "Automotive & vehicle data",
+    containsText: "Free history of sales",
+  },
+];
+
+/** `default` is the published suite; every other entry is opt-in via `--suite`. */
+export const WEB_ACCESS_SUITES: Record<string, WebAccessTestConfig[]> = {
+  default: WEB_ACCESS_ALL_TESTS,
+  automotive: WEB_ACCESS_AUTOMOTIVE_TESTS,
+};
