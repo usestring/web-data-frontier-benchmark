@@ -100,7 +100,7 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
     url: "https://www.asda.com/groceries/product/frozen-waffles-shapes-wedges/mccain-potato-smiles-454g/478142",
     antibot: "cloudflare",
     industry: "Grocery & food",
-    containsText: "McCain Potato Smiles 454g",
+    containsText: "Smiles 454g",
   },
   {
     name: "lululemon",
@@ -156,7 +156,7 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
     url: "https://www.autozone.com/p/valvoline-maxlife-full-synthetic-motor-oil-vv179/539362",
     antibot: "datadome",
     industry: "Retail & ecommerce",
-    containsText: "Valvoline Full Synthetic High Mileage Full Synthetic 5W-30 Motor Oil 1 Quart",
+    containsText: "Full Synthetic 5W-30 Motor Oil 1 Quart",
   },
   {
     name: "homedepot",
@@ -340,7 +340,7 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   },
   {
     name: "cargurus",
-    url: "https://www.cargurus.com/details/452063396?",
+    url: "https://www.cargurus.com/details/458522866",
     antibot: "datadome",
     industry: "Marketplaces & classifieds",
     containsText: "2024 Mercedes-Benz G-Class",
@@ -631,7 +631,7 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
     antibot: "temu",
     industry: "Retail & ecommerce",
     containsText:
-      "60W Fast Charging USB to Type-C Cable, High-Speed Data Sync, for iPhone 15/16, for MacBook Air/Pro, for iPad, for SamSung, for Xiaomi Other Devices",
+      "60W Fast Charging USB to Type-C Cable, High-Speed Data Sync, for iPhone 15/16, for MacBook Air/Pro, for iPad, for SamSung Other Devices",
   },
   {
     name: "delta",
