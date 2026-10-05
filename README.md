@@ -112,7 +112,7 @@ npm run analyze -- --in official_results/benchmark-2026-09-16T01-03-47-074Z.json
 
 | Provider                           | Required `.env` var(s)                                    |
 | ---------------------------------- | --------------------------------------------------------- |
-| apify (Web Fetch Actor)            | `APIFY_TOKEN`                                             |
+| apify (Apify Proxy anti-bot group) | `APIFY_PROXY_PASSWORD`                                    |
 | bright (Bright Data Web Unblocker) | `BRIGHT_API_KEY` + `BRIGHT_ZONE`                          |
 | zyte                               | `ZYTE_API_KEY`                                            |
 | scrapfly                           | `SCRAPFLY_API_KEY`                                        |
@@ -162,10 +162,11 @@ the change.
 
 ## Notes
 
-- Apify sends every target to the [Web Fetch](https://apify.com/apify/web-fetch) Actor's Standby endpoint
-  with `formats: ["raw"]` and `unwrap: true`, so the body is the original HTML and the status code is the
-  target's own. The Actor exposes no stealth setting: all fetches go through Apify Proxy's Unblocker group,
-  which escalates to browser rendering on its own when a site needs it.
+- Apify is benchmarked through [Apify Proxy](https://docs.apify.com/proxy)'s anti-bot group, the proxy product
+  that handles bot protection and CAPTCHAs itself, rather than through any Store Actor. The adapter tunnels a plain
+  GET of the target through `proxy.apify.com:8000` with the username `groups-UNBLOCKER`, so the body and status
+  code are the target's own. The group has no stealth switch, session or country knob worth setting, so none is
+  sent. The recorded September run predates this and went through the Web Fetch Actor instead.
 - All requests carry a per-attempt timeout (default 90s). The runner enforces it with an `AbortController`;
   adapters built on an SDK that takes no signal pass the same value as a client-side socket deadline instead.
 - Each provider is sent the strongest anti-bot configuration its public API offers: the best proxy pool
