@@ -16,22 +16,28 @@ export const zyte: Provider = {
   name: "zyte",
   envKeys: ["ZYTE_API_KEY"],
   async fetch(url, { timeoutMs, signal }) {
-    try {
-      const response = await client().request<{ httpResponseBody?: string; statusCode?: number }>({
-        url: "/v1/extract",
-        method: "POST",
-        data: { url, httpResponseBody: true },
-        signal,
-        timeout: timeoutMs
-      });
+    for (;;) {
+      try {
+        const response = await client().request<{ httpResponseBody?: string; statusCode?: number }>({
+          url: "/v1/extract",
+          method: "POST",
+          data: { url, httpResponseBody: true },
+          signal,
+          timeout: timeoutMs
+        });
 
-      const body = response.data.httpResponseBody
-        ? Buffer.from(response.data.httpResponseBody, "base64").toString("utf-8")
-        : "";
+        const body = response.data.httpResponseBody
+          ? Buffer.from(response.data.httpResponseBody, "base64").toString("utf-8")
+          : "";
 
-      return { body, statusCode: response.data.statusCode ?? response.status };
-    } catch (e) {
-      throw new Error(httpErrorMessage("Zyte", e));
+        return { body, statusCode: response.data.statusCode ?? response.status };
+      } catch (e) {
+        // Retry retryable errors until timeout. https://docs.zyte.com/zyte-api/usage/errors.html
+        const status = axios.isAxiosError(e) ? e.response?.status : undefined;
+        if (signal.aborted || (status !== undefined && status < 500 && status !== 429)) {
+          throw new Error(httpErrorMessage("Zyte", e));
+        }
+      }
     }
   }
 };
