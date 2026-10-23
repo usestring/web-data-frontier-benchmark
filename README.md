@@ -166,6 +166,8 @@ the change.
   with `formats: ["raw"]` and `unwrap: true`, so the body is the original HTML and the status code is the
   target's own. The Actor exposes no stealth setting: all fetches go through Apify Proxy's Unblocker group,
   which escalates to browser rendering on its own when a site needs it.
+- Each attempt is a single request to the provider's fetch API: no client-side retries and no browser
+  sessions driven over CDP. See [CONTRIBUTING.md](CONTRIBUTING.md#what-an-adapter-may-do).
 - All requests carry a per-attempt timeout (default 90s). The runner enforces it with an `AbortController`;
   adapters built on an SDK that takes no signal pass the same value as a client-side socket deadline instead.
 - Each provider is sent the strongest anti-bot configuration its public API offers: the best proxy pool
