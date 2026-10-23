@@ -69,8 +69,7 @@ Every provider is measured the same way, so these hold for every adapter, whoeve
 
 - **One request per attempt.** The adapter sends the attempt once and the runner scores whatever comes back,
   errors included. Adapters do not retry on errors, blocks or timeouts, and SDK clients that retry by default
-  are set to zero retries. Retries a provider makes on its own servers before it responds are part of its
-  result.
+  are set to zero retries.
 - **Fetch APIs only.** The adapter makes one HTTP request to the provider's API and gets the page back. We do
   not drive browser sessions over CDP, WebDriver or similar protocols, so a hosted-browser product can be
   benchmarked only through a fetch-style endpoint (Browserbase runs through its Fetch API).
