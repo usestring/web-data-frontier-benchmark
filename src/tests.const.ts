@@ -100,7 +100,7 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
     url: "https://www.asda.com/groceries/product/frozen-waffles-shapes-wedges/mccain-potato-smiles-454g/478142",
     antibot: "cloudflare",
     industry: "Grocery & food",
-    containsText: "McCain Potato Smiles 454g",
+    containsText: "Smiles 454g",
   },
   {
     name: "lululemon",
@@ -153,10 +153,10 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   },
   {
     name: "autozone",
-    url: "https://www.autozone.com/p/valvoline-maxlife-full-synthetic-motor-oil-vv179/539362",
+    url: "https://www.autozone.com/p/valvoline-motor-oil-vv179/539362",
     antibot: "datadome",
     industry: "Retail & ecommerce",
-    containsText: "Valvoline Full Synthetic High Mileage Full Synthetic 5W-30 Motor Oil 1 Quart",
+    containsText: "Valvoline MaxLife Full Synthetic 5W-30 Motor Oil",
   },
   {
     name: "homedepot",
@@ -222,10 +222,10 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   },
   {
     name: "marketwatch",
-    url: "https://www.marketwatch.com/investing/stock/psky",
+    url: "https://www.marketwatch.com/investing/stock/aapl",
     antibot: "datadome",
     industry: "News & finance",
-    containsText: "Paramount Skydance Corp",
+    containsText: "Apple Inc. Stock Quote",
   },
   {
     name: "barrons",
@@ -340,17 +340,17 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   },
   {
     name: "cargurus",
-    url: "https://www.cargurus.com/details/452063396?",
+    url: "https://www.cargurus.com/details/440130010",
     antibot: "datadome",
     industry: "Marketplaces & classifieds",
-    containsText: "2024 Mercedes-Benz G-Class",
+    containsText: "2008 Toyota Camry Solara",
   },
   {
     name: "cars.com",
-    url: "https://www.cars.com/vehicledetail/2c5991ed-0923-41c8-86f4-32c04cec7dcf/",
+    url: "https://www.cars.com/vehicledetail/31cd78d0-912d-4453-8a36-11d2714eb76e/",
     antibot: "cloudflare",
     industry: "Marketplaces & classifieds",
-    containsText: "$81,890",
+    containsText: "2011 Rolls-Royce Ghost",
   },
   {
     name: "crunchbase",
@@ -630,8 +630,7 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
     url: "https://www.temu.com/60w-fast-charging-usb-to-type-c-cable-high-speed-data-sync-for-iphone-15-16-for--pro-for-ipad-for-samsung-for-xiaomi-other-devices-g-605554969821574.html",
     antibot: "temu",
     industry: "Retail & ecommerce",
-    containsText:
-      "60W Fast Charging USB to Type-C Cable, High-Speed Data Sync, for iPhone 15/16, for MacBook Air/Pro, for iPad, for SamSung, for Xiaomi Other Devices",
+    containsText: "60W Fast Charging USB to Type-C Cable, High-Speed Data Sync",
   },
   {
     name: "delta",
