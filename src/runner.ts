@@ -1,4 +1,4 @@
-import { validateResponse } from "./check.js";
+import { normalizeBody, validateResponse } from "./check.js";
 import type {
   AttemptResult,
   Provider,
@@ -25,7 +25,8 @@ export function makeExecutor(provider: Provider): RequestExecutorFn {
 
     try {
       const { body, statusCode } = await provider.fetch(test.url, { timeoutMs, signal: controller.signal });
-      return validateResponse(body, statusCode, Date.now() - startTime, test.containsText);
+      // Normalize here so every adapter is scored on a string, whatever body type it hands back.
+      return validateResponse(normalizeBody(body), statusCode, Date.now() - startTime, test.containsText);
     } catch (error) {
       return {
         success: false,
