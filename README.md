@@ -89,10 +89,23 @@ npm run benchmark -- --providers scrapfly --tests amazon --attempts 1
 | `--provider-concurrency <n>` | Providers to benchmark at once (default: 15)                      |
 | `--out <file>`               | Results JSON path (default: `results/benchmark-<timestamp>.json`) |
 | `--report-out <file>`        | Rendered report path (default: results path with `.txt`)          |
+| `--failures-dir <dir>`       | Keep evidence for every failed attempt (off by default; see below) |
 | `-h, --help`                 | Show help                                                         |
 
 Each benchmark run writes the full structured results (every attempt) to JSON and its comparison leaderboard
 plus per-provider, per-test breakdown to a companion text report. Use `--report-out` to choose another path.
+
+The results JSON keeps only an error message per failed attempt. To diagnose a miss from the run itself,
+pass `--failures-dir <dir>`. For each failed attempt (successes are not written) the runner saves:
+
+- `<dir>/<provider>/<test>-<attempt>.html` (or `.txt`): the body exactly as the checker saw it, capped at 2 MB.
+  Absent when the attempt produced no body, such as a timeout or a network error.
+- `<dir>/<provider>/<test>-<attempt>.json`: provider, test, URL, attempt, status code, latency, error
+  message, the provider's request/trace id when its API returns one (String's `x-trace-id` header), and a
+  timestamp.
+
+Recording only observes the adapter's single request; it adds no requests, retries or request parameters.
+Failed attempts also carry `traceId` in the results JSON when one was captured.
 
 ## Results analysis
 

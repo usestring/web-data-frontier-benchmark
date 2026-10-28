@@ -109,7 +109,7 @@ export async function runWebAccessBenchmarkSuite(
   }
 
   await runWithConcurrency(tasks, concurrency, delayBetweenRequestsMs, async (task) => {
-    const result = await executeRequest(task.test, timeoutMs);
+    const result = await executeRequest(task.test, timeoutMs, task.attemptIndex);
     resultsByTest.get(task.test.name)!.push(result);
     const status = result.success ? "✓" : "✗";
     const detail = result.errorMessage ? ` (${result.errorMessage})` : "";
