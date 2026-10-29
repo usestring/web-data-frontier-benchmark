@@ -2,14 +2,25 @@ import axios from "axios";
 import type { Provider } from "../types.js";
 import { httpErrorMessage, lazy, requireEnv } from "./_shared.js";
 
+/**
+ * Decodo issues two credentials for the same scrape: the dashboard's API key (64 hex characters),
+ * sent as a Bearer token to the Web Data API, and the older base64 Basic token, sent to the Web
+ * Scraping API. Both take the same request body and answer with the same `results` array.
+ */
+const DATA_API_KEY = /^[0-9a-f]{64}$/i;
+
+export function decodoEndpoint(key: string): { baseURL: string; path: string; authorization: string } {
+  return DATA_API_KEY.test(key)
+    ? { baseURL: "https://data.decodo.com", path: "/v1/scrape", authorization: `Bearer ${key}` }
+    : { baseURL: "https://scraper-api.decodo.com", path: "/v2/scrape", authorization: `Basic ${key}` };
+}
+
+const endpoint = lazy(() => decodoEndpoint(requireEnv("DECODO_API_KEY")));
+
 const client = lazy(() =>
   axios.create({
-    baseURL: "https://scraper-api.decodo.com",
-    headers: {
-      // Decodo authenticates via HTTP Basic with the base64 token as-is
-      Authorization: `Basic ${requireEnv("DECODO_API_KEY")}`,
-      "Content-Type": "application/json"
-    }
+    baseURL: endpoint().baseURL,
+    headers: { Authorization: endpoint().authorization, "Content-Type": "application/json" }
   })
 );
 
@@ -20,7 +31,7 @@ export const decodo: Provider = {
   async fetch(url, { timeoutMs, signal }) {
     try {
       const response = await client().request<{ results?: Array<{ content?: string; status_code?: number }> }>({
-        url: "/v2/scrape",
+        url: endpoint().path,
         method: "POST",
         // universal target + premium proxy pool + JS rendering = strongest anti-bot bypass returning raw HTML
         data: { url, target: "universal", proxy_pool: "premium", headless: "html" },
