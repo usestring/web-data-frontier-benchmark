@@ -22,7 +22,18 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
         with:
-          fetch-depth: 0
+          fetch-depth: 1
+
+      - name: Fetch scan history
+        env:
+          CHECKOUT_SHA: ${{ github.sha }}
+          BASE_REF: ${{ github.base_ref || github.ref_name }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: |
+          git fetch --no-tags --unshallow origin "$CHECKOUT_SHA" "+refs/heads/$BASE_REF:refs/remotes/origin/$BASE_REF"
+          if [[ "$BASE_SHA" =~ ^[0-9a-f]{40}$ && "$BASE_SHA" != 0000000000000000000000000000000000000000 ]] && ! git cat-file -e "$BASE_SHA^{commit}" 2>/dev/null; then
+            git fetch --no-tags origin "$BASE_SHA" || echo "::warning::Event base unavailable; retaining the scan's existing fallback."
+          fi
 
       - name: Install gitleaks
         env:
