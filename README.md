@@ -10,27 +10,35 @@ Read the full write-up: [The Web Scraping Benchmark Problem](https://www.usestri
 
 ## Results
 
-Official run: **September 15, 2026** (100 targets × 5 attempts × 16 providers = 8,000 requests;
-raw data in [`official_results/benchmark-2026-09-16T01-03-47-074Z.json`](official_results/benchmark-2026-09-16T01-03-47-074Z.json)).
+Official run: **October 30, 2026** (100 targets × 5 attempts × 17 providers = 8,500 requests;
+raw data in [`official_results/benchmark-2026-10-30T18-48-18-489Z.json`](official_results/benchmark-2026-10-30T18-48-18-489Z.json)).
 
 | Rank | Provider    | Success rate | Latency score |  Passed |
 | ---: | ----------- | -----------: | ------------: | ------: |
-|    1 | string      |        97.0% |         7.06s | 485/500 |
-|    2 | scrapfly    |        86.2% |        19.79s | 431/500 |
-|    3 | scraperapi  |        84.0% |        12.97s | 420/500 |
-|    4 | firecrawl   |        80.2% |         9.11s | 401/500 |
-|    5 | apify       |        77.4% |        20.64s | 387/500 |
-|    6 | bright      |        74.6% |        15.62s | 373/500 |
-|    7 | scrapingbee |        73.0% |        21.96s | 365/500 |
-|    8 | context_dev |        72.0% |        16.32s | 360/500 |
-|    9 | oxylabs     |        69.0% |        15.86s | 345/500 |
-|   10 | nimble      |        68.6% |        21.54s | 343/500 |
-|   11 | zyte        |        68.0% |        17.46s | 340/500 |
-|   12 | decodo      |        50.6% |        25.41s | 253/500 |
-|   13 | scrapingdog |        45.6% |        26.55s | 228/500 |
-|   14 | browserbase |        41.4% |        17.73s | 207/500 |
-|   15 | zenrows     |        41.2% |        18.80s | 206/500 |
-|   16 | scrapingant |        36.4% |        18.95s | 182/500 |
+|    1 | string      |        98.6% |         4.24s | 493/500 |
+|    2 | scrapedo    |        94.0% |         5.08s | 470/500 |
+|    3 | context_dev |        93.0% |        10.96s | 465/500 |
+|    4 | scrapfly    |        86.8% |        19.62s | 434/500 |
+|    5 | scrapingbee |        85.2% |        20.30s | 426/500 |
+|    6 | firecrawl   |        81.2% |         8.87s | 406/500 |
+|    7 | zyte        |        79.6% |        14.43s | 398/500 |
+|    8 | apify       |        79.4% |        24.87s | 397/500 |
+|    9 | scraperapi  |        76.4% |        15.19s | 382/500 |
+|   10 | bright      |        75.4% |        27.88s | 377/500 |
+|   11 | decodo      |        71.2% |        28.29s | 356/500 |
+|   12 | nimble      |        68.0% |        22.65s | 340/500 |
+|   13 | oxylabs     |        67.4% |        16.62s | 337/500 |
+|   14 | browserbase |        43.0% |        18.01s | 215/500 |
+|   15 | zenrows     |        41.8% |        21.91s | 209/500 |
+|   16 | scrapingant |        40.0% |        18.39s | 200/500 |
+|   17 | scrapingdog |        27.6% |        31.52s | 138/500 |
+
+Notes on this run:
+
+- Scrape.do is new this month. Massive is not included: its account could not be provisioned before the run.
+- Every provider ran with the default settings (concurrency 2, 90-second timeout).
+
+Previous official run: September 15, 2026 ([`official_results/benchmark-2026-09-16T01-03-47-074Z.json`](official_results/benchmark-2026-09-16T01-03-47-074Z.json)).
 
 ## Latency scoring
 
@@ -69,7 +77,7 @@ npm run benchmark      # Node (tsx)
 bun run src/cli.ts     # Bun
 
 # Recalculate a report from stored results without sending provider requests
-npm run analyze -- --in official_results/benchmark-2026-09-16T01-03-47-074Z.json --out results/recalculated-latency.txt
+npm run analyze -- --in official_results/benchmark-2026-10-30T18-48-18-489Z.json --out results/recalculated-latency.txt
 ```
 
 A smoke test against a single provider and a single fixture:
@@ -112,7 +120,7 @@ Failed attempts also carry `traceId` in the results JSON when one was captured.
 Recalculate the current scoring from a stored benchmark JSON file without calling providers:
 
 ```bash
-npm run analyze -- --in official_results/benchmark-2026-09-16T01-03-47-074Z.json --out results/recalculated-latency.txt
+npm run analyze -- --in official_results/benchmark-2026-10-30T18-48-18-489Z.json --out results/recalculated-latency.txt
 ```
 
 | Option                   | Description                                                        |
