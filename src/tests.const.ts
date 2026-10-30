@@ -194,10 +194,11 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
     containsText: "Toddler Boy Polo Shirt Made with Organic Cotton in Stripes",
   },
   {
-    name: "databricks",
-    url: "https://www.databricks.com/company/careers/open-positions?department=Engineering&location=all",
-    industry: "Jobs & hiring",
-    containsText: "Current job openings at Databricks",
+    name: "zoominfo",
+    url: "https://www.zoominfo.com/c/microsoft/24904409",
+    antibot: "perimeterx",
+    industry: "Reviews & local",
+    containsText: "About Microsoft",
   },
   {
     name: "emag",
