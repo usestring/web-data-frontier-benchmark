@@ -229,12 +229,12 @@ accepts. **Industry** is the fixture's `industry` field, an editorial grouping o
 of data behind the URL; every target carries exactly one. **Anti-bot** is the fixture's `antibot` field;
 `Not classified` means the fixture carries no `antibot` value, not that the site is unprotected.
 
-Vendor spread: Akamai Bot Manager 20, DataDome 20, Cloudflare 15, PerimeterX / HUMAN 9, In-house /
+Vendor spread: Akamai Bot Manager 20, DataDome 20, Cloudflare 15, PerimeterX / HUMAN 10, In-house /
 custom 9, AWS WAF 7, Kasada 3, Fastly Bot Management 1, Imperva Incapsula 1, Temu (in-house) 1,
-Ticketmaster (in-house) 1, Not classified 13.
+Ticketmaster (in-house) 1, Not classified 12.
 
 Industry spread: Retail & ecommerce 17, Fashion & luxury 11, Marketplaces & classifieds 10, Travel 9,
-News & finance 9, Social media 8, Real estate 7, Reviews & local 6, Jobs & hiring 5, Grocery & food 5,
+News & finance 9, Social media 8, Real estate 7, Reviews & local 7, Grocery & food 5, Jobs & hiring 4,
 Tickets & events 4, Developer & research 3, Search engines 2, Gaming & betting 2, Health & pharmacy 1,
 Government 1.
 
@@ -266,7 +266,7 @@ Government 1.
 | 24 | autotrader | www.autotrader.com | [link](https://www.autotrader.com/cars-for-sale/vehicle/763249459) | Marketplaces & classifieds | Akamai Bot Manager |
 | 25 | booking.com | www.booking.com | [link](https://www.booking.com/hotel/us/the-plaza.html) | Travel | AWS WAF |
 | 26 | carters | www.carters.com | [link](https://www.carters.com/p/toddler-boy-polo-shirt-made-with-organic-cotton-in-stripes/V_2U855510) | Fashion & luxury | PerimeterX / HUMAN |
-| 27 | databricks | www.databricks.com | [link](https://www.databricks.com/company/careers/open-positions?department=Engineering&location=all) | Jobs & hiring | Not classified |
+| 27 | zoominfo | www.zoominfo.com | [link](https://www.zoominfo.com/c/microsoft/24904409) | Reviews & local | PerimeterX / HUMAN |
 | 28 | emag | www.emag.ro | [link](https://www.emag.ro/telefon-mobil-apple-iphone-17-256gb-5g-black-mg6j4zd-a/pd/DGX9FV3BM/) | Retail & ecommerce | AWS WAF |
 | 29 | expedia | www.expedia.com | [link](https://www.expedia.com/Hotel-Search?destination=Miami%20Beach) | Travel | Akamai Bot Manager |
 | 30 | glassdoor | www.glassdoor.com | [link](https://www.glassdoor.com/Job/chicago-software-engineer-jobs-SRCH_IL.0,7_IC1128808_KO8,25.htm) | Jobs & hiring | Cloudflare |
