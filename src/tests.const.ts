@@ -166,11 +166,11 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
     containsText: "M18 FUEL 18-Volt Lithium-Ion Brushless Cordless Gen II 18-Gauge Brad Nailer (Tool-Only)",
   },
   {
-    name: "ashleyfurniture",
-    url: "https://www.ashleyfurniture.com/p/roanhowe_dining_table_and_4_chairs/APG-D76935-5P.html",
+    name: "sallybeauty",
+    url: "https://www.sallybeauty.com/hair-color/",
     antibot: "perimeterx",
     industry: "Retail & ecommerce",
-    containsText: "Roanhowe Dining Table and 4 Chairs",
+    containsText: "Hair Dye",
   },
   {
     name: "autotrader",
@@ -208,11 +208,11 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
     containsText: "Telefon mobil Apple iPhone 17, 256GB, 5G, Black",
   },
   {
-    name: "expedia",
-    url: "https://www.expedia.com/Hotel-Search?destination=Miami%20Beach",
-    antibot: "akamai",
+    name: "transat",
+    url: "https://www.transat.com/en-CA",
+    antibot: "incapsula",
     industry: "Travel",
-    containsText: "Miami Beach Hotel Search Results",
+    containsText: "Why travel with us?",
   },
   {
     name: "glassdoor",
@@ -299,10 +299,11 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
     containsText: "Information you can trust",
   },
   {
-    name: "alibaba",
-    url: "https://www.alibaba.com/product-detail/Composite-Material-Breathable-Lumbar-Back-Brace_1601619518415.html",
+    name: "costco",
+    url: "https://www.costco.com/laptops.html",
+    antibot: "kasada",
     industry: "Retail & ecommerce",
-    containsText: "Invisible Double X-Strap Posture Corrector for Women Men",
+    containsText: "Shop by Laptop Features",
   },
   {
     name: "coupang",

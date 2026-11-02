@@ -229,9 +229,9 @@ accepts. **Industry** is the fixture's `industry` field, an editorial grouping o
 of data behind the URL; every target carries exactly one. **Anti-bot** is the fixture's `antibot` field;
 `Not classified` means the fixture carries no `antibot` value, not that the site is unprotected.
 
-Vendor spread: Akamai Bot Manager 20, DataDome 19, Cloudflare 16, AWS WAF 10, In-house / custom 9,
-PerimeterX / HUMAN 8, Kasada 4, F5 / Shape 1, Fastly Bot Management 1, Imperva Incapsula 1, Temu
-(in-house) 1, Ticketmaster (in-house) 1, Not classified 9.
+Vendor spread: Akamai Bot Manager 19, DataDome 19, Cloudflare 16, AWS WAF 10, In-house / custom 9,
+PerimeterX / HUMAN 8, Kasada 5, Imperva Incapsula 2, F5 / Shape 1, Fastly Bot Management 1, Temu
+(in-house) 1, Ticketmaster (in-house) 1, Not classified 8.
 
 Industry spread: Retail & ecommerce 17, Fashion & luxury 11, Marketplaces & classifieds 9, Travel 9,
 News & finance 8, Social media 8, Reviews & local 8, Real estate 7, Grocery & food 5, Jobs & hiring 5,
@@ -262,13 +262,13 @@ Government 1.
 | 20 | louisvuitton | us.louisvuitton.com | [link](https://us.louisvuitton.com/eng-us/products/lv-tilted-sneaker-nvprod7310009v/1AJS39) | Fashion & luxury | Akamai Bot Manager |
 | 21 | autozone | www.autozone.com | [link](https://www.autozone.com/p/valvoline-maxlife-full-synthetic-motor-oil-vv179/539362) | Retail & ecommerce | DataDome |
 | 22 | homedepot | www.homedepot.com | [link](https://www.homedepot.com/p/Milwaukee-M18-FUEL-18-Volt-Lithium-Ion-Brushless-Cordless-Gen-II-18-Gauge-Brad-Nailer-Tool-Only-2746-20/309752194) | Retail & ecommerce | Akamai Bot Manager |
-| 23 | ashleyfurniture | www.ashleyfurniture.com | [link](https://www.ashleyfurniture.com/p/roanhowe_dining_table_and_4_chairs/APG-D76935-5P.html) | Retail & ecommerce | PerimeterX / HUMAN |
+| 23 | sallybeauty | www.sallybeauty.com | [link](https://www.sallybeauty.com/hair-color/) | Retail & ecommerce | PerimeterX / HUMAN |
 | 24 | autotrader | www.autotrader.com | [link](https://www.autotrader.com/cars-for-sale/vehicle/763249459) | Marketplaces & classifieds | Akamai Bot Manager |
 | 25 | booking.com | www.booking.com | [link](https://www.booking.com/hotel/us/the-plaza.html) | Travel | AWS WAF |
 | 26 | ysl | www.ysl.com | [link](https://www.ysl.com/en-us/shop-women/handbags) | Fashion & luxury | Akamai Bot Manager |
 | 27 | zoominfo | www.zoominfo.com | [link](https://www.zoominfo.com/c/microsoft/24904409) | Reviews & local | PerimeterX / HUMAN |
 | 28 | emag | www.emag.ro | [link](https://www.emag.ro/telefon-mobil-apple-iphone-17-256gb-5g-black-mg6j4zd-a/pd/DGX9FV3BM/) | Retail & ecommerce | AWS WAF |
-| 29 | expedia | www.expedia.com | [link](https://www.expedia.com/Hotel-Search?destination=Miami%20Beach) | Travel | Akamai Bot Manager |
+| 29 | transat | www.transat.com | [link](https://www.transat.com/en-CA) | Travel | Imperva Incapsula |
 | 30 | glassdoor | www.glassdoor.com | [link](https://www.glassdoor.com/Job/chicago-software-engineer-jobs-SRCH_IL.0,7_IC1128808_KO8,25.htm) | Jobs & hiring | Cloudflare |
 | 31 | marketwatch | www.marketwatch.com | [link](https://www.marketwatch.com/investing/stock/psky) | News & finance | DataDome |
 | 32 | barrons | www.barrons.com | [link](https://www.barrons.com/articles/micron-stock-price-memory-chips-trump-5c6f7870) | News & finance | DataDome |
@@ -281,7 +281,7 @@ Government 1.
 | 39 | wsj | www.wsj.com | [link](https://www.wsj.com/livecoverage/iran-war-2026-trump-deadline-latest-news) | News & finance | DataDome |
 | 40 | bloomberg | www.bloomberg.com | [link](https://www.bloomberg.com/markets) | News & finance | PerimeterX / HUMAN |
 | 41 | reuters | www.reuters.com | [link](https://www.reuters.com/) | News & finance | DataDome |
-| 42 | alibaba | www.alibaba.com | [link](https://www.alibaba.com/product-detail/Composite-Material-Breathable-Lumbar-Back-Brace_1601619518415.html) | Retail & ecommerce | Not classified |
+| 42 | costco | www.costco.com | [link](https://www.costco.com/laptops.html) | Retail & ecommerce | Kasada |
 | 43 | coupang | www.coupang.com | [link](https://www.coupang.com/vp/products/7579231557) | Retail & ecommerce | Akamai Bot Manager |
 | 44 | ebay | www.ebay.com | [link](https://www.ebay.com/itm/227305215584) | Marketplaces & classifieds | Akamai Bot Manager |
 | 45 | chewy | www.chewy.com | [link](https://www.chewy.com/b/dry-food-294) | Retail & ecommerce | Kasada |
