@@ -229,9 +229,9 @@ accepts. **Industry** is the fixture's `industry` field, an editorial grouping o
 of data behind the URL; every target carries exactly one. **Anti-bot** is the fixture's `antibot` field;
 `Not classified` means the fixture carries no `antibot` value, not that the site is unprotected.
 
-Vendor spread: Akamai Bot Manager 20, DataDome 20, Cloudflare 15, PerimeterX / HUMAN 10, In-house /
-custom 9, AWS WAF 7, Kasada 3, Fastly Bot Management 1, Imperva Incapsula 1, Temu (in-house) 1,
-Ticketmaster (in-house) 1, Not classified 12.
+Vendor spread: DataDome 20, Akamai Bot Manager 19, Cloudflare 15, PerimeterX / HUMAN 9, In-house /
+custom 9, AWS WAF 7, Kasada 4, F5 / Shape 1, Fastly Bot Management 1, Imperva Incapsula 1, Temu
+(in-house) 1, Ticketmaster (in-house) 1, Not classified 12.
 
 Industry spread: Retail & ecommerce 17, Fashion & luxury 11, Marketplaces & classifieds 10, Travel 9,
 News & finance 9, Social media 8, Real estate 7, Reviews & local 7, Grocery & food 5, Jobs & hiring 4,
@@ -255,7 +255,7 @@ Government 1.
 | 13 | asda | www.asda.com | [link](https://www.asda.com/groceries/product/frozen-waffles-shapes-wedges/mccain-potato-smiles-454g/478142) | Grocery & food | Cloudflare |
 | 14 | lululemon | shop.lululemon.com | [link](https://shop.lululemon.com/p/mens-jackets-and-hoodies-hoodies/Ease-The-Day-Hoodie/_/prod20009295) | Fashion & luxury | Akamai Bot Manager |
 | 15 | hyatt | www.hyatt.com | [link](https://www.hyatt.com/park-hyatt/en-US/nycph-park-hyatt-new-york) | Travel | Kasada |
-| 16 | macys | www.macys.com | [link](https://www.macys.com/xapi/discover/v1/page?pathname=/shop/womens/clothing/pants/Upc_bops_purchasable/10&id=157&_navigationType=BROWSE&_shoppingMode=SITE&sortBy=BEST_SELLERS&productsPerPage=120&_application=SITE&_regionCode=US&currencyCode=USD&_deviceType=DESKTOP&_customerState=GUEST&_additionalStoreLocations=10&pageIndex=1) | Fashion & luxury | Akamai Bot Manager |
+| 16 | nordstrom | www.nordstrom.com | [link](https://www.nordstrom.com/browse/women/clothing/dresses) | Fashion & luxury | F5 / Shape |
 | 17 | etsy | www.etsy.com | [link](https://www.etsy.com/listing/4409872205/linen-sheer-cafe-curtains-farmhouse) | Marketplaces & classifieds | DataDome |
 | 18 | yelp | www.yelp.com | [link](https://www.yelp.com/search?find_desc=mexican+restuarant&find_loc=Chicago%2C+IL) | Reviews & local | DataDome |
 | 19 | zara | www.zara.com | [link](https://www.zara.com/us/en/100-linen-pocket-overshirt-p00706754.html) | Fashion & luxury | Akamai Bot Manager |
@@ -284,7 +284,7 @@ Government 1.
 | 42 | alibaba | www.alibaba.com | [link](https://www.alibaba.com/product-detail/Composite-Material-Breathable-Lumbar-Back-Brace_1601619518415.html) | Retail & ecommerce | Not classified |
 | 43 | coupang | www.coupang.com | [link](https://www.coupang.com/vp/products/7579231557) | Retail & ecommerce | Akamai Bot Manager |
 | 44 | ebay | www.ebay.com | [link](https://www.ebay.com/itm/227305215584) | Marketplaces & classifieds | Akamai Bot Manager |
-| 45 | target | www.target.com | [link](https://www.target.com/p/1-39-6-34-x2-39-6-34-so-happy-you-39-re-here-doormat-natural-threshold-8482/-/A-82253413) | Retail & ecommerce | PerimeterX / HUMAN |
+| 45 | chewy | www.chewy.com | [link](https://www.chewy.com/b/dry-food-294) | Retail & ecommerce | Kasada |
 | 46 | nike | www.nike.com | [link](https://www.nike.com/t/kd19-purple-stuff-basketball-shoes-vrLfPVAT/IH1117-500) | Fashion & luxury | Akamai Bot Manager |
 | 47 | stockx | stockx.com | [link](https://stockx.com/air-jordan-5-retro-black-university-blue-2026) | Marketplaces & classifieds | Cloudflare |
 | 48 | cargurus | www.cargurus.com | [link](https://www.cargurus.com/details/452063396?) | Marketplaces & classifieds | DataDome |

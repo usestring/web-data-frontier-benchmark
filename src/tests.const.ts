@@ -117,11 +117,11 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
     containsText: "Luxury Hotels Near Central Park NYC",
   },
   {
-    name: "macys",
-    url: "https://www.macys.com/xapi/discover/v1/page?pathname=/shop/womens/clothing/pants/Upc_bops_purchasable/10&id=157&_navigationType=BROWSE&_shoppingMode=SITE&sortBy=BEST_SELLERS&productsPerPage=120&_application=SITE&_regionCode=US&currencyCode=USD&_deviceType=DESKTOP&_customerState=GUEST&_additionalStoreLocations=10&pageIndex=1",
-    antibot: "akamai",
+    name: "nordstrom",
+    url: "https://www.nordstrom.com/browse/women/clothing/dresses",
+    antibot: "shape",
     industry: "Fashion & luxury",
-    containsText: "Build your wardrobe with Macy's Women's Pants, offering a variety of styles from tailored trousers",
+    containsText: "Women's Dresses",
   },
   {
     name: "etsy",
@@ -319,11 +319,11 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
     containsText: "PNY GeForce RTX 4090 XLR8 Epic-X RGB OC 24GB GDDR6X GPU - Gaming Graphic Cards",
   },
   {
-    name: "target",
-    url: "https://www.target.com/p/1-39-6-34-x2-39-6-34-so-happy-you-39-re-here-doormat-natural-threshold-8482/-/A-82253413",
-    antibot: "perimeterx",
+    name: "chewy",
+    url: "https://www.chewy.com/b/dry-food-294",
+    antibot: "kasada",
     industry: "Retail & ecommerce",
-    containsText: "So Happy You're Here Coir Doormat Natural",
+    containsText: "Dry Dog Food",
   },
   {
     name: "nike",
