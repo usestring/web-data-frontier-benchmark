@@ -229,12 +229,12 @@ accepts. **Industry** is the fixture's `industry` field, an editorial grouping o
 of data behind the URL; every target carries exactly one. **Anti-bot** is the fixture's `antibot` field;
 `Not classified` means the fixture carries no `antibot` value, not that the site is unprotected.
 
-Vendor spread: DataDome 20, Akamai Bot Manager 19, Cloudflare 15, PerimeterX / HUMAN 9, In-house /
-custom 9, AWS WAF 7, Kasada 4, F5 / Shape 1, Fastly Bot Management 1, Imperva Incapsula 1, Temu
-(in-house) 1, Ticketmaster (in-house) 1, Not classified 12.
+Vendor spread: Akamai Bot Manager 20, DataDome 19, Cloudflare 16, AWS WAF 10, In-house / custom 9,
+PerimeterX / HUMAN 8, Kasada 4, F5 / Shape 1, Fastly Bot Management 1, Imperva Incapsula 1, Temu
+(in-house) 1, Ticketmaster (in-house) 1, Not classified 9.
 
-Industry spread: Retail & ecommerce 17, Fashion & luxury 11, Marketplaces & classifieds 10, Travel 9,
-News & finance 9, Social media 8, Real estate 7, Reviews & local 7, Grocery & food 5, Jobs & hiring 4,
+Industry spread: Retail & ecommerce 17, Fashion & luxury 11, Marketplaces & classifieds 9, Travel 9,
+News & finance 8, Social media 8, Reviews & local 8, Real estate 7, Grocery & food 5, Jobs & hiring 5,
 Tickets & events 4, Developer & research 3, Search engines 2, Gaming & betting 2, Health & pharmacy 1,
 Government 1.
 
@@ -265,7 +265,7 @@ Government 1.
 | 23 | ashleyfurniture | www.ashleyfurniture.com | [link](https://www.ashleyfurniture.com/p/roanhowe_dining_table_and_4_chairs/APG-D76935-5P.html) | Retail & ecommerce | PerimeterX / HUMAN |
 | 24 | autotrader | www.autotrader.com | [link](https://www.autotrader.com/cars-for-sale/vehicle/763249459) | Marketplaces & classifieds | Akamai Bot Manager |
 | 25 | booking.com | www.booking.com | [link](https://www.booking.com/hotel/us/the-plaza.html) | Travel | AWS WAF |
-| 26 | carters | www.carters.com | [link](https://www.carters.com/p/toddler-boy-polo-shirt-made-with-organic-cotton-in-stripes/V_2U855510) | Fashion & luxury | PerimeterX / HUMAN |
+| 26 | ysl | www.ysl.com | [link](https://www.ysl.com/en-us/shop-women/handbags) | Fashion & luxury | Akamai Bot Manager |
 | 27 | zoominfo | www.zoominfo.com | [link](https://www.zoominfo.com/c/microsoft/24904409) | Reviews & local | PerimeterX / HUMAN |
 | 28 | emag | www.emag.ro | [link](https://www.emag.ro/telefon-mobil-apple-iphone-17-256gb-5g-black-mg6j4zd-a/pd/DGX9FV3BM/) | Retail & ecommerce | AWS WAF |
 | 29 | expedia | www.expedia.com | [link](https://www.expedia.com/Hotel-Search?destination=Miami%20Beach) | Travel | Akamai Bot Manager |
@@ -290,7 +290,7 @@ Government 1.
 | 48 | cargurus | www.cargurus.com | [link](https://www.cargurus.com/details/452063396?) | Marketplaces & classifieds | DataDome |
 | 49 | cars.com | www.cars.com | [link](https://www.cars.com/vehicledetail/2c5991ed-0923-41c8-86f4-32c04cec7dcf/) | Marketplaces & classifieds | Cloudflare |
 | 50 | crunchbase | www.crunchbase.com | [link](https://www.crunchbase.com/organization/string-ai-5443) | Reviews & local | Cloudflare |
-| 51 | verizon | www.verizon.com | [link](https://www.verizon.com/smartphones/apple-iphone-17-pro-max/) | Retail & ecommerce | Akamai Bot Manager |
+| 51 | tesla | www.tesla.com | [link](https://www.tesla.com/modely) | Retail & ecommerce | Akamai Bot Manager |
 | 52 | att | www.att.com | [link](https://www.att.com/buy/phones/samsung-galaxy-s26-ultra.html) | Retail & ecommerce | Akamai Bot Manager |
 | 53 | goodrx | www.goodrx.com | [link](https://www.goodrx.com/advil) | Health & pharmacy | PerimeterX / HUMAN |
 | 54 | LinkedIn | www.linkedin.com | [link](https://www.linkedin.com/company/microsoft/) | Social media | In-house / custom |
@@ -311,18 +311,18 @@ Government 1.
 | 69 | GOAT | www.goat.com | [link](https://www.goat.com/brand/air-jordan) | Marketplaces & classifieds | Cloudflare |
 | 70 | Yahoo Finance | finance.yahoo.com | [link](https://finance.yahoo.com/quote/AAPL/) | News & finance | Not classified |
 | 71 | DigiKey | www.digikey.com | [link](https://www.digikey.com/en/products/detail/texas-instruments/NE555P/277057) | Retail & ecommerce | Cloudflare |
-| 72 | Rightmove | www.rightmove.co.uk | [link](https://www.rightmove.co.uk/property-for-sale/London.html) | Real estate | Not classified |
+| 72 | compass | www.compass.com | [link](https://www.compass.com/homes-for-sale/chicago-il/) | Real estate | AWS WAF |
 | 73 | Instacart | www.instacart.com | [link](https://www.instacart.com/store/costco/storefront) | Grocery & food | Not classified |
 | 74 | Pinterest | www.pinterest.com | [link](https://www.pinterest.com/nasa/) | Social media | In-house / custom |
 | 75 | ZipRecruiter | www.ziprecruiter.com | [link](https://www.ziprecruiter.com/Jobs/Software-Engineer) | Jobs & hiring | Cloudflare |
-| 76 | Vinted | www.vinted.fr | [link](https://www.vinted.fr/catalog?search_text=nike) | Marketplaces & classifieds | DataDome |
+| 76 | imdb | www.imdb.com | [link](https://www.imdb.com/chart/top/) | Reviews & local | AWS WAF |
 | 77 | Idealista | www.idealista.com | [link](https://www.idealista.com/venta-viviendas/madrid-madrid/) | Real estate | DataDome |
 | 78 | Leboncoin | www.leboncoin.fr | [link](https://www.leboncoin.fr/c/voitures) | Marketplaces & classifieds | DataDome |
 | 79 | StubHub | www.stubhub.com | [link](https://www.stubhub.com/taylor-swift-tickets) | Tickets & events | AWS WAF |
 | 80 | Skyscanner | www.skyscanner.net | [link](https://www.skyscanner.net/transport/flights/nyca/lond/) | Travel | PerimeterX / HUMAN |
 | 81 | Congress.gov | www.congress.gov | [link](https://www.congress.gov/bill/117th-congress/house-bill/3684) | Government | Cloudflare |
-| 82 | TradingView | www.tradingview.com | [link](https://www.tradingview.com/symbols/NASDAQ-AAPL/) | News & finance | Not classified |
-| 83 | CoinMarketCap | coinmarketcap.com | [link](https://coinmarketcap.com/currencies/bitcoin/) | News & finance | Not classified |
+| 82 | binance | www.binance.com | [link](https://www.binance.com/en/markets/overview) | News & finance | AWS WAF |
+| 83 | seek | www.seek.com.au | [link](https://www.seek.com.au/software-engineer-jobs) | Jobs & hiring | Cloudflare |
 | 84 | Apartments.com | www.apartments.com | [link](https://www.apartments.com/new-york-ny/) | Real estate | Akamai Bot Manager |
 | 85 | Zoopla | www.zoopla.co.uk | [link](https://www.zoopla.co.uk/for-sale/property/london/) | Real estate | Cloudflare |
 | 86 | Trustpilot | www.trustpilot.com | [link](https://www.trustpilot.com/review/amazon.com) | Reviews & local | AWS WAF |
