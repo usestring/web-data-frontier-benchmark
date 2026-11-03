@@ -4,7 +4,10 @@ import type { WebAccessAggregatedResult, WebAccessBenchmarkResult } from "./type
 
 export interface ProviderRun {
   provider: string;
+  /** The headline targets: every score and leaderboard reads this. */
   result: WebAccessBenchmarkResult;
+  /** The buyer list, kept apart so it can never enter the headline score. Absent on runs before it existed. */
+  buyerList?: WebAccessBenchmarkResult;
 }
 
 const pct = (n: number): string => `${(n * 100).toFixed(1)}%`;
@@ -123,14 +126,42 @@ export function formatProviderSummary(
   return lines.join("\n");
 }
 
+/** Attempts per buyer-list site for each provider. Alphabetical and with no total: this section ranks nobody. */
+export function formatBuyerListTable(runs: ProviderRun[]): string | undefined {
+  const withList = runs.flatMap((run) => (run.buyerList ? [{ provider: run.provider, list: run.buyerList }] : []));
+  if (withList.length === 0) return undefined;
+
+  const sites = [...new Set(withList.flatMap((run) => run.list.results.map((result) => result.testName)))];
+  const header = ["Provider", ...sites];
+  const rows = withList
+    .sort((a, b) => a.provider.localeCompare(b.provider))
+    .map(({ provider, list }) => [
+      provider,
+      ...sites.map((site) => {
+        const result = list.results.find((r) => r.testName === site);
+        return result ? `${result.successCount}/${result.totalAttempts}` : "-";
+      })
+    ]);
+  const widths = header.map((h, i) => Math.max(h.length, ...rows.map((row) => row[i].length)));
+  const divider = widths.map((w) => "-".repeat(w)).join("-+-");
+  return [
+    "Buyer list (not part of the headline score)",
+    padRow(header, widths),
+    divider,
+    ...rows.map((row) => padRow(row, widths))
+  ].join("\n");
+}
+
 export function formatComparisonReport(
   runs: ProviderRun[],
   noSuccessfulProviderLatencyMs = NO_SUCCESSFUL_PROVIDER_LATENCY_MS
 ): string {
   const comparisonResults = runs.map((run) => run.result);
+  const buyerList = formatBuyerListTable(runs);
   return [
     formatComparisonTable(runs, noSuccessfulProviderLatencyMs),
-    ...runs.map((run) => formatProviderSummary(run, comparisonResults, noSuccessfulProviderLatencyMs))
+    ...runs.map((run) => formatProviderSummary(run, comparisonResults, noSuccessfulProviderLatencyMs)),
+    ...(buyerList ? [`\n${buyerList}`] : [])
   ].join("\n");
 }
 
@@ -147,7 +178,7 @@ export function saveComparisonReport(report: string, outPath: string): void {
 export function saveResultsJSON(runs: ProviderRun[], outPath: string): void {
   const payload = {
     generatedAt: new Date().toISOString(),
-    providers: runs.map((r) => ({ provider: r.provider, ...r.result }))
+    providers: runs.map((r) => ({ provider: r.provider, ...r.result, ...(r.buyerList ? { buyerList: r.buyerList } : {}) }))
   };
   writeOutput(outPath, JSON.stringify(payload, null, 2));
 }
