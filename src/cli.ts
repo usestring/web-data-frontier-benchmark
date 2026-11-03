@@ -4,7 +4,7 @@ import { formatComparisonReport, saveComparisonReport, saveResultsJSON, type Pro
 import { PROVIDERS } from "./providers/index.js";
 import { makeRecordingExecutor } from "./failures.js";
 import { makeExecutor, runWebAccessBenchmarkSuite } from "./runner.js";
-import { WEB_ACCESS_BENCHMARK_CONFIG, WEB_ACCESS_BUYER_TESTS, WEB_ACCESS_HEADLINE_TESTS } from "./tests.const.js";
+import { WEB_ACCESS_ALL_TESTS, WEB_ACCESS_BENCHMARK_CONFIG } from "./tests.const.js";
 import type { Provider, WebAccessBenchmarkConfig, WebAccessTestConfig } from "./types.js";
 
 interface CliOptions {
@@ -16,7 +16,6 @@ interface CliOptions {
   out?: string;
   reportOut?: string;
   failuresDir?: string;
-  dryRun?: boolean;
   help: boolean;
 }
 
@@ -50,9 +49,6 @@ function parseArgs(argv: string[]): CliOptions {
       case "--failures-dir":
         opts.failuresDir = next();
         break;
-      case "--dry-run":
-        opts.dryRun = true;
-        break;
       case "-h":
       case "--help":
         opts.help = true;
@@ -73,7 +69,7 @@ Usage:
 
 Options:
   --providers <a,b>    Only run these providers (default: all with keys set)
-  --tests <a,b>        Only run these test fixtures by name, from either list (default: all)
+  --tests <a,b>        Only run these test fixtures by name (default: all)
   --attempts <n>       Attempts per test (default: ${WEB_ACCESS_BENCHMARK_CONFIG.attemptsPerTest})
   --concurrency <n>    Parallel requests per provider (default: ${WEB_ACCESS_BENCHMARK_CONFIG.concurrency})
   --provider-concurrency <n>  Providers to benchmark at once (default: ${WEB_ACCESS_BENCHMARK_CONFIG.providerConcurrency})
@@ -81,7 +77,6 @@ Options:
   --report-out <file>  Rendered report path (default: the results path with a .txt extension)
   --failures-dir <dir> Keep evidence for every failed attempt: <dir>/<provider>/<test>-<attempt>.{html,txt}
                        (body as scored, capped at 2 MB) plus a .json sidecar (status, latency, error, trace id)
-  --dry-run            Print the targets and request counts for the selected providers, then exit without sending
   -h, --help           Show this help
 
 Set provider API keys in a .env file (see .env.example). A provider runs only when all of
@@ -103,11 +98,10 @@ function selectProviders(opts: CliOptions): { active: Provider[]; skipped: strin
   return { active, skipped };
 }
 
-function selectTests(opts: CliOptions): { headline: WebAccessTestConfig[]; buyer: WebAccessTestConfig[] } {
-  if (!opts.tests) return { headline: WEB_ACCESS_HEADLINE_TESTS, buyer: WEB_ACCESS_BUYER_TESTS };
+function selectTests(opts: CliOptions): WebAccessTestConfig[] {
+  if (!opts.tests) return WEB_ACCESS_ALL_TESTS;
   const wanted = new Set(opts.tests.map((t) => t.toLowerCase()));
-  const pick = (tests: WebAccessTestConfig[]) => tests.filter((t) => wanted.has(t.name.toLowerCase()));
-  return { headline: pick(WEB_ACCESS_HEADLINE_TESTS), buyer: pick(WEB_ACCESS_BUYER_TESTS) };
+  return WEB_ACCESS_ALL_TESTS.filter((t) => wanted.has(t.name.toLowerCase()));
 }
 
 function defaultReportPath(resultsPath: string): string {
@@ -123,7 +117,7 @@ async function main(): Promise<void> {
   }
 
   const { active, skipped } = selectProviders(opts);
-  const { headline, buyer } = selectTests(opts);
+  const tests = selectTests(opts);
 
   const config: WebAccessBenchmarkConfig = {
     ...WEB_ACCESS_BENCHMARK_CONFIG,
@@ -135,24 +129,15 @@ async function main(): Promise<void> {
   console.log(`\nActive providers (${active.length}): ${active.map((p) => p.name).join(", ") || "none"}`);
   if (skipped.length) console.log(`Skipped: ${skipped.join(", ")}`);
   console.log(
-    `Tests: ${headline.length} headline + ${buyer.length} buyer list | attempts: ${config.attemptsPerTest} | concurrency: ${config.concurrency} | provider-concurrency: ${config.providerConcurrency}\n`
+    `Tests: ${tests.length} | attempts: ${config.attemptsPerTest} | concurrency: ${config.concurrency} | provider-concurrency: ${config.providerConcurrency}\n`
   );
-
-  if (opts.dryRun) {
-    const providerCount = active.length + skipped.length;
-    const perProvider = (headline.length + buyer.length) * config.attemptsPerTest;
-    console.log(`Requests per provider: ${headline.length * config.attemptsPerTest} headline + ${buyer.length * config.attemptsPerTest} buyer list = ${perProvider}`);
-    console.log(`Requests with all ${providerCount} selected providers: ${perProvider * providerCount}; with the ${active.length} active now: ${perProvider * active.length}`);
-    console.log("Dry run: no requests sent.");
-    return;
-  }
 
   if (active.length === 0) {
     console.error("No active providers — set at least one provider's API key in .env. See --help.");
     process.exitCode = 1;
     return;
   }
-  if (headline.length + buyer.length === 0) {
+  if (tests.length === 0) {
     console.error("No matching tests — check --tests names against .env.example / tests.const.ts.");
     process.exitCode = 1;
     return;
@@ -165,9 +150,8 @@ async function main(): Promise<void> {
       const providerIndex = nextProvider++;
       const provider = active[providerIndex];
       const executor = opts.failuresDir ? makeRecordingExecutor(provider, opts.failuresDir) : makeExecutor(provider);
-      const result = await runWebAccessBenchmarkSuite(headline, executor, config, provider.name);
-      const buyerList = buyer.length ? await runWebAccessBenchmarkSuite(buyer, executor, config, `${provider.name} buyer list`) : undefined;
-      runs[providerIndex] = { provider: provider.name, result, buyerList };
+      const result = await runWebAccessBenchmarkSuite(tests, executor, config, provider.name);
+      runs[providerIndex] = { provider: provider.name, result };
     }
   }
   const providerWorkers = Math.min(config.providerConcurrency, active.length);
