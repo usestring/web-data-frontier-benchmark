@@ -10,7 +10,7 @@ interface CliOptions {
 }
 
 interface ResultsFile {
-  providers: Array<{ provider: string; buyerList?: WebAccessBenchmarkResult } & WebAccessBenchmarkResult>;
+  providers: Array<{ provider: string } & WebAccessBenchmarkResult>;
 }
 
 function parseArgs(argv: string[]): CliOptions {
@@ -57,7 +57,7 @@ function readRuns(inputPath: string): ProviderRun[] {
   if (!Array.isArray(resultsFile.providers) || resultsFile.providers.some((run) => typeof run.provider !== "string")) {
     throw new Error(`Invalid results file: ${inputPath}`);
   }
-  return resultsFile.providers.map(({ provider, buyerList, ...result }) => ({ provider, result, buyerList }));
+  return resultsFile.providers.map(({ provider, ...result }) => ({ provider, result }));
 }
 
 function main(): void {

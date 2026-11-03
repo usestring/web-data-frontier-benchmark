@@ -1,7 +1,7 @@
 export * from "./types.js";
 export { normalizeBody, validateResponse } from "./check.js";
 export { makeExecutor, runWebAccessBenchmarkSuite } from "./runner.js";
-export { WEB_ACCESS_BENCHMARK_CONFIG, WEB_ACCESS_BUYER_TESTS, WEB_ACCESS_HEADLINE_TESTS } from "./tests.const.js";
+export { WEB_ACCESS_ALL_TESTS, WEB_ACCESS_BENCHMARK_CONFIG } from "./tests.const.js";
 export { PROVIDERS, getProvider } from "./providers/index.js";
 export {
   comparisonAverageLatencyMs,
