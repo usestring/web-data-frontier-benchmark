@@ -49,7 +49,8 @@ Use one of these verification paths:
   `Benchmark affiliation verification for PR #<number>`. The message must include your GitHub
   username, the company and provider, the pull request URL, and confirmation that you want the
   provider configuration in that pull request merged. Receipt of that company-domain email is
-  sufficient verification; no public challenge is required.
+  sufficient verification; no public challenge is required. For a new provider, also include the
+  [funded-account setup information](#api-key-and-funded-account-required-for-new-providers).
 
 A self-attestation without verifiable evidence is not sufficient. If verification is sent by email,
 state that in the pull request without posting the private message or address. Maintainers will note
@@ -63,20 +64,24 @@ For external contributors without an explicit maintainer exception, verified aff
 prerequisite for approval, not a guarantee of acceptance. Maintainers will still review every
 change for fairness, reproducibility, scope, and consistency with the benchmark methodology.
 
-## Free API key required for new providers
+## API key and funded account required for new providers
 
-Every provider requesting addition must give maintainers a free API key before its adapter can be
-accepted. The key must enable the submitted configuration, including any paid modes it uses, with
-enough credits and quota for independent validation and official benchmark runs at no cost to
-maintainers. A full run currently makes 500 attempts per provider (100 targets × 5 attempts).
-Providers must keep this free access available for official reruns.
+Every provider requesting addition must supply maintainers with an API key and enough
+provider-funded credits or quota to cover independent validation and official benchmark runs before
+its adapter can be accepted. The key must enable the submitted configuration, including any paid
+modes it uses. A full run currently makes 500 attempts per provider (100 targets × 5 attempts).
 
-State any credit, rate, or expiry limits in the pull request without including the key. Use the
-contact address in [Attestation and evidence](#attestation-and-evidence) with the pull request URL
-to arrange a private credential handoff. Do not include credentials in that email,
-affiliation-verification emails, public issues, pull requests, or commits. Maintainers must confirm
-that the free access works before approving the addition. An environment-variable placeholder or
-provider-reported results alone do not satisfy this requirement.
+When emailing the contact address in [Attestation and evidence](#attestation-and-evidence), include
+the pull request URL and a pathway for maintainers to create a funded account: a signup link or
+account-setup steps, plus instructions for receiving the required funds or credits. Include this
+information in the affiliation-verification email if using that verification path. Use email to
+arrange a private credential handoff; do not include credentials in that email,
+affiliation-verification emails, public issues, pull requests, or commits.
+
+State any credit, rate, or expiry limits in the pull request without including the key. Maintainers
+must confirm that the supplied key works and has sufficient funding or quota before approving the
+addition. An environment-variable placeholder or provider-reported results alone do not satisfy
+this requirement.
 
 ## What an adapter may do
 
