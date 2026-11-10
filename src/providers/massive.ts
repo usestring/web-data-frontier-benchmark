@@ -18,13 +18,16 @@ export const massive: Provider = {
       const response = await client().request<string>({
         url: "/browser",
         method: "GET",
-        // difficulty=medium routes a stronger anti-bot pool; format=rendered returns HTML after JS execution (raw skips the browser render);
-        // expiration=0 disables caching so every attempt hits the origin
-        params: { url, difficulty: "medium", format: "rendered", expiration: 0 },
+        // Disable caching so every attempt measures a fresh fetch.
+        params: { url, difficulty: "high", format: "raw", mode: "sync", expiration: 0 },
         responseType: "text",
         signal,
         timeout: timeoutMs,
       });
+
+      if (response.status !== 200) {
+        throw new Error(`Expected completed page content, received status ${response.status}`);
+      }
 
       return { body: typeof response.data === "string" ? response.data : String(response.data ?? ""), statusCode: response.status };
     } catch (e) {
