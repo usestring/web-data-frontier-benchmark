@@ -6,9 +6,9 @@ the result without exposing credentials.
 
 ## Provider configuration changes
 
-The benchmark aims to exercise each provider using the configuration that provider currently
-recommends for this workload. To prevent unverified external configuration changes from affecting
-the comparison, maintainers will approve a provider configuration change from an external
+The benchmark aims to exercise each provider using one configuration that provider currently
+recommends for the entire workload. To prevent unverified external configuration changes from
+affecting the comparison, maintainers will approve a provider configuration change from an external
 contributor only after verifying that the contributor is currently affiliated with the company
 responsible for the affected provider.
 
@@ -63,10 +63,31 @@ For external contributors without an explicit maintainer exception, verified aff
 prerequisite for approval, not a guarantee of acceptance. Maintainers will still review every
 change for fairness, reproducibility, scope, and consistency with the benchmark methodology.
 
+## Free API key required for new providers
+
+Every provider requesting addition must give maintainers a free API key before its adapter can be
+accepted. The key must enable the submitted configuration, including any paid modes it uses, with
+enough credits and quota for independent validation and official benchmark runs at no cost to
+maintainers. A full run currently makes 500 attempts per provider (100 targets × 5 attempts).
+Providers must keep this free access available for official reruns.
+
+State any credit, rate, or expiry limits in the pull request without including the key. Use the
+contact address in [Attestation and evidence](#attestation-and-evidence) with the pull request URL
+to arrange a private credential handoff. Do not include credentials in that email,
+affiliation-verification emails, public issues, pull requests, or commits. Maintainers must confirm
+that the free access works before approving the addition. An environment-variable placeholder or
+provider-reported results alone do not satisfy this requirement.
+
 ## What an adapter may do
 
 Every provider is measured the same way, so these hold for every adapter, whoever opens the pull request:
 
+- **One configuration per provider.** Use the same adapter-selected settings for every source in
+  the suite. Do not choose engines, rendering, CAPTCHA solving, proxy country, warm-up pages, or
+  other provider options based on the target URL, hostname, fixture name, or other target properties.
+  Per-domain lookup tables and country selection derived from a target's domain are not allowed.
+  The target URL itself varies on each request; the provider may choose its strategy internally
+  behind the same API configuration.
 - **One request per attempt.** The adapter sends the attempt once and the runner scores whatever comes back,
   errors included. Adapters do not retry on errors, blocks or timeouts, and SDK clients that retry by default
   are set to zero retries.
@@ -74,7 +95,7 @@ Every provider is measured the same way, so these hold for every adapter, whoeve
   not drive browser sessions over CDP, WebDriver or similar protocols, so a hosted-browser product can be
   benchmarked only through a fetch-style endpoint (Browserbase runs through its Fetch API).
 
-Pull requests that need either of these to change will be closed. Open an issue if you think a rule is wrong.
+Pull requests that violate these rules will be closed. Open an issue if you think a rule is wrong.
 
 ## Validation
 
