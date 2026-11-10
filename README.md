@@ -173,13 +173,17 @@ console.log(result.overallSuccessRate);
 Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request. Maintainers approve provider
 configuration changes from external contributors only after verifying current affiliation with the
 affected provider's company, unless a repository maintainer explicitly takes responsibility for
-the change.
+the change. Every adapter must use [one configuration across all sources](CONTRIBUTING.md#what-an-adapter-may-do).
+New providers must [give maintainers a free API key](CONTRIBUTING.md#free-api-key-required-for-new-providers)
+for independent validation and official benchmark runs before their addition can be accepted.
 
 ## Adding a provider
 
 1. Create `src/providers/<name>.ts` exporting a `Provider` (`name`, `envKeys`, `fetch`).
 2. Register it in the `PROVIDERS` array in `src/providers/index.ts`.
-3. Document its key in `.env.example` and the table above.
+3. Document its key's environment-variable name in `.env.example` and the table above; never commit the key.
+4. Confirm the adapter uses one configuration for every source and arrange the required free API key
+   handoff with maintainers, following [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Notes
 
