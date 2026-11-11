@@ -27,3 +27,10 @@ export function httpErrorMessage(provider: string, e: unknown): string {
   }
   return `Error making ${provider} request: ${e instanceof Error ? e.message : String(e)}`;
 }
+
+/** Reads one response header from an axios response (or error response), if present. */
+export function headerValue(headers: unknown, name: string): string | undefined {
+  if (!headers || typeof headers !== "object") return undefined;
+  const value = (headers as Record<string, unknown>)[name.toLowerCase()];
+  return typeof value === "string" && value ? value : undefined;
+}

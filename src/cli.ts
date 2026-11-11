@@ -2,6 +2,7 @@ import "dotenv/config";
 import { extname, join } from "node:path";
 import { formatComparisonReport, saveComparisonReport, saveResultsJSON, type ProviderRun } from "./format.js";
 import { PROVIDERS } from "./providers/index.js";
+import { makeRecordingExecutor } from "./failures.js";
 import { makeExecutor, runWebAccessBenchmarkSuite } from "./runner.js";
 import { WEB_ACCESS_ALL_TESTS, WEB_ACCESS_BENCHMARK_CONFIG } from "./tests.const.js";
 import type { Provider, WebAccessBenchmarkConfig, WebAccessTestConfig } from "./types.js";
@@ -14,6 +15,7 @@ interface CliOptions {
   providerConcurrency?: number;
   out?: string;
   reportOut?: string;
+  failuresDir?: string;
   help: boolean;
 }
 
@@ -44,6 +46,9 @@ function parseArgs(argv: string[]): CliOptions {
       case "--report-out":
         opts.reportOut = next();
         break;
+      case "--failures-dir":
+        opts.failuresDir = next();
+        break;
       case "-h":
       case "--help":
         opts.help = true;
@@ -70,6 +75,8 @@ Options:
   --provider-concurrency <n>  Providers to benchmark at once (default: ${WEB_ACCESS_BENCHMARK_CONFIG.providerConcurrency})
   --out <file>         Results JSON path (default: results/benchmark-<timestamp>.json)
   --report-out <file>  Rendered report path (default: the results path with a .txt extension)
+  --failures-dir <dir> Keep evidence for every failed attempt: <dir>/<provider>/<test>-<attempt>.{html,txt}
+                       (body as scored, capped at 2 MB) plus a .json sidecar (status, latency, error, trace id)
   -h, --help           Show this help
 
 Set provider API keys in a .env file (see .env.example). A provider runs only when all of
@@ -142,7 +149,8 @@ async function main(): Promise<void> {
     while (nextProvider < active.length) {
       const providerIndex = nextProvider++;
       const provider = active[providerIndex];
-      const result = await runWebAccessBenchmarkSuite(tests, makeExecutor(provider), config, provider.name);
+      const executor = opts.failuresDir ? makeRecordingExecutor(provider, opts.failuresDir) : makeExecutor(provider);
+      const result = await runWebAccessBenchmarkSuite(tests, executor, config, provider.name);
       runs[providerIndex] = { provider: provider.name, result };
     }
   }
@@ -160,6 +168,7 @@ async function main(): Promise<void> {
   saveComparisonReport(report, reportPath);
   console.log(`\nSaved results to ${outPath}`);
   console.log(`Saved report to ${reportPath}`);
+  if (opts.failuresDir) console.log(`Failed-attempt evidence (if any) in ${opts.failuresDir}`);
 }
 
 main().catch((e) => {

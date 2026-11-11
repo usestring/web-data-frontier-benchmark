@@ -10,27 +10,35 @@ Read the full write-up: [The Web Scraping Benchmark Problem](https://www.usestri
 
 ## Results
 
-Official run: **September 15, 2026** (100 targets × 5 attempts × 16 providers = 8,000 requests;
-raw data in [`official_results/benchmark-2026-09-16T01-03-47-074Z.json`](official_results/benchmark-2026-09-16T01-03-47-074Z.json)).
+Official run: **October 30, 2026** (100 targets × 5 attempts × 17 providers = 8,500 requests;
+raw data in [`official_results/benchmark-2026-10-30T18-48-18-489Z.json`](official_results/benchmark-2026-10-30T18-48-18-489Z.json)).
 
 | Rank | Provider    | Success rate | Latency score |  Passed |
 | ---: | ----------- | -----------: | ------------: | ------: |
-|    1 | string      |        97.0% |         7.06s | 485/500 |
-|    2 | scrapfly    |        86.2% |        19.79s | 431/500 |
-|    3 | scraperapi  |        84.0% |        12.97s | 420/500 |
-|    4 | firecrawl   |        80.2% |         9.11s | 401/500 |
-|    5 | apify       |        77.4% |        20.64s | 387/500 |
-|    6 | bright      |        74.6% |        15.62s | 373/500 |
-|    7 | scrapingbee |        73.0% |        21.96s | 365/500 |
-|    8 | context_dev |        72.0% |        16.32s | 360/500 |
-|    9 | oxylabs     |        69.0% |        15.86s | 345/500 |
-|   10 | nimble      |        68.6% |        21.54s | 343/500 |
-|   11 | zyte        |        68.0% |        17.46s | 340/500 |
-|   12 | decodo      |        50.6% |        25.41s | 253/500 |
-|   13 | scrapingdog |        45.6% |        26.55s | 228/500 |
-|   14 | browserbase |        41.4% |        17.73s | 207/500 |
-|   15 | zenrows     |        41.2% |        18.80s | 206/500 |
-|   16 | scrapingant |        36.4% |        18.95s | 182/500 |
+|    1 | string      |        98.6% |         4.24s | 493/500 |
+|    2 | scrapedo    |        94.0% |         5.08s | 470/500 |
+|    3 | context_dev |        93.0% |        10.96s | 465/500 |
+|    4 | scrapfly    |        86.8% |        19.62s | 434/500 |
+|    5 | scrapingbee |        85.2% |        20.30s | 426/500 |
+|    6 | firecrawl   |        81.2% |         8.87s | 406/500 |
+|    7 | zyte        |        79.6% |        14.43s | 398/500 |
+|    8 | apify       |        79.4% |        24.87s | 397/500 |
+|    9 | scraperapi  |        76.4% |        15.19s | 382/500 |
+|   10 | bright      |        75.4% |        27.88s | 377/500 |
+|   11 | decodo      |        71.2% |        28.29s | 356/500 |
+|   12 | nimble      |        68.0% |        22.65s | 340/500 |
+|   13 | oxylabs     |        67.4% |        16.62s | 337/500 |
+|   14 | browserbase |        43.0% |        18.01s | 215/500 |
+|   15 | zenrows     |        41.8% |        21.91s | 209/500 |
+|   16 | scrapingant |        40.0% |        18.39s | 200/500 |
+|   17 | scrapingdog |        27.6% |        31.52s | 138/500 |
+
+Notes on this run:
+
+- Scrape.do is new this month. Massive is not included: its account could not be provisioned before the run.
+- Every provider ran with the default settings (concurrency 2, 90-second timeout).
+
+Previous official run: September 15, 2026 ([`official_results/benchmark-2026-09-16T01-03-47-074Z.json`](official_results/benchmark-2026-09-16T01-03-47-074Z.json)).
 
 ## Latency scoring
 
@@ -69,7 +77,7 @@ npm run benchmark      # Node (tsx)
 bun run src/cli.ts     # Bun
 
 # Recalculate a report from stored results without sending provider requests
-npm run analyze -- --in official_results/benchmark-2026-09-16T01-03-47-074Z.json --out results/recalculated-latency.txt
+npm run analyze -- --in official_results/benchmark-2026-10-30T18-48-18-489Z.json --out results/recalculated-latency.txt
 ```
 
 A smoke test against a single provider and a single fixture:
@@ -89,17 +97,30 @@ npm run benchmark -- --providers scrapfly --tests amazon --attempts 1
 | `--provider-concurrency <n>` | Providers to benchmark at once (default: 15)                      |
 | `--out <file>`               | Results JSON path (default: `results/benchmark-<timestamp>.json`) |
 | `--report-out <file>`        | Rendered report path (default: results path with `.txt`)          |
+| `--failures-dir <dir>`       | Keep evidence for every failed attempt (off by default; see below) |
 | `-h, --help`                 | Show help                                                         |
 
 Each benchmark run writes the full structured results (every attempt) to JSON and its comparison leaderboard
 plus per-provider, per-test breakdown to a companion text report. Use `--report-out` to choose another path.
+
+The results JSON keeps only an error message per failed attempt. To diagnose a miss from the run itself,
+pass `--failures-dir <dir>`. For each failed attempt (successes are not written) the runner saves:
+
+- `<dir>/<provider>/<test>-<attempt>.html` (or `.txt`): the body exactly as the checker saw it, capped at 2 MB.
+  Absent when the attempt produced no body, such as a timeout or a network error.
+- `<dir>/<provider>/<test>-<attempt>.json`: provider, test, URL, attempt, status code, latency, error
+  message, the provider's request/trace id when its API returns one (String's `x-trace-id` header), and a
+  timestamp.
+
+Recording only observes the adapter's single request; it adds no requests, retries or request parameters.
+Failed attempts also carry `traceId` in the results JSON when one was captured.
 
 ## Results analysis
 
 Recalculate the current scoring from a stored benchmark JSON file without calling providers:
 
 ```bash
-npm run analyze -- --in official_results/benchmark-2026-09-16T01-03-47-074Z.json --out results/recalculated-latency.txt
+npm run analyze -- --in official_results/benchmark-2026-10-30T18-48-18-489Z.json --out results/recalculated-latency.txt
 ```
 
 | Option                   | Description                                                        |
@@ -152,13 +173,19 @@ console.log(result.overallSuccessRate);
 Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request. Maintainers approve provider
 configuration changes from external contributors only after verifying current affiliation with the
 affected provider's company, unless a repository maintainer explicitly takes responsibility for
-the change.
+the change. Every adapter must use [one configuration across all sources](CONTRIBUTING.md#what-an-adapter-may-do).
+New providers must [supply an API key and funded-account setup instructions](CONTRIBUTING.md#api-key-and-funded-account-required-for-new-providers),
+with enough provider-funded credits or quota to cover independent validation and official benchmark
+runs before their addition can be accepted.
 
 ## Adding a provider
 
 1. Create `src/providers/<name>.ts` exporting a `Provider` (`name`, `envKeys`, `fetch`).
 2. Register it in the `PROVIDERS` array in `src/providers/index.ts`.
-3. Document its key in `.env.example` and the table above.
+3. Document its key's environment-variable name in `.env.example` and the table above; never commit the key.
+4. Confirm the adapter uses one configuration for every source. Supply the required API key and
+   include a pathway to create a funded account in your email outreach to maintainers, following
+   [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Notes
 
@@ -208,12 +235,12 @@ accepts. **Industry** is the fixture's `industry` field, an editorial grouping o
 of data behind the URL; every target carries exactly one. **Anti-bot** is the fixture's `antibot` field;
 `Not classified` means the fixture carries no `antibot` value, not that the site is unprotected.
 
-Vendor spread: Akamai Bot Manager 20, DataDome 20, Cloudflare 15, PerimeterX / HUMAN 9, In-house /
-custom 9, AWS WAF 7, Kasada 3, Fastly Bot Management 1, Imperva Incapsula 1, Temu (in-house) 1,
-Ticketmaster (in-house) 1, Not classified 13.
+Vendor spread: Akamai Bot Manager 19, DataDome 19, Cloudflare 16, AWS WAF 10, In-house / custom 9,
+PerimeterX / HUMAN 8, Kasada 5, Imperva Incapsula 2, F5 / Shape 1, Fastly Bot Management 1, Temu
+(in-house) 1, Ticketmaster (in-house) 1, Not classified 8.
 
-Industry spread: Retail & ecommerce 17, Fashion & luxury 11, Marketplaces & classifieds 10, Travel 9,
-News & finance 9, Social media 8, Real estate 7, Reviews & local 6, Jobs & hiring 5, Grocery & food 5,
+Industry spread: Retail & ecommerce 17, Fashion & luxury 11, Marketplaces & classifieds 9, Travel 9,
+News & finance 8, Social media 8, Reviews & local 8, Real estate 7, Grocery & food 5, Jobs & hiring 5,
 Tickets & events 4, Developer & research 3, Search engines 2, Gaming & betting 2, Health & pharmacy 1,
 Government 1.
 
@@ -234,20 +261,20 @@ Government 1.
 | 13 | asda | www.asda.com | [link](https://www.asda.com/groceries/product/frozen-waffles-shapes-wedges/mccain-potato-smiles-454g/478142) | Grocery & food | Cloudflare |
 | 14 | lululemon | shop.lululemon.com | [link](https://shop.lululemon.com/p/mens-jackets-and-hoodies-hoodies/Ease-The-Day-Hoodie/_/prod20009295) | Fashion & luxury | Akamai Bot Manager |
 | 15 | hyatt | www.hyatt.com | [link](https://www.hyatt.com/park-hyatt/en-US/nycph-park-hyatt-new-york) | Travel | Kasada |
-| 16 | macys | www.macys.com | [link](https://www.macys.com/xapi/discover/v1/page?pathname=/shop/womens/clothing/pants/Upc_bops_purchasable/10&id=157&_navigationType=BROWSE&_shoppingMode=SITE&sortBy=BEST_SELLERS&productsPerPage=120&_application=SITE&_regionCode=US&currencyCode=USD&_deviceType=DESKTOP&_customerState=GUEST&_additionalStoreLocations=10&pageIndex=1) | Fashion & luxury | Akamai Bot Manager |
+| 16 | nordstrom | www.nordstrom.com | [link](https://www.nordstrom.com/browse/women/clothing/dresses) | Fashion & luxury | F5 / Shape |
 | 17 | etsy | www.etsy.com | [link](https://www.etsy.com/listing/4409872205/linen-sheer-cafe-curtains-farmhouse) | Marketplaces & classifieds | DataDome |
 | 18 | yelp | www.yelp.com | [link](https://www.yelp.com/search?find_desc=mexican+restuarant&find_loc=Chicago%2C+IL) | Reviews & local | DataDome |
 | 19 | zara | www.zara.com | [link](https://www.zara.com/us/en/100-linen-pocket-overshirt-p00706754.html) | Fashion & luxury | Akamai Bot Manager |
 | 20 | louisvuitton | us.louisvuitton.com | [link](https://us.louisvuitton.com/eng-us/products/lv-tilted-sneaker-nvprod7310009v/1AJS39) | Fashion & luxury | Akamai Bot Manager |
 | 21 | autozone | www.autozone.com | [link](https://www.autozone.com/p/valvoline-maxlife-full-synthetic-motor-oil-vv179/539362) | Retail & ecommerce | DataDome |
 | 22 | homedepot | www.homedepot.com | [link](https://www.homedepot.com/p/Milwaukee-M18-FUEL-18-Volt-Lithium-Ion-Brushless-Cordless-Gen-II-18-Gauge-Brad-Nailer-Tool-Only-2746-20/309752194) | Retail & ecommerce | Akamai Bot Manager |
-| 23 | ashleyfurniture | www.ashleyfurniture.com | [link](https://www.ashleyfurniture.com/p/roanhowe_dining_table_and_4_chairs/APG-D76935-5P.html) | Retail & ecommerce | PerimeterX / HUMAN |
+| 23 | sallybeauty | www.sallybeauty.com | [link](https://www.sallybeauty.com/hair-color/) | Retail & ecommerce | PerimeterX / HUMAN |
 | 24 | autotrader | www.autotrader.com | [link](https://www.autotrader.com/cars-for-sale/vehicle/763249459) | Marketplaces & classifieds | Akamai Bot Manager |
 | 25 | booking.com | www.booking.com | [link](https://www.booking.com/hotel/us/the-plaza.html) | Travel | AWS WAF |
-| 26 | carters | www.carters.com | [link](https://www.carters.com/p/toddler-boy-polo-shirt-made-with-organic-cotton-in-stripes/V_2U855510) | Fashion & luxury | PerimeterX / HUMAN |
-| 27 | databricks | www.databricks.com | [link](https://www.databricks.com/company/careers/open-positions?department=Engineering&location=all) | Jobs & hiring | Not classified |
+| 26 | ysl | www.ysl.com | [link](https://www.ysl.com/en-us/shop-women/handbags) | Fashion & luxury | Akamai Bot Manager |
+| 27 | zoominfo | www.zoominfo.com | [link](https://www.zoominfo.com/c/microsoft/24904409) | Reviews & local | PerimeterX / HUMAN |
 | 28 | emag | www.emag.ro | [link](https://www.emag.ro/telefon-mobil-apple-iphone-17-256gb-5g-black-mg6j4zd-a/pd/DGX9FV3BM/) | Retail & ecommerce | AWS WAF |
-| 29 | expedia | www.expedia.com | [link](https://www.expedia.com/Hotel-Search?destination=Miami%20Beach) | Travel | Akamai Bot Manager |
+| 29 | transat | www.transat.com | [link](https://www.transat.com/en-CA) | Travel | Imperva Incapsula |
 | 30 | glassdoor | www.glassdoor.com | [link](https://www.glassdoor.com/Job/chicago-software-engineer-jobs-SRCH_IL.0,7_IC1128808_KO8,25.htm) | Jobs & hiring | Cloudflare |
 | 31 | marketwatch | www.marketwatch.com | [link](https://www.marketwatch.com/investing/stock/psky) | News & finance | DataDome |
 | 32 | barrons | www.barrons.com | [link](https://www.barrons.com/articles/micron-stock-price-memory-chips-trump-5c6f7870) | News & finance | DataDome |
@@ -260,16 +287,16 @@ Government 1.
 | 39 | wsj | www.wsj.com | [link](https://www.wsj.com/livecoverage/iran-war-2026-trump-deadline-latest-news) | News & finance | DataDome |
 | 40 | bloomberg | www.bloomberg.com | [link](https://www.bloomberg.com/markets) | News & finance | PerimeterX / HUMAN |
 | 41 | reuters | www.reuters.com | [link](https://www.reuters.com/) | News & finance | DataDome |
-| 42 | alibaba | www.alibaba.com | [link](https://www.alibaba.com/product-detail/Composite-Material-Breathable-Lumbar-Back-Brace_1601619518415.html) | Retail & ecommerce | Not classified |
+| 42 | costco | www.costco.com | [link](https://www.costco.com/laptops.html) | Retail & ecommerce | Kasada |
 | 43 | coupang | www.coupang.com | [link](https://www.coupang.com/vp/products/7579231557) | Retail & ecommerce | Akamai Bot Manager |
 | 44 | ebay | www.ebay.com | [link](https://www.ebay.com/itm/227305215584) | Marketplaces & classifieds | Akamai Bot Manager |
-| 45 | target | www.target.com | [link](https://www.target.com/p/1-39-6-34-x2-39-6-34-so-happy-you-39-re-here-doormat-natural-threshold-8482/-/A-82253413) | Retail & ecommerce | PerimeterX / HUMAN |
+| 45 | chewy | www.chewy.com | [link](https://www.chewy.com/b/dry-food-294) | Retail & ecommerce | Kasada |
 | 46 | nike | www.nike.com | [link](https://www.nike.com/t/kd19-purple-stuff-basketball-shoes-vrLfPVAT/IH1117-500) | Fashion & luxury | Akamai Bot Manager |
 | 47 | stockx | stockx.com | [link](https://stockx.com/air-jordan-5-retro-black-university-blue-2026) | Marketplaces & classifieds | Cloudflare |
 | 48 | cargurus | www.cargurus.com | [link](https://www.cargurus.com/details/452063396?) | Marketplaces & classifieds | DataDome |
 | 49 | cars.com | www.cars.com | [link](https://www.cars.com/vehicledetail/2c5991ed-0923-41c8-86f4-32c04cec7dcf/) | Marketplaces & classifieds | Cloudflare |
 | 50 | crunchbase | www.crunchbase.com | [link](https://www.crunchbase.com/organization/string-ai-5443) | Reviews & local | Cloudflare |
-| 51 | verizon | www.verizon.com | [link](https://www.verizon.com/smartphones/apple-iphone-17-pro-max/) | Retail & ecommerce | Akamai Bot Manager |
+| 51 | tesla | www.tesla.com | [link](https://www.tesla.com/modely) | Retail & ecommerce | Akamai Bot Manager |
 | 52 | att | www.att.com | [link](https://www.att.com/buy/phones/samsung-galaxy-s26-ultra.html) | Retail & ecommerce | Akamai Bot Manager |
 | 53 | goodrx | www.goodrx.com | [link](https://www.goodrx.com/advil) | Health & pharmacy | PerimeterX / HUMAN |
 | 54 | LinkedIn | www.linkedin.com | [link](https://www.linkedin.com/company/microsoft/) | Social media | In-house / custom |
@@ -290,18 +317,18 @@ Government 1.
 | 69 | GOAT | www.goat.com | [link](https://www.goat.com/brand/air-jordan) | Marketplaces & classifieds | Cloudflare |
 | 70 | Yahoo Finance | finance.yahoo.com | [link](https://finance.yahoo.com/quote/AAPL/) | News & finance | Not classified |
 | 71 | DigiKey | www.digikey.com | [link](https://www.digikey.com/en/products/detail/texas-instruments/NE555P/277057) | Retail & ecommerce | Cloudflare |
-| 72 | Rightmove | www.rightmove.co.uk | [link](https://www.rightmove.co.uk/property-for-sale/London.html) | Real estate | Not classified |
+| 72 | compass | www.compass.com | [link](https://www.compass.com/homes-for-sale/chicago-il/) | Real estate | AWS WAF |
 | 73 | Instacart | www.instacart.com | [link](https://www.instacart.com/store/costco/storefront) | Grocery & food | Not classified |
 | 74 | Pinterest | www.pinterest.com | [link](https://www.pinterest.com/nasa/) | Social media | In-house / custom |
 | 75 | ZipRecruiter | www.ziprecruiter.com | [link](https://www.ziprecruiter.com/Jobs/Software-Engineer) | Jobs & hiring | Cloudflare |
-| 76 | Vinted | www.vinted.fr | [link](https://www.vinted.fr/catalog?search_text=nike) | Marketplaces & classifieds | DataDome |
+| 76 | imdb | www.imdb.com | [link](https://www.imdb.com/chart/top/) | Reviews & local | AWS WAF |
 | 77 | Idealista | www.idealista.com | [link](https://www.idealista.com/venta-viviendas/madrid-madrid/) | Real estate | DataDome |
 | 78 | Leboncoin | www.leboncoin.fr | [link](https://www.leboncoin.fr/c/voitures) | Marketplaces & classifieds | DataDome |
 | 79 | StubHub | www.stubhub.com | [link](https://www.stubhub.com/taylor-swift-tickets) | Tickets & events | AWS WAF |
 | 80 | Skyscanner | www.skyscanner.net | [link](https://www.skyscanner.net/transport/flights/nyca/lond/) | Travel | PerimeterX / HUMAN |
 | 81 | Congress.gov | www.congress.gov | [link](https://www.congress.gov/bill/117th-congress/house-bill/3684) | Government | Cloudflare |
-| 82 | TradingView | www.tradingview.com | [link](https://www.tradingview.com/symbols/NASDAQ-AAPL/) | News & finance | Not classified |
-| 83 | CoinMarketCap | coinmarketcap.com | [link](https://coinmarketcap.com/currencies/bitcoin/) | News & finance | Not classified |
+| 82 | binance | www.binance.com | [link](https://www.binance.com/en/markets/overview) | News & finance | AWS WAF |
+| 83 | seek | www.seek.com.au | [link](https://www.seek.com.au/software-engineer-jobs) | Jobs & hiring | Cloudflare |
 | 84 | Apartments.com | www.apartments.com | [link](https://www.apartments.com/new-york-ny/) | Real estate | Akamai Bot Manager |
 | 85 | Zoopla | www.zoopla.co.uk | [link](https://www.zoopla.co.uk/for-sale/property/london/) | Real estate | Cloudflare |
 | 86 | Trustpilot | www.trustpilot.com | [link](https://www.trustpilot.com/review/amazon.com) | Reviews & local | AWS WAF |

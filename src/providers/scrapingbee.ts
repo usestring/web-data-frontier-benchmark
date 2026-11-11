@@ -6,7 +6,6 @@ const client = lazy(() => new scrapingbee.ScrapingBeeClient(requireEnv("SCRAPING
 
 interface ScrapingBeeJsonResponse {
   body?: string;
-  "initial-status-code"?: number;
 }
 
 /** ScrapingBee — official SDK `htmlApi`, Auto Mode with a 75-credit ceiling. */
@@ -25,7 +24,10 @@ export const scrapingbeeProvider: Provider = {
 
       const decoded = new TextDecoder().decode(response.data);
       const json = JSON.parse(decoded) as ScrapingBeeJsonResponse;
-      return { body: json.body ?? "", statusCode: json["initial-status-code"] ?? 200 };
+      // Score the final status: ScrapingBee's own HTTP status (any 2xx is 200; 404/410/413 pass through;
+      // any other target status becomes a 500, which axios throws on). initial-status-code in the JSON is
+      // the pre-redirect status, so a page that redirected and then loaded would read as a 3xx failure.
+      return { body: json.body ?? "", statusCode: response.status };
     } catch (e) {
       throw new Error(httpErrorMessage("ScrapingBee", e));
     }

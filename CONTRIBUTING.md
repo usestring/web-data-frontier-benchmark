@@ -6,9 +6,9 @@ the result without exposing credentials.
 
 ## Provider configuration changes
 
-The benchmark aims to exercise each provider using the configuration that provider currently
-recommends for this workload. To prevent unverified external configuration changes from affecting
-the comparison, maintainers will approve a provider configuration change from an external
+The benchmark aims to exercise each provider using one configuration that provider currently
+recommends for the entire workload. To prevent unverified external configuration changes from
+affecting the comparison, maintainers will approve a provider configuration change from an external
 contributor only after verifying that the contributor is currently affiliated with the company
 responsible for the affected provider.
 
@@ -49,7 +49,8 @@ Use one of these verification paths:
   `Benchmark affiliation verification for PR #<number>`. The message must include your GitHub
   username, the company and provider, the pull request URL, and confirmation that you want the
   provider configuration in that pull request merged. Receipt of that company-domain email is
-  sufficient verification; no public challenge is required.
+  sufficient verification; no public challenge is required. For a new provider, also include the
+  [funded-account setup information](#api-key-and-funded-account-required-for-new-providers).
 
 A self-attestation without verifiable evidence is not sufficient. If verification is sent by email,
 state that in the pull request without posting the private message or address. Maintainers will note
@@ -63,10 +64,35 @@ For external contributors without an explicit maintainer exception, verified aff
 prerequisite for approval, not a guarantee of acceptance. Maintainers will still review every
 change for fairness, reproducibility, scope, and consistency with the benchmark methodology.
 
+## API key and funded account required for new providers
+
+Every provider requesting addition must supply maintainers with an API key and enough
+provider-funded credits or quota to cover independent validation and official benchmark runs before
+its adapter can be accepted. The key must enable the submitted configuration, including any paid
+modes it uses. A full run currently makes 500 attempts per provider (100 targets × 5 attempts).
+
+When emailing the contact address in [Attestation and evidence](#attestation-and-evidence), include
+the pull request URL and a pathway for maintainers to create a funded account: a signup link or
+account-setup steps, plus instructions for receiving the required funds or credits. Include this
+information in the affiliation-verification email if using that verification path. Use email to
+arrange a private credential handoff; do not include credentials in that email,
+affiliation-verification emails, public issues, pull requests, or commits.
+
+State any credit, rate, or expiry limits in the pull request without including the key. Maintainers
+must confirm that the supplied key works and has sufficient funding or quota before approving the
+addition. An environment-variable placeholder or provider-reported results alone do not satisfy
+this requirement.
+
 ## What an adapter may do
 
 Every provider is measured the same way, so these hold for every adapter, whoever opens the pull request:
 
+- **One configuration per provider.** Use the same adapter-selected settings for every source in
+  the suite. Do not choose engines, rendering, CAPTCHA solving, proxy country, warm-up pages, or
+  other provider options based on the target URL, hostname, fixture name, or other target properties.
+  Per-domain lookup tables and country selection derived from a target's domain are not allowed.
+  The target URL itself varies on each request; the provider may choose its strategy internally
+  behind the same API configuration.
 - **One request per attempt.** The adapter sends the attempt once and the runner scores whatever comes back,
   errors included. Adapters do not retry on errors, blocks or timeouts, and SDK clients that retry by default
   are set to zero retries.
@@ -74,7 +100,7 @@ Every provider is measured the same way, so these hold for every adapter, whoeve
   not drive browser sessions over CDP, WebDriver or similar protocols, so a hosted-browser product can be
   benchmarked only through a fetch-style endpoint (Browserbase runs through its Fetch API).
 
-Pull requests that need either of these to change will be closed. Open an issue if you think a rule is wrong.
+Pull requests that violate these rules will be closed. Open an issue if you think a rule is wrong.
 
 ## Validation
 

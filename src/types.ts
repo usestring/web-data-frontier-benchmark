@@ -16,6 +16,8 @@ export interface ProviderFetchOptions {
 export interface ProviderFetchResult {
   body: string;
   statusCode: number;
+  /** The provider's own request/trace id for this call, when its API returns one. Used only for diagnostics. */
+  traceId?: string;
 }
 
 /** Test configuration for web access benchmarks */
@@ -34,6 +36,8 @@ export interface AttemptResult {
   success: boolean;
   latencyMs: number;
   errorMessage?: string;
+  /** Provider request/trace id; recorded on failed attempts when the run uses `--failures-dir`. */
+  traceId?: string;
 }
 
 /** Aggregated results for a web access test */
@@ -71,4 +75,4 @@ export interface WebAccessBenchmarkConfig {
 }
 
 /** Function that executes a single request and returns the result */
-export type RequestExecutorFn = (test: WebAccessTestConfig, timeoutMs: number) => Promise<AttemptResult>;
+export type RequestExecutorFn = (test: WebAccessTestConfig, timeoutMs: number, attemptIndex?: number) => Promise<AttemptResult>;
