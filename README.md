@@ -86,6 +86,20 @@ A smoke test against a single provider and a single fixture:
 npm run benchmark -- --providers scrapfly --tests amazon --attempts 1
 ```
 
+To compare Massive with String and Oxylabs, set `MASSIVE_API_KEY`, `STRING_API_KEY` and
+`OXYLABS_WEB_UNBLOCKER_CREDENTIALS` in `.env`. Start with one target and one attempt:
+
+```bash
+npm run benchmark -- --providers string,massive,oxylabs --tests amazon --attempts 1
+```
+
+Omit `--tests` and `--attempts` to use the shared full suite and default attempt count. Massive uses
+its [Browser API](https://docs.joinmassive.com/web-render/reference/browser) with `difficulty=high`,
+`format=raw`, `mode=sync` and `expiration=0`: the strongest difficulty tier, original HTML and no
+cached responses, in one fetch request per attempt. Queued responses are failures because they do
+not contain a completed page. These settings apply to future runs; the official results above do
+not include Massive.
+
 ## Benchmark CLI options
 
 | Option                       | Description                                                       |
