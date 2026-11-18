@@ -32,11 +32,11 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
     containsText: "NVIDIA Marketplace",
   },
   {
-    name: "indeed",
-    url: "https://www.indeed.com/l-chicago,-il-jobs.html",
-    antibot: "cloudflare",
-    industry: "Jobs & hiring",
-    containsText: "jobs in Chicago, IL",
+    name: "adidas",
+    url: "https://www.adidas.com/us/men-shoes",
+    antibot: "akamai",
+    industry: "Fashion & luxury",
+    containsText: "Men&#x27;s Shoes | adidas US",
   },
   {
     name: "lowes",
@@ -306,11 +306,11 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
     containsText: "Shop by Laptop Features",
   },
   {
-    name: "coupang",
-    url: "https://www.coupang.com/vp/products/7579231557",
-    antibot: "akamai",
-    industry: "Retail & ecommerce",
-    containsText: "보스 QC 헤드폰",
+    name: "rvtrader",
+    url: "https://www.rvtrader.com/",
+    antibot: "datadome",
+    industry: "Marketplaces & classifieds",
+    containsText: "Motorhomes &amp; Campers for Sale",
   },
   {
     name: "ebay",
