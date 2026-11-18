@@ -27,7 +27,7 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   {
     name: "nvidia",
     url: "https://www.nvidia.com/en-us/shop/",
-    antibot: "unknown",
+    antibot: "akamai",
     industry: "Retail & ecommerce",
     containsText: "NVIDIA Marketplace",
   },
@@ -217,7 +217,7 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   {
     name: "indeed",
     url: "https://www.indeed.com/jobs?q=software+engineer&l=New+York",
-    antibot: "unknown",
+    antibot: "cloudflare",
     industry: "Jobs & hiring",
     containsText: "Software Engineer Jobs in New York State",
   },
@@ -287,7 +287,7 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   {
     name: "epicgames",
     url: "https://store.epicgames.com/en-US/",
-    antibot: "unknown",
+    antibot: "cloudflare",
     industry: "Gaming & betting",
     containsText: "Download &amp; Play PC Games",
   },
@@ -329,7 +329,7 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   {
     name: "steam",
     url: "https://steamcommunity.com/market/",
-    antibot: "unknown",
+    antibot: "custom",
     industry: "Gaming & betting",
     containsText: "Steam Community Market",
   },
