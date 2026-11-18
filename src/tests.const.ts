@@ -124,11 +124,11 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
     containsText: "Women's Dresses",
   },
   {
-    name: "etsy",
-    url: "https://www.etsy.com/listing/4409872205/linen-sheer-cafe-curtains-farmhouse",
-    antibot: "datadome",
-    industry: "Marketplaces & classifieds",
-    containsText: "Linen Sheer Cafe Curtains",
+    name: "enel",
+    url: "https://jobs.enel.com/",
+    antibot: "unknown",
+    industry: "Jobs & hiring",
+    containsText: "ENEL - Careers",
   },
   {
     name: "yelp",
