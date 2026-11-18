@@ -629,7 +629,7 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
     url: "https://www.opentable.com/metro/chicago-restaurants",
     antibot: "akamai",
     industry: "Reviews & local",
-    containsText: "Chicago Restaurants",
+    containsText: "Chicago / Illinois",
   },
   {
     name: "temu",
