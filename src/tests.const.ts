@@ -112,7 +112,7 @@ export const WEB_ACCESS_ALL_TESTS: WebAccessTestConfig[] = [
   {
     name: "hilton",
     url: "https://www.hilton.com/en/hotels/nycnhhh-new-york-hilton-midtown/",
-    antibot: "unknown",
+    antibot: "akamai",
     industry: "Travel",
     containsText: "New York Hilton Midtown",
   },
