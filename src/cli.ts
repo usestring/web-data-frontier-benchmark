@@ -1,5 +1,6 @@
 import "dotenv/config";
 import { extname, join } from "node:path";
+import { rmSync } from "node:fs";
 import { formatComparisonReport, saveComparisonReport, saveResultsJSON, type ProviderRun } from "./format.js";
 import { PROVIDERS } from "./providers/index.js";
 import { makeRecordingExecutor } from "./failures.js";
@@ -143,6 +144,13 @@ async function main(): Promise<void> {
     return;
   }
 
+  const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
+  const outPath = opts.out ?? join("results", `benchmark-${timestamp}.json`);
+  const reportPath = opts.reportOut ?? defaultReportPath(outPath);
+  // Each finished provider is saved here so a crash late in a long run keeps the providers that
+  // completed. The name keeps it from being mistaken for a complete results file.
+  const partialPath = outPath.replace(/\.json$/, "") + ".partial.json";
+
   const runs: ProviderRun[] = new Array(active.length);
   let nextProvider = 0;
   async function providerWorker(): Promise<void> {
@@ -152,6 +160,7 @@ async function main(): Promise<void> {
       const executor = opts.failuresDir ? makeRecordingExecutor(provider, opts.failuresDir) : makeExecutor(provider);
       const result = await runWebAccessBenchmarkSuite(tests, executor, config, provider.name);
       runs[providerIndex] = { provider: provider.name, result };
+      saveResultsJSON(runs.filter(Boolean), partialPath);
     }
   }
   const providerWorkers = Math.min(config.providerConcurrency, active.length);
@@ -161,17 +170,28 @@ async function main(): Promise<void> {
   console.log("\n=== Comparison ===");
   console.log(report);
 
-  const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
-  const outPath = opts.out ?? join("results", `benchmark-${timestamp}.json`);
-  const reportPath = opts.reportOut ?? defaultReportPath(outPath);
   saveResultsJSON(runs, outPath);
   saveComparisonReport(report, reportPath);
+  rmSync(partialPath, { force: true });
   console.log(`\nSaved results to ${outPath}`);
   console.log(`Saved report to ${reportPath}`);
   if (opts.failuresDir) console.log(`Failed-attempt evidence (if any) in ${opts.failuresDir}`);
 }
 
-main().catch((e) => {
+let finished = false;
+// If the event loop empties while main() is still pending, some attempt never settled. Say so and
+// fail, instead of exiting 0 with no results written.
+process.on("beforeExit", () => {
+  if (finished) return;
+  finished = true;
+  console.error("Run ended before every attempt settled; no final results were written. See the .partial.json file.");
+  process.exitCode = 1;
+});
+
+main().then(() => {
+  finished = true;
+}).catch((e) => {
+  finished = true;
   console.error(e instanceof Error ? e.stack : String(e));
   process.exitCode = 1;
 });
