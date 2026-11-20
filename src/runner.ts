@@ -21,10 +21,21 @@ export function makeExecutor(provider: Provider): RequestExecutorFn {
   return async (test, timeoutMs) => {
     const startTime = Date.now();
     const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), timeoutMs);
+    // The deadline settles the attempt even when an adapter ignores the abort signal; otherwise a
+    // request that never returns leaves its promise pending and the run can never finish.
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const deadline = new Promise<never>((_, reject) => {
+      timer = setTimeout(() => {
+        controller.abort();
+        reject(new Error(`Timed out after ${timeoutMs}ms`));
+      }, timeoutMs);
+    });
 
     try {
-      const { body, statusCode } = await provider.fetch(test.url, { timeoutMs, signal: controller.signal });
+      const { body, statusCode } = await Promise.race([
+        provider.fetch(test.url, { timeoutMs, signal: controller.signal }),
+        deadline
+      ]);
       // Normalize here so every adapter is scored on a string, whatever body type it hands back.
       return validateResponse(normalizeBody(body), statusCode, Date.now() - startTime, test.containsText);
     } catch (error) {

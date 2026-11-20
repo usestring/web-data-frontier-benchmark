@@ -36,3 +36,17 @@ test("a string body keeps working, and a non-2xx status still fails", async () =
   assert.equal(redirected.success, false);
   assert.equal(redirected.errorMessage, "Status 302");
 });
+
+test("an adapter that ignores the abort signal still fails at the timeout instead of hanging", async () => {
+  const stuck: Provider = { name: "stuck", envKeys: [], fetch: () => new Promise(() => {}) };
+  const started = Date.now();
+  const result = await makeExecutor(stuck)(target, 50);
+  assert.equal(result.success, false);
+  assert.equal(result.errorMessage, "Timed out after 50ms");
+  assert.ok(Date.now() - started < 1_000);
+});
+
+test("a response that arrives before the deadline is scored normally", async () => {
+  const result = await makeExecutor(providerReturning("<p>Expected Product</p>"))(target, 5_000);
+  assert.equal(result.success, true, result.errorMessage);
+});
