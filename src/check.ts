@@ -1,3 +1,4 @@
+import { decodeHTML } from "entities";
 import type { AttemptResult } from "./types.js";
 
 /** Fetchers return strings, but a few providers hand back JSON objects — normalize before inspection. */
@@ -22,7 +23,7 @@ export function validateResponse(
     return { success: false, latencyMs, errorMessage: `Status ${statusCode}` };
   }
 
-  if (containsText && !body.toLowerCase().includes(containsText.toLowerCase())) {
+  if (containsText && !decodeHTML(body).toLowerCase().includes(decodeHTML(containsText).toLowerCase())) {
     return { success: false, latencyMs, errorMessage: "Missing expected text" };
   }
 
