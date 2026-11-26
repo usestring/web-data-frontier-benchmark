@@ -21,6 +21,7 @@
     "@browserbasehq/sdk": "2.8.0",
     "axios": "1.16.0",
     "dotenv": "16.4.7",
+    "entities": "9.0.0",
     "https-proxy-agent": "7.0.6",
     "scrapingbee": "1.8.2"
   },
